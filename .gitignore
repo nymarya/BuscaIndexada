@@ -1,5 +1,10 @@
-# Para ignorar todos os arquivos e sub-pastas da pasta bin/
+# ignore files at bin/
 sbi_project/bin
+
+# eclipse project file
+.settings/
+.classpath
+.project
 
 # Compiled class file
 *.class
