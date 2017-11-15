@@ -17,10 +17,14 @@ public class System {
 		// instancia da busca "or", passando o bd
 		SearchOr  searchOr  = new SearchOr( db );
 		// instancia da view, passando a engine, searchAnd e searchOr 
-		View view = new View( engine, searchAnd, searchOr );
+		InterfaceView a = new InterfaceView(engine, searchAnd, searchOr );
 		
 		// exibe a tela inicial para usuario 
-		view.show();
+		//view.show();
+		a.setVisible(true);
+		
+//		Teste a = new Teste();
+//		a.setVisible(true);
 		
 	}
 	
