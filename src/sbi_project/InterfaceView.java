@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 // classe com as interfaces graficas do sistema
-public class View extends JFrame{
+public class InterfaceView extends JFrame{
 
 	/**
 	 * ID
@@ -34,19 +34,19 @@ public class View extends JFrame{
 	 * @param engine Instancia de Engine
 	 * @param search Instancia de Search
 	 */
-	public View( Engine engine, SearchAnd searchAnd, SearchOr searchOr ) {
-		
+	public InterfaceView(Engine engine, SearchAnd searchAnd, SearchOr searchOr)
+	{
 		this.engine = engine;
 		this.search = searchAnd;
 		this.setTitle("SBI");
+		showSearchBar();	
 	}
-	
 	
 	/*
 	 * Exibe interface grafica com tela inicial (menu)
 	 */
-	public void show(){
-		
+	public void showSearchBar()
+	{
 		JPanel pnlSearch = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -57,19 +57,19 @@ public class View extends JFrame{
 		
 		c.gridx = 0;
 	    c.gridy = 0; 
-	    searchBar = new JTextField("");
+	    searchBar = new JTextField(20);
 	    pnlSearch.add(searchBar, c);
 	    
-	    c.gridy = 1;
-	    btnSearch = new JButton("");
+	    c.gridx = 1;
+	    btnSearch = new JButton(" Find ");
 	    pnlSearch.add(btnSearch, c);
 	    
 	    this.add(pnlSearch, BorderLayout.SOUTH);
 	    
-	    setSize(500, 600);
-	    setLocationRelativeTo(null);
+	    this.setSize(500, 600);
+	    this.setLocationRelativeTo(null);
 	    
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 	}
 	
 }
