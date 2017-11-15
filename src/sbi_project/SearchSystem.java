@@ -1,7 +1,7 @@
 package sbi_project;
 
 // Classe com as caracteristicas gerais do sistema
-public class System {
+public class SearchSystem {
 
 	
 	

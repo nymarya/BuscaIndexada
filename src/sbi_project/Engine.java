@@ -1,5 +1,7 @@
 package sbi_project;
 
+import java.io.IOException;
+
 //importa classe Trie de Tree
 import Tree.Trie;
 
@@ -14,6 +16,7 @@ public class Engine {
 	
 	public Engine( DataBase db ){
 		this.db = db;
+
 	}
 	
 	/**
@@ -54,6 +57,23 @@ public class Engine {
 	 */
 	public void addFile( String file ){
 		// stub
+		
+		/**
+		 		try {
+			Parser p = new Parser("/home/mayra/Progs/BuscaIndexada/data/microsoft.txt");
+			String palavra = "";
+			while( p.hasNext() ) {
+				palavra = p.next();
+				//System.out.println("aaa");
+				System.out.println(palavra);
+			}
+			System.out.println("saiu");
+			p.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 **/
 	}
 	
 	/**
