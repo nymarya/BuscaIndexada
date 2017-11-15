@@ -21,6 +21,7 @@ public class System {
 		
 		// exibe a tela inicial para usuario 
 		view.show();
+		view.setVisible(true);
 		
 	}
 	
