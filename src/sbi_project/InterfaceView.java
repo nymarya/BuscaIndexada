@@ -29,6 +29,11 @@ public class InterfaceView extends JFrame{
 	private JTextField searchBar;
 	private JButton btnSearch;
 	
+	//Componentes indexação
+	private JButton btnInserir;
+	private JButton btnRemover;
+	private JButton btnListar;
+	
 	/**
 	 * Metodo construtor
 	 * @param engine Instancia de Engine
@@ -40,6 +45,7 @@ public class InterfaceView extends JFrame{
 		this.search = searchAnd;
 		this.setTitle("SBI");
 		showSearchBar();	
+		indexPanel();
 	}
 	
 	/*
@@ -66,10 +72,36 @@ public class InterfaceView extends JFrame{
 	    
 	    this.add(pnlSearch, BorderLayout.SOUTH);
 	    
-	    this.setSize(500, 600);
+	    this.setSize(350, 250);
 	    this.setLocationRelativeTo(null);
 	    
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+	}
+	
+	public void indexPanel ()
+	{
+		JPanel pnlIndex = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.fill = GridBagConstraints.HORIZONTAL;	
+		c.weighty = 0;
+		c.weightx = 0;
+		c.insets = new Insets(10,10,10,10);
+	
+		c.gridx = 0;
+		c.gridy = 0;
+		btnInserir = new JButton(" Inserir ");
+		pnlIndex.add(btnInserir, c);
+		
+		c.gridy = 1;
+		btnListar = new JButton(" Listar ");
+		pnlIndex.add(btnListar, c);
+		
+		c.gridy = 2;
+		btnRemover = new JButton(" Remover ");
+		pnlIndex.add(btnRemover, c);
+		
+		this.add(pnlIndex, BorderLayout.EAST);
 	}
 	
 }
