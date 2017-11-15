@@ -1,7 +1,7 @@
 package sbi_project;
 
 // Classe com as caracteristicas gerais do sistema
-public class System {
+public class SearchSystem {
 
 	
 	
@@ -17,11 +17,11 @@ public class System {
 		// instancia da busca "or", passando o bd
 		SearchOr  searchOr  = new SearchOr( db );
 		// instancia da view, passando a engine, searchAnd e searchOr 
-		InterfaceView a = new InterfaceView(engine, searchAnd, searchOr );
+		//InterfaceView a = new InterfaceView(engine, searchAnd, searchOr );
 		
 		// exibe a tela inicial para usuario 
 		//view.show();
-		a.setVisible(true);
+		//a.setVisible(true);
 		
 //		Teste a = new Teste();
 //		a.setVisible(true);
