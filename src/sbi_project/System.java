@@ -22,9 +22,7 @@ public class System {
 		// exibe a tela inicial para usuario 
 		//view.show();
 		a.setVisible(true);
-		
-//		Teste a = new Teste();
-//		a.setVisible(true);
+
 		
 	}
 	
