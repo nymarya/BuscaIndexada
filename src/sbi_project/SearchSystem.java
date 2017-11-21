@@ -23,12 +23,6 @@ public class SearchSystem {
 		
 		// exibe a tela inicial para usuario 
 		viewSbi.setVisible(true);
-		
-		
-		
-//		Teste a = new Teste();
-//		a.setVisible(true);
-		
 	}
 	
 }
