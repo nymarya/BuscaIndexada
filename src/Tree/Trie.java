@@ -116,9 +116,19 @@ public class Trie
 	 */
 	public int searchIndexAlfa ( Character letra )
 	{
-		for (int i=0; i < alfabeto.length; i++)
+		int half;
+		int left = 0;
+		int right = alfabeto.length-1;
+		
+		while (left <= right)
 		{
-			if ( letra.charValue() == alfabeto[i] ) return i;
+			half = (left + right)/2;
+			if ( Character.compare(alfabeto[half], letra) == 0 )
+				return half;
+			else if ( Character.compare(alfabeto[half], letra) < 0 )
+				left = half+1;
+			else if ( Character.compare(alfabeto[half], letra) > 0 )
+				right = half-1;
 		}
 		
 		return -1;
