@@ -154,44 +154,45 @@ public class Trie
 	}
 	
 	/**
-	 * 
-	 * @param s
+	 * Remove palavra da árvore.
+	 * @param s String a ser removida.
 	 * @throws TreeException 
 	 */
 	public void remove(String s) throws TreeException {
-		//Use helper method
+		//Usa método auxiliar
 		raiz = removeHelper(s, raiz, 0);
 	}
 
 	/**
-	 * 
-	 * @param s
-	 * @param pt
-	 * @param l
-	 * @return
+	 * Método que auxilia a remoção na árvore
+	 * @param s String a ser removida
+	 * @param pt Ponteiro para o nó atual
+	 * @param l Índice atual da palavra
+	 * @return Nó após a tentativa de remoção
 	 * @throws TreeException 
 	 */
 	private Node removeHelper(String s, Node pt, int l) throws TreeException {
-		//Base case 1 = null pt
+		//Caso base 1 = null pt
 		if(pt == null)
 			return null;
 
-		//Base case 2: key is prefix to another key
+		//Caso 2: chave é prefixo de outra 
+		//apenas desmarca como fim de palavra
 		if(l == s.length() && pt.getTerminal() )
 			pt.setTerminal(false);;
 
+		// Não é fim de palavra => analisa nós filhos
 		if(l < s.length() ) {
-			//Recursive calls
 			int index = searchIndexAlfa(s.charAt(l));
 			Node aux = pt.getPonteiro(index);
 			pt.setPonteiro(index, removeHelper(s, aux, l+1));
 		}
 		
-		//if pt is terminal
+		//O ponteiro atual é fim de palavra
 		if(pt.getTerminal())
 			return pt;
 
-		//check if pt is leaf
+		//Verifica se ponteiro atual é folha
 		for(int i = 0; i < 26; i++)
 			if(pt.getPonteiro(i) != null) return pt;
 

@@ -37,7 +37,6 @@ class TrieTest {
 		try {
 			arvore.remove("comida");
 		} catch (TreeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(false, arvore.search("comida"));
@@ -50,6 +49,13 @@ class TrieTest {
 			e.printStackTrace();
 		}
 		assertEquals(false, arvore.search("vaca"));
+		
+		try {
+			arvore.remove("ajshajh");
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
