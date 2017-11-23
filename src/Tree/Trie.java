@@ -1,5 +1,6 @@
 package Tree;
 
+
 /**
  * Classe para a estrutura de dados
  * @author gabriel
@@ -75,7 +76,7 @@ public class Trie
 	 * @throws TreeException Caso um caractere não seja reconhecido
 	 * pelo alfabeto
 	 */
-	public void insertWord ( String s )
+	public void insertWord ( String s, int linha, String arquivo )
 	{
 		/**
 		 * Verifica se é uma palavra válida
@@ -101,26 +102,100 @@ public class Trie
 				
 			}
 			/**
+			 * Identificar palavra
+			 */
+//			noDeParada.setLinha(linha);
+//			noDeParada.setArquivo(arquivo);
+			noDeParada.setTerminal(true);
+			
+			/**
 			 * Resetar auxiliares e indicar que o nó é terminal
 			 */
-			noDeParada.setTerminal(true);
 			noDeParada = raiz;
 			indexDeParada = 0;
 		}
 	}
 	
+	// TODO
+	public void listTree ()
+	{
+		
+	}
+	
 	/**
-	 * Procura o índice de um caractere no alfabeto
+	 * Procura o índice de um caractere no alfabeto por busca binária
 	 * @param letra   O caractere
 	 * @return  O índice caso tenha encontrado, -1 caso contrário
 	 */
 	public int searchIndexAlfa ( Character letra )
 	{
-		for (int i=0; i < alfabeto.length; i++)
+		/**
+		 * Inicialização
+		 */
+		int half;
+		int left = 0;
+		int right = alfabeto.length-1;
+		
+		/**
+		 * Busca binária
+		 */
+		while (left <= right)
 		{
-			if ( letra.charValue() == alfabeto[i] ) return i;
+			half = (left + right)/2;
+			if ( Character.compare(alfabeto[half], letra) == 0 )
+				return half;
+			else if ( Character.compare(alfabeto[half], letra) < 0 )
+				left = half+1;
+			else if ( Character.compare(alfabeto[half], letra) > 0 )
+				right = half-1;
 		}
 		
 		return -1;
+	}
+	
+	/**
+	 * Remove palavra da árvore.
+	 * @param s String a ser removida.
+	 * @throws TreeException 
+	 */
+	public void remove(String s) throws TreeException {
+		//Usa método auxiliar
+		raiz = removeHelper(s, raiz, 0);
+	}
+
+	/**
+	 * Método que auxilia a remoção na árvore
+	 * @param s String a ser removida
+	 * @param pt Ponteiro para o nó atual
+	 * @param l Índice atual da palavra
+	 * @return Nó após a tentativa de remoção
+	 * @throws TreeException 
+	 */
+	private Node removeHelper(String s, Node pt, int l) throws TreeException {
+		//Caso base 1 = null pt
+		if(pt == null)
+			return null;
+
+		//Caso 2: chave é prefixo de outra 
+		//apenas desmarca como fim de palavra
+		if(l == s.length() && pt.getTerminal() )
+			pt.setTerminal(false);;
+
+		// Não é fim de palavra => analisa nós filhos
+		if(l < s.length() ) {
+			int index = searchIndexAlfa(s.charAt(l));
+			Node aux = pt.getPonteiro(index);
+			pt.setPonteiro(index, removeHelper(s, aux, l+1));
+		}
+		
+		//O ponteiro atual é fim de palavra
+		if(pt.getTerminal())
+			return pt;
+
+		//Verifica se ponteiro atual é folha
+		for(int i = 0; i < 26; i++)
+			if(pt.getPonteiro(i) != null) return pt;
+
+		return null;
 	}
 }
