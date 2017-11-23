@@ -37,7 +37,7 @@ public class Parser {
 		line = bReader.readLine();
 		
 		tokens = new ArrayDeque<String>();
-		String[] parts = line.split("\\s+");;
+		String[] parts = line.replace("\u200B", "").split("[\\s,.()]+");
 		for(String p : parts) {
 		  tokens.addLast(p);
 		}
