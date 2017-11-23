@@ -14,7 +14,7 @@ public class SearchAnd extends Search {
 	}
 	
 	@Override
-	String search(String data) {
+	public String search(String data) {
 		// TODO Auto-generated method stub
 		return null;
 	}

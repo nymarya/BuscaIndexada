@@ -7,7 +7,9 @@ public abstract class Search {
 	private DataBase db;
 	// Dado a ser buscado
 	private String data;
-	
+	// Lista com ocorrencias da palavra buscada
+	protected String[] ocorrencias;
+
 	/**
 	 *Metodo construtor
 	 * @param db Banco de dados do sistema
@@ -22,6 +24,6 @@ public abstract class Search {
 	 * @param data Palavra a ser buscada
 	 * @return Ocorrencia em que palavra(s)-chave foi encontrada
 	 */
-	abstract String search( String data );
+	public abstract String search( String data );
 	
 }

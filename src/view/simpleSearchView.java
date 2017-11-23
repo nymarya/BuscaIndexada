@@ -62,6 +62,12 @@ public class simpleSearchView extends JFrame{
 	private JPanel panelIndexar;
 	private JTextField textField;
 	
+	
+	// da listagem
+	private DefaultListModel modelo;
+	
+	
+	
 	/**
 	 * Metodo construtor
 	 * @param engine Instancia de Engine
@@ -169,7 +175,9 @@ public class simpleSearchView extends JFrame{
 		btnIndice.setBounds(425, 0, 149, 45);
 		panel.add(btnIndice);
 		
-		JList resultBusca = new JList();
+		
+		modelo = new DefaultListModel();
+		JList resultBusca = new JList(modelo);
 		resultBusca.setBackground(new Color(245, 245, 245));
 		resultBusca.setBounds(53, 78, 475, 290);
 		panel.add(resultBusca);
@@ -181,12 +189,28 @@ public class simpleSearchView extends JFrame{
 		txtBusca.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("teste2");
+
+				if( txtBusca.getText() != null ){
+					String result = searchOr.search(txtBusca.getText());
+					System.out.println(result);
+					modelo.addElement(result);
+				}
+				
+			}
+		});
+		
 		btnBuscar.setBackground(new Color(255, 255, 255));
 		btnBuscar.setFont(new Font("Open Sans", Font.BOLD, 13));
 		btnBuscar.setBounds(402, 397, 108, 26);
 		panel.add(btnBuscar);
 		
 		JButton btnBuscaSimples = new JButton("Busca Simples");
+
 		btnBuscaSimples.setForeground(new Color(255, 255, 255));
 		btnBuscaSimples.setBackground(new Color(112, 128, 144));
 		btnBuscaSimples.setFont(new Font("Open Sans", Font.BOLD, 13));
