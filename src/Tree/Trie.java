@@ -75,7 +75,7 @@ public class Trie
 	 * @throws TreeException Caso um caractere não seja reconhecido
 	 * pelo alfabeto
 	 */
-	public void insertWord ( String s )
+	public void insertWord ( String s, int linha, String arquivo )
 	{
 		/**
 		 * Verifica se é uma palavra válida
@@ -101,12 +101,24 @@ public class Trie
 				
 			}
 			/**
+			 * Identificar palavra
+			 */
+//			noDeParada.setLinha(linha);
+//			noDeParada.setArquivo(arquivo);
+			noDeParada.setTerminal(true);
+			
+			/**
 			 * Resetar auxiliares e indicar que o nó é terminal
 			 */
-			noDeParada.setTerminal(true);
 			noDeParada = raiz;
 			indexDeParada = 0;
 		}
+	}
+	
+	// TODO
+	public void listTree ()
+	{
+		
 	}
 	
 	/**

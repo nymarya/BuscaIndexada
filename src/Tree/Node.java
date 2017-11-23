@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.ArrayList;
+
 /**
  * Represente um nó de uma árvore
  * chave = # indica que o nó é a raiz.
@@ -10,7 +12,8 @@ public class Node
 {
 	private Character chave;  // conteúdo do nó
 	private Node ponteiros[]; // "ponteiros" para possíveis nós
-	private boolean terminal; //indica se é o final de uma palavra
+	private boolean terminal; // indica se é o final de uma palavra
+	private ArrayList<Index> indice;
 	
 	/**
 	 * Construtor
@@ -21,6 +24,7 @@ public class Node
 		chave = null;
 		ponteiros = new Node[tamAlfa];
 		terminal = false;
+		indice = new ArrayList<Index>();
 	}
 	
 	/**
@@ -97,5 +101,28 @@ public class Node
 	{
 		this.terminal = terminal;
 	}
+
+	public ArrayList<Index> getIndices ()
+	{
+		return indice;
+	}
 	
+	/**
+	 * Adiciona um novo índice na tabela de índices
+	 * @param indice   O novo índice
+	 */
+	public void addIndice ( Index indice )
+	{
+		this.indice.add(indice);
+	}
+	
+	/**
+	 * Remove um índice da tabela de índices
+	 * @param indice  O índice a ser removido.
+	 */
+	public void removeIndice ( Index indice )
+	{
+		this.indice.remove(indice);
+	}
+
 }

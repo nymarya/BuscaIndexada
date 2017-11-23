@@ -16,12 +16,12 @@ public class TesteTree
 		
 		Trie arvore = new Trie( alfa );
 		
-		arvore.insertWord("casa");
-		arvore.insertWord("camelo");
-		arvore.insertWord("bacia");
-		arvore.insertWord("vaca");
-		arvore.insertWord("árvore");
-		arvore.insertWord("comida");
+//		arvore.insertWord("casa");
+//		arvore.insertWord("camelo");
+//		arvore.insertWord("bacia");
+//		arvore.insertWord("vaca");
+//		arvore.insertWord("árvore");
+//		arvore.insertWord("comida");
 		
 		if ( arvore.search("casa") )
 			System.out.println("OK");
