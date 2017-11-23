@@ -110,16 +110,22 @@ public class Trie
 	}
 	
 	/**
-	 * Procura o índice de um caractere no alfabeto
+	 * Procura o índice de um caractere no alfabeto por busca binária
 	 * @param letra   O caractere
 	 * @return  O índice caso tenha encontrado, -1 caso contrário
 	 */
 	public int searchIndexAlfa ( Character letra )
 	{
+		/**
+		 * Inicialização
+		 */
 		int half;
 		int left = 0;
 		int right = alfabeto.length-1;
 		
+		/**
+		 * Busca binária
+		 */
 		while (left <= right)
 		{
 			half = (left + right)/2;
