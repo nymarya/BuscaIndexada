@@ -25,7 +25,7 @@ import sbi_project.Search;
 import sbi_project.SearchAnd;
 import sbi_project.SearchOr;
 
-
+import java.util.ArrayList;
 
 // classe com as interfaces graficas do sistema
 public class simpleSearchView extends JFrame{	
@@ -51,17 +51,10 @@ public class simpleSearchView extends JFrame{
 	private JButton btnAdvancedSearch;
 	private JButton btnIndice;
 	private JButton btnListar;
-	//private JTextField txtBusca;
 	
 	// da index
 	private JPanel panelBuscaSimples;
 	private JTextField txtBusca;
-	
-	
-	// da indexar
-	private JPanel panelIndexar;
-	private JTextField textField;
-	
 	
 	// da listagem
 	private DefaultListModel modelo;
@@ -178,6 +171,7 @@ public class simpleSearchView extends JFrame{
 		
 		modelo = new DefaultListModel();
 		JList resultBusca = new JList(modelo);
+		resultBusca.setVisibleRowCount(10);
 		resultBusca.setBackground(new Color(245, 245, 245));
 		resultBusca.setBounds(53, 78, 475, 290);
 		panel.add(resultBusca);
@@ -193,12 +187,15 @@ public class simpleSearchView extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("teste2");
 
-				if( txtBusca.getText() != null ){
-					String result = searchOr.search(txtBusca.getText());
-					System.out.println(result);
-					modelo.addElement(result);
+				if( !(txtBusca.getText().isEmpty()) ){
+					// limpa lista
+					modelo.clear();
+					ArrayList<String> result = searchOr.search(txtBusca.getText());
+					for( String element : result ){
+						modelo.addElement(element);
+					}
+					
 				}
 				
 			}

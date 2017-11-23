@@ -1,5 +1,6 @@
 package sbi_project;
 
+import java.util.ArrayList;
 
 // Classe filha (heranca) de Search
 // Busca por ocorrencias em que pelo menos uma das palavras aparecem
@@ -14,15 +15,18 @@ public class SearchOr extends Search {
 	}
 	
 	@Override
-	public String search(String data) {
+	public ArrayList<String> search(String data) {
 		// 1. busca na arvore, retorna nó terminal
-		// 2. recupera do nó terminal os arquivos e linhas
+		// 2. recupera do node terminal os arquivos e linhas
 		
+		// antes de adicionar elementos, limpa a lista
 		
-		return "microsoft.txt: 1 ocorrência da palavra 'computador' na linha 1"
-				+ "\napple.txt:​ 1 ocorrência​ ​da​ ​palavra​ ​'computador' na​ ​linha​ 1";
+		ocorrencias.clear();
+		
+		ocorrencias.add("microsoft.txt: 1 ocorrencia da palavra 'computador' na linha 1");
+		ocorrencias.add("apple.txt: 1 ocorrencia da palavra 'computador' na linha 1");
+		return ocorrencias;
 	}
 
-	// microsoft.txt:​ ​ ​ 1 ​ ​ ocorrência​ ​ da​ ​ palavra​ ​ ‘computador’​ ​ na​ ​ linha​ ​ 1 
 
 }
