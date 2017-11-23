@@ -1,5 +1,6 @@
 package Tree;
 
+
 /**
  * Classe para a estrutura de dados
  * @author gabriel
@@ -150,5 +151,50 @@ public class Trie
 		}
 		
 		return -1;
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @throws TreeException 
+	 */
+	public void remove(String s) throws TreeException {
+		//Use helper method
+		raiz = removeHelper(s, raiz, 0);
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @param pt
+	 * @param l
+	 * @return
+	 * @throws TreeException 
+	 */
+	private Node removeHelper(String s, Node pt, int l) throws TreeException {
+		//Base case 1 = null pt
+		if(pt == null)
+			return null;
+
+		//Base case 2: key is prefix to another key
+		if(l == s.length() && pt.getTerminal() )
+			pt.setTerminal(false);;
+
+		if(l < s.length() ) {
+			//Recursive calls
+			int index = searchIndexAlfa(s.charAt(l));
+			Node aux = pt.getPonteiro(index);
+			pt.setPonteiro(index, removeHelper(s, aux, l+1));
+		}
+		
+		//if pt is terminal
+		if(pt.getTerminal())
+			return pt;
+
+		//check if pt is leaf
+		for(int i = 0; i < 26; i++)
+			if(pt.getPonteiro(i) != null) return pt;
+
+		return null;
 	}
 }

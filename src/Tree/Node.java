@@ -79,6 +79,20 @@ public class Node
 	}
 	
 	/**
+	 * 
+	 * @param index
+	 * @param novo
+	 * @throws TreeException
+	 */
+	public void setPonteiro(int index, Node novo) throws TreeException
+	{
+		if (index < 0 || index > ponteiros.length)
+			throw new TreeException();
+		
+		ponteiros[index] = novo;
+	}
+	
+	/**
 	 * Getters and Setters
 	 */
 	
