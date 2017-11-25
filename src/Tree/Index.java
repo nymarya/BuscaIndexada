@@ -18,6 +18,16 @@ public class Index
 	 */
 	public Index ()
 	{	}
+	
+	/**
+	 * Construtor 
+	 */
+	public Index ( int linha, String arquivo)
+	{	
+		this.linha = linha;
+		this.arquivo = arquivo;
+		ocorrencia = 0;
+	}
 
 	/**
 	 * Getters and Setters 

@@ -86,7 +86,10 @@ public class Trie
 		int indexAlfa = 0;
 		Node auxNo;
 		
-		if ( this.search(s) != null )
+		/**
+		 * Verifica se a palavra ainda não existe
+		 */
+		if ( this.search(s) == null )
 		{
 			for ( int i=indexDeParada; i< s.length(); i++)
 			{
@@ -104,15 +107,23 @@ public class Trie
 			/**
 			 * Identificar palavra
 			 */
-//			noDeParada.setLinha(linha);
-//			noDeParada.setArquivo(arquivo);
+			Index indice = new Index(linha, arquivo);
 			noDeParada.setTerminal(true);
+			noDeParada.addIndice(indice);
 			
 			/**
 			 * Resetar auxiliares e indicar que o nó é terminal
 			 */
 			noDeParada = raiz;
 			indexDeParada = 0;
+		}
+		/**
+		 * Verificar quando a palavra existe e atualizar
+		 * seu índice.
+		 */
+		else 
+		{
+			
 		}
 	}
 	
