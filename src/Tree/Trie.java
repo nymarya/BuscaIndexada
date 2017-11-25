@@ -32,7 +32,7 @@ public class Trie
 	 * @throws TreeException Caso algum caracter não seja reconhecido
 	 * pelo alfabeto.
 	 */
-	public boolean search ( String s )
+	public Node search ( String s )
 	{	
 		int alturaPercorrida = 0;
 		int tamanhoPalavra = s.length();
@@ -53,12 +53,12 @@ public class Trie
 					noDeParada = pt;
 					indexDeParada = alturaPercorrida;
 				}
-				else return false;
+				else return null;
 		
 			} catch( TreeException e)
 			{
 				System.out.println(e.toString() + " -> " + s.charAt(alturaPercorrida));
-				return false;
+				return null;
 			}
 		}
 		/**
@@ -66,8 +66,8 @@ public class Trie
 		 * e não é apenas um prífixo de uma outra palavra.
 		 */
 		if ( noDeParada.getTerminal() )
-			return true;
-		return false;
+			return noDeParada;
+		return null;
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class Trie
 		int indexAlfa = 0;
 		Node auxNo;
 		
-		if ( !this.search(s) )
+		if ( this.search(s)  != null )
 		{
 			for ( int i=indexDeParada; i< s.length(); i++)
 			{
