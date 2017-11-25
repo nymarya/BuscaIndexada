@@ -1,5 +1,6 @@
 package Tree;
 
+import java.util.ArrayList;
 
 /**
  * Classe para a estrutura de dados
@@ -89,7 +90,8 @@ public class Trie
 		/**
 		 * Verifica se a palavra ainda não existe
 		 */
-		if ( this.search(s) == null )
+		Node palavra = this.search(s);
+		if ( palavra == null )
 		{
 			for ( int i=indexDeParada; i< s.length(); i++)
 			{
@@ -123,6 +125,37 @@ public class Trie
 		 */
 		else 
 		{
+			/**
+			 * Verifica se a palavra presente na árvore 
+			 * faz referência ao arquivo da palavra que se
+			 * deseja inserir.
+			 */
+			ArrayList<Index> indicesPalavra = palavra.getIndices();
+			boolean resposta = false;
+			int index = 0;
+			for ( /*empty*/; index < indicesPalavra.size() && !resposta; index++)
+			{
+				if (indicesPalavra.get(index).getArquivo().equals(arquivo) )
+					resposta = true;
+			}
+			
+			/**
+			 * Se o arquivo for o mesmo, verificar
+			 * se a linha é a mesma, se for, incrementar
+			 * as ocorrências.
+			 */
+			if ( resposta && indicesPalavra.get(index).getLinha() == linha)
+			{
+				indicesPalavra.get(index).incrementaOcorrencia();
+			}
+			/**
+			 * Se não for então criar novo índice para a palavra
+			 */
+			else
+			{
+				Index novoIndice = new Index(linha, arquivo);
+				palavra.addIndice(novoIndice);			
+			}
 			
 		}
 	}

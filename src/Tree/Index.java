@@ -57,5 +57,12 @@ public class Index
 		this.ocorrencia = ocorrencia;
 	}
 	
+	/**
+	 * Incrementa o número de ocorrências
+	 */
+	public void incrementaOcorrencia() {
+		this.ocorrencia++;
+	}
+	
 	
 }
