@@ -21,8 +21,8 @@ public class TrieTest {
 		arvore.insertWord("comida", 0, "");
 		arvore.insertWord("comi", 0, "");
 		
-		assertEquals(true, arvore.search("casa"));
-		assertEquals(true, arvore.search("casamento"));
+		assertNotEquals(null, arvore.search("casa"));
+		assertNotEquals(null, arvore.search("casamento"));
 		
 		try {
 			arvore.remove("casa");
@@ -30,17 +30,17 @@ public class TrieTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(false, arvore.search("casa"));
-		assertEquals(true, arvore.search("casamento"));
-		assertEquals(true, arvore.search("camelo"));
+		assertEquals(null, arvore.search("casa"));
+		assertNotEquals(null, arvore.search("casamento"));
+		assertNotEquals(null, arvore.search("camelo"));
 		
 		try {
 			arvore.remove("comida");
 		} catch (TreeException e) {
 			e.printStackTrace();
 		}
-		assertEquals(false, arvore.search("comida"));
-		assertEquals(true, arvore.search("comi"));
+		assertEquals(null, arvore.search("comida"));
+		assertNotEquals(null, arvore.search("comi"));
 		
 		try {
 			arvore.remove("vaca");
@@ -48,7 +48,7 @@ public class TrieTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(false, arvore.search("vaca"));
+		assertEquals(null, arvore.search("vaca"));
 		
 		try {
 			arvore.remove("ajshajh");

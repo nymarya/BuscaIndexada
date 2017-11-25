@@ -15,14 +15,17 @@ public class Parser {
 	// Endereco do arquivo a ser tokenizado 
 	private String file;
 	private FileReader fReader;
-
-	//Provide for the efficient reading of characters, arrays, and lines.
+	
+	//Lê caracteres, arrays e linhas
 	private BufferedReader bReader;
 
 	//Auxiliar para ler arquivos.
 	private String line;
 	//Guarda os tokens da string
 	private Deque<String> tokens;
+	
+	//mantém a linha atual
+	private int lineCount;
 
 
 	/**
@@ -37,33 +40,37 @@ public class Parser {
 		line = bReader.readLine();
 		
 		tokens = new ArrayDeque<String>();
-		String[] parts = line.split("\\s+");;
+		String[] parts = line.replace("\u200B", "").split("[\\s,.()]+");
 		for(String p : parts) {
 		  tokens.addLast(p);
 		}
+		lineCount = 1;
 	}
 
 	/**
 	 * Retorna uma palavra do arquivo.
 	 *
-	 * @return  A word typed by the user, or null
-	 *          if there are no more tokens.
+	 * @return  Uma par formado por palavra e sua respectiva linha
+	 *          ou nulo se não há mais tokens.
 	 */
-	public String next() throws IOException{
+	public Pair<String, Integer> next() throws IOException{
 
 		//Se tokenizer não tem mais tokens, pega proxima lina
 		while( tokens.isEmpty() ){
 			line = bReader.readLine();
+			lineCount++;
 			if (line == null) {
 				return null;
 			}
-			String[] parts = line.replace("\u200B", "").split("\\s+");;
+			String[] parts = line.replace("\u200B", "").split("[\\s,.()]+");
 			for(String p : parts) {
 			  tokens.addLast(p);
 			}
 		}
+		
+		Pair<String, Integer> token = new Pair<String, Integer>(tokens.removeFirst(), lineCount );
 
-		return tokens.removeFirst();
+		return token;
 	}
 	
 	/**

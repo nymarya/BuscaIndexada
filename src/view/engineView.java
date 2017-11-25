@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -216,9 +217,21 @@ public class engineView extends JFrame {
 				boolean verify = false;
 				// Chamando metodos de adicionar da engine
 				if( radioBtnInclusoNaBusca.isSelected() ){
-					verify = engine.addBlacklist(txtArchive.getText());
+					try {
+						verify = engine.addFile(txtArchive.getText());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				} else if( radioBtnBlacklist.isSelected() ){
-					verify = engine.addFile(txtArchive.getText());
+					try {
+						verify = engine.addBlacklist(txtArchive.getText());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione como deseja adicionar o arquivo!");
 				}
 				
 				if( verify == true ){
