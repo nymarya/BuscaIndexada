@@ -22,9 +22,11 @@ public class Engine {
 	/**
 	 * Metodo para adicionar arquivo blacklist
 	 * @param file Endereco do arquivo
+	 * @return Retorna se arquivo foi adicionado corretamente
 	 */
-	public void addBlacklist( String file ){
-		// stub
+	public boolean addBlacklist( String file ){
+		
+		return true;
 	}
 	
 	/**
@@ -54,8 +56,13 @@ public class Engine {
 	/**
 	 * Metodo para adicionar arquivos ao sistema
 	 * @param file Endereco do arquivo a ser adicionado
+	 * @return Retorna se foi adicionado corretamente
 	 */
-	public void addFile( String file ){
+	public boolean addFile( String file ){
+		
+		// adicionando o endereco do arquivo inserido na lista
+		return db.addFile(file);
+		
 		// stub
 		
 		/**
