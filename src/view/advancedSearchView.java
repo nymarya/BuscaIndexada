@@ -8,9 +8,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -31,8 +34,9 @@ public class advancedSearchView extends JFrame {
 	
 	
 	private JPanel contentPane;
-	private JTextField textField;
-
+	private JTextField txtBusca;
+	private DefaultListModel modelo;
+	
 
 	/**
 	 * Create the frame.
@@ -137,20 +141,62 @@ public class advancedSearchView extends JFrame {
 		btnIndice.setBounds(425, 0, 149, 45);
 		panel.add(btnIndice);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Open Sans", Font.PLAIN, 13));
-		textField.setBounds(100, 214, 391, 30);
-		panel.add(textField);
-		textField.setColumns(10);
+		modelo = new DefaultListModel();
+		JList resultBusca = new JList(modelo);
+		resultBusca.setVisibleRowCount(10);
+		resultBusca.setBackground(new Color(245, 245, 245));
+		resultBusca.setBounds(53, 78, 475, 230);
+		panel.add(resultBusca);
+		
+		
+		txtBusca = new JTextField();
+		txtBusca.setFont(new Font("Open Sans", Font.PLAIN, 13));
+		txtBusca.setBounds(64, 357, 440, 28);
+		panel.add(txtBusca);
+		txtBusca.setColumns(10);
 		
 		JButton btnBuscaAnd = new JButton("Busca AND");
+		btnBuscaAnd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if( !(txtBusca.getText().isEmpty()) ){
+					// limpa lista
+					modelo.clear();
+					ArrayList<String> result = searchAnd.search(txtBusca.getText());
+					for( String element : result ){
+						modelo.addElement(element);
+					}
+					
+				}
+				
+			}
+		});
 		btnBuscaAnd.setFont(new Font("Open Sans", Font.PLAIN, 13));
-		btnBuscaAnd.setBounds(376, 255, 115, 23);
+		btnBuscaAnd.setBounds(376, 400, 115, 23);
 		panel.add(btnBuscaAnd);
 		
 		JButton btnBuscaOr = new JButton("Busca OR");
+		btnBuscaOr.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if( !(txtBusca.getText().isEmpty()) ){
+					// limpa lista
+					modelo.clear();
+					ArrayList<String> result = searchOr.search(txtBusca.getText());
+					for( String element : result ){
+						modelo.addElement(element);
+					}
+					
+				}
+				
+			}
+		});
 		btnBuscaOr.setFont(new Font("Open Sans", Font.PLAIN, 13));
-		btnBuscaOr.setBounds(251, 255, 115, 23);
+		btnBuscaOr.setBounds(251, 400, 115, 23);
 		panel.add(btnBuscaOr);
 		
 	}

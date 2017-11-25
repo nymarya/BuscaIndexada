@@ -3,22 +3,30 @@ package sbi_project;
 // importa classe Trie de Tree
 import Tree.Trie;
 
+// importa ArrayList
+import java.util.ArrayList;
 
 // Classe que representa o banco de dados do sistema
 public class DataBase {
 
 	// Arvore (ED) com todos os arquivos inseridos
-	private Trie files;
+	private ArrayList<String> files;
 	// Arvore (ED) com todas as palavras dos arquivos inseridos
 	private Trie words;
 	
+	
+	public DataBase(  ){
+		files = new ArrayList<>();
+	}
 	
 	/**
 	 * Metodo para adicionar arquivos na arvore
 	 * @param file Endereco do arquivo a ser adicionado
 	 */
-	public void addFile( String file ){
-		// stub
+	public boolean addFile( String file ){
+		
+		return files.add(file);
+
 	}
 	
 	/**
@@ -26,7 +34,9 @@ public class DataBase {
 	 * @param file Endereco do arquivo a ser removido
 	 */
 	public void removeFile( String file ){
-		// stub
+		
+		files.remove(file);
+		
 	}
 	
 	/**
