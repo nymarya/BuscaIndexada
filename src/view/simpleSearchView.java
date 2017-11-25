@@ -25,7 +25,7 @@ import sbi_project.Search;
 import sbi_project.SearchAnd;
 import sbi_project.SearchOr;
 
-
+import java.util.ArrayList;
 
 // classe com as interfaces graficas do sistema
 public class simpleSearchView extends JFrame{	
@@ -51,16 +51,15 @@ public class simpleSearchView extends JFrame{
 	private JButton btnAdvancedSearch;
 	private JButton btnIndice;
 	private JButton btnListar;
-	//private JTextField txtBusca;
 	
 	// da index
 	private JPanel panelBuscaSimples;
 	private JTextField txtBusca;
 	
+	// da listagem
+	private DefaultListModel modelo;
 	
-	// da indexar
-	private JPanel panelIndexar;
-	private JTextField textField;
+	
 	
 	/**
 	 * Metodo construtor
@@ -169,7 +168,10 @@ public class simpleSearchView extends JFrame{
 		btnIndice.setBounds(425, 0, 149, 45);
 		panel.add(btnIndice);
 		
-		JList resultBusca = new JList();
+		
+		modelo = new DefaultListModel();
+		JList resultBusca = new JList(modelo);
+		resultBusca.setVisibleRowCount(10);
 		resultBusca.setBackground(new Color(245, 245, 245));
 		resultBusca.setBounds(53, 78, 475, 290);
 		panel.add(resultBusca);
@@ -181,12 +183,31 @@ public class simpleSearchView extends JFrame{
 		txtBusca.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if( !(txtBusca.getText().isEmpty()) ){
+					// limpa lista
+					modelo.clear();
+					ArrayList<String> result = searchOr.search(txtBusca.getText());
+					for( String element : result ){
+						modelo.addElement(element);
+					}
+					
+				}
+				
+			}
+		});
+		
 		btnBuscar.setBackground(new Color(255, 255, 255));
 		btnBuscar.setFont(new Font("Open Sans", Font.BOLD, 13));
 		btnBuscar.setBounds(402, 397, 108, 26);
 		panel.add(btnBuscar);
 		
 		JButton btnBuscaSimples = new JButton("Busca Simples");
+
 		btnBuscaSimples.setForeground(new Color(255, 255, 255));
 		btnBuscaSimples.setBackground(new Color(112, 128, 144));
 		btnBuscaSimples.setFont(new Font("Open Sans", Font.BOLD, 13));

@@ -8,10 +8,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
 import sbi_project.Engine;
@@ -22,8 +25,10 @@ import sbi_project.SearchOr;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JCheckBox;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 
 public class engineView extends JFrame {
 
@@ -36,7 +41,7 @@ public class engineView extends JFrame {
 	
 	
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtArchive;
 
 	/**
 	 * Create the frame.
@@ -141,13 +146,36 @@ public class engineView extends JFrame {
 		btnIndice.setBounds(425, 0, 149, 45);
 		panel.add(btnIndice);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(112, 140, 194, 33);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtArchive = new JTextField();
+		txtArchive.setEditable(false);
+		txtArchive.setBounds(112, 140, 194, 33);
+		panel.add(txtArchive);
+		txtArchive.setColumns(10);
 		
 		JButton btnProcurar = new JButton("Procurar");
+		btnProcurar.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// Trecho de código baseado em:
+				// http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(getParent());
+				File selectedFile = null;
+				if (result == JFileChooser.APPROVE_OPTION) {
+					selectedFile = fileChooser.getSelectedFile();
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+				// Fim do trecho de código
+				
+				txtArchive.setText(selectedFile.getAbsolutePath());
+				
+			}
+		});
+		
+		
 		btnProcurar.setBounds(316, 140, 109, 33);
 		panel.add(btnProcurar);
 		
@@ -163,17 +191,48 @@ public class engineView extends JFrame {
 		lblSelecioneOTipo.setBounds(92, 202, 255, 26);
 		panel.add(lblSelecioneOTipo);
 		
-		JCheckBox chckbxBlacklist = new JCheckBox("Blacklist");
-		chckbxBlacklist.setFont(new Font("Open Sans", Font.PLAIN, 12));
-		chckbxBlacklist.setBounds(112, 235, 130, 33);
-		panel.add(chckbxBlacklist);
+		JRadioButton radioBtnBlacklist = new JRadioButton("Blacklist");
+		radioBtnBlacklist.setFont(new Font("Open Sans", Font.PLAIN, 12));
+		radioBtnBlacklist.setBounds(112, 235, 130, 33);
+		panel.add(radioBtnBlacklist);
 		
-		JCheckBox chckbxInclusoNaBusca = new JCheckBox("Incluso na busca");
-		chckbxInclusoNaBusca.setFont(new Font("Open Sans", Font.PLAIN, 12));
-		chckbxInclusoNaBusca.setBounds(112, 275, 130, 33);
-		panel.add(chckbxInclusoNaBusca);
+		JRadioButton radioBtnInclusoNaBusca = new JRadioButton("Incluso na busca");
+		radioBtnInclusoNaBusca.setFont(new Font("Open Sans", Font.PLAIN, 12));
+		radioBtnInclusoNaBusca.setBounds(112, 275, 130, 33);
+		panel.add(radioBtnInclusoNaBusca);
+		
+		// adicionando buttons no mesmo grupo
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(radioBtnInclusoNaBusca);
+		bg.add(radioBtnBlacklist);
+		
 		
 		JButton btnAdd = new JButton("Indexar");
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean verify = false;
+				// Chamando metodos de adicionar da engine
+				if( radioBtnInclusoNaBusca.isSelected() ){
+					verify = engine.addBlacklist(txtArchive.getText());
+				} else if( radioBtnBlacklist.isSelected() ){
+					verify = engine.addFile(txtArchive.getText());
+				}
+				
+				if( verify == true ){
+					JOptionPane.showMessageDialog(null, "Arquivo adicionado com sucesso!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Não foi possível adicionar este arquivo =/");
+				}
+				
+				txtArchive.setText("");
+				bg.clearSelection();
+				
+			}
+		});
+		
 		btnAdd.setFont(new Font("Open Sans", Font.PLAIN, 14));
 		btnAdd.setBounds(316, 342, 109, 39);
 		panel.add(btnAdd);
