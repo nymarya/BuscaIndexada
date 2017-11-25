@@ -4,6 +4,8 @@ import java.io.IOException;
 
 //importa classe Trie de Tree
 import Tree.Trie;
+import Tree.Node;
+import Tree.Index;
 
 // Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
 public class Engine {
@@ -83,17 +85,41 @@ public class Engine {
 		Pair<String, Integer> palavra = new Pair<String, Integer>();
 		while( p.hasNext() ) {
 			palavra = p.next();
+
+			if( palavra != null) {
+				//Checa se palavra está na blacklist
+				Node proibida = blacklist.search(palavra.getFirst());
+				
+				//Se não está, faz a inserção
+				if(proibida == null) {
+					//Busca palavra no banco de dados
+					Node resultado = db.searchNode(palavra.getFirst());
+					if( resultado != null) {
+						//Se já houver palavra naquele arquivo e naquela linha,
+						//atualiza número de ocorrencias
+						Index indice = resultado.getIndice(file, palavra.getSecond());
+						if( indice != null) {
+							int ocorrencias = indice.getOcorrencia();
+							indice.setOcorrencia(++ocorrencias);
+						} else {
+							//cria novo indice
+							indice = new Index(palavra.getSecond(), file, 1);
+						}
+					} else {
+						db.addWord(palavra.getFirst(), palavra.getSecond(), file);
+					}
+					
+					
+				}
+			}
 			
-			//Checa se palavra está na blacklist
-			System.out.println(palavra);
+			
+			//System.out.println(palavra);
 		}
 		p.close();
 		
 		// adicionando o endereco do arquivo inserido na lista
 		return db.addFile(file);
-		
-		// stub
-		
 		 
 	}
 	

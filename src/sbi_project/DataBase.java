@@ -2,6 +2,7 @@ package sbi_project;
 
 // importa classe Trie de Tree
 import Tree.Trie;
+import Tree.Node;
 
 // importa ArrayList
 import java.util.ArrayList;
@@ -17,6 +18,10 @@ public class DataBase {
 	
 	public DataBase(  ){
 		files = new ArrayList<>();
+		char[] alfa = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z'};
+		
+		words = new Trie( alfa );
 	}
 	
 	/**
@@ -54,6 +59,15 @@ public class DataBase {
 	 */
 	public void removeWord( String word ){
 		// stub
-	}	
+	}
+	
+	/**
+	 * Busca palavra no banco de dados.
+	 * @param word
+	 * @return
+	 */
+	public Node searchNode( String word) {
+		return words.search(word);
+	}
 	
 }

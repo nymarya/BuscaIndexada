@@ -86,7 +86,7 @@ public class Trie
 		int indexAlfa = 0;
 		Node auxNo;
 		
-		if ( this.search(s)  != null )
+		if ( this.search(s)  == null )
 		{
 			for ( int i=indexDeParada; i< s.length(); i++)
 			{
