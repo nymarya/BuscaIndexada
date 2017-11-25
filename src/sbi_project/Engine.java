@@ -16,16 +16,33 @@ public class Engine {
 	
 	public Engine( DataBase db ){
 		this.db = db;
-
+		char[] alfa = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z'};
+		
+		blacklist = new Trie( alfa );
 	}
 	
 	/**
 	 * Metodo para adicionar arquivo blacklist
 	 * @param file Endereco do arquivo
 	 * @return Retorna se arquivo foi adicionado corretamente
+	 * @throws IOException 
 	 */
-	public boolean addBlacklist( String file ){
+	public boolean addBlacklist( String file ) throws IOException{
 		
+		Parser p = new Parser(file);
+		Pair<String, Integer> palavra = new Pair<String, Integer>();
+		while( p.hasNext() ) {
+			palavra = p.next();
+			
+			if( palavra != null) {
+				blacklist.insertWord(palavra.getFirst(), palavra.getSecond(), file);
+			}
+				
+		}
+		p.close();
+		
+		// adicionando o endereco do arquivo inserido na lista
 		return true;
 	}
 	
@@ -43,6 +60,7 @@ public class Engine {
 	 */
 	public void addBlacklist( char word ){
 		// stub
+		
 	}
 	
 	/**
@@ -57,30 +75,26 @@ public class Engine {
 	 * Metodo para adicionar arquivos ao sistema
 	 * @param file Endereco do arquivo a ser adicionado
 	 * @return Retorna se foi adicionado corretamente
+	 * @throws IOException 
 	 */
-	public boolean addFile( String file ){
+	public boolean addFile( String file ) throws IOException{
+		
+		Parser p = new Parser(file);
+		Pair<String, Integer> palavra = new Pair<String, Integer>();
+		while( p.hasNext() ) {
+			palavra = p.next();
+			
+			//Checa se palavra está na blacklist
+			System.out.println(palavra);
+		}
+		p.close();
 		
 		// adicionando o endereco do arquivo inserido na lista
 		return db.addFile(file);
 		
 		// stub
 		
-		/**
-		 		try {
-			Parser p = new Parser("/home/mayra/Progs/BuscaIndexada/data/microsoft.txt");
-			String palavra = "";
-			while( p.hasNext() ) {
-				palavra = p.next();
-				//System.out.println("aaa");
-				System.out.println(palavra);
-			}
-			System.out.println("saiu");
-			p.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 **/
+		 
 	}
 	
 	/**

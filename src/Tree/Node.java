@@ -38,6 +38,7 @@ public class Node
 		this.chave = chave;
 		ponteiros = new Node[tamAlfa];
 		this.terminal = terminal;
+		indice = new ArrayList<Index>();
 	}
 
 	/**

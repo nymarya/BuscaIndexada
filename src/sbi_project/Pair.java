@@ -16,6 +16,14 @@ public class Pair<F,S> {
 	 * @param first
 	 * @param second
 	 */
+	public Pair() {
+		
+	}
+	
+	/**
+	 * @param first
+	 * @param second
+	 */
 	public Pair(F first, S second) {
 		this.first = first;
 		this.second = second;

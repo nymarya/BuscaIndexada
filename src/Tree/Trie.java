@@ -101,11 +101,12 @@ public class Trie
 				}
 				
 			}
+			
 			/**
 			 * Identificar palavra
 			 */
-//			noDeParada.setLinha(linha);
-//			noDeParada.setArquivo(arquivo);
+			Index indice = new Index(linha, arquivo, 1);
+			noDeParada.addIndice(indice);
 			noDeParada.setTerminal(true);
 			
 			/**

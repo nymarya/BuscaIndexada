@@ -43,8 +43,9 @@ public class DataBase {
 	 * Metodo para adicionar palavras na arvore
 	 * @param word Palavra a ser adicionada
 	 */
-	public void addWord( String word ){
-		// stub
+	public void addWord( String word, int line, String file){
+		
+		words.insertWord(word, line, file);
 	}
 	
 	/**
