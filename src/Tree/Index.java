@@ -26,7 +26,7 @@ public class Index
 	{	
 		this.linha = linha;
 		this.arquivo = arquivo;
-		ocorrencia = 0;
+		ocorrencia = 1;
 	}
 
 	/**
