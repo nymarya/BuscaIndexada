@@ -18,9 +18,7 @@ public class Index
 	 */
 	public Index ()
 	{	}
-	
-	
-
+  
 	/**
 	 * Construtor com parâmetros
 	 * @param linha
@@ -32,9 +30,7 @@ public class Index
 		this.arquivo = arquivo;
 		this.ocorrencia = ocorrencia;
 	}
-
-
-
+  
 	/**
 	 * Getters and Setters 
 	 */
@@ -61,6 +57,13 @@ public class Index
 
 	public void setOcorrencia(int ocorrencia) {
 		this.ocorrencia = ocorrencia;
+	}
+	
+	/**
+	 * Incrementa o número de ocorrências
+	 */
+	public void incrementaOcorrencia() {
+		this.ocorrencia++;
 	}
 	
 	

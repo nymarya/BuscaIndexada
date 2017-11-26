@@ -1,5 +1,6 @@
 package Tree;
 
+import java.util.ArrayList;
 
 /**
  * Classe para a estrutura de dados
@@ -86,7 +87,11 @@ public class Trie
 		int indexAlfa = 0;
 		Node auxNo;
 		
-		if ( this.search(s) == null )
+		/**
+		 * Verifica se a palavra ainda não existe
+		 */
+		Node palavra = this.search(s);
+		if ( palavra == null )
 		{
 			for ( int i=indexDeParada; i< s.length(); i++)
 			{
@@ -97,7 +102,7 @@ public class Trie
 					noDeParada.inserirPonteiro(indexAlfa, auxNo);
 					noDeParada = auxNo;
 				}catch(TreeException e) {
-					
+					return;
 				}
 				
 			}
@@ -105,6 +110,7 @@ public class Trie
 			/**
 			 * Identificar palavra
 			 */
+
 			Index indice = new Index(linha, arquivo, 1);
 			noDeParada.addIndice(indice);
 			noDeParada.setTerminal(true);
@@ -115,12 +121,71 @@ public class Trie
 			noDeParada = raiz;
 			indexDeParada = 0;
 		}
+		/**
+		 * Verificar quando a palavra existe e atualizar
+		 * seu índice.
+		 */
+		else 
+		{
+			/**
+			 * Verifica se a palavra presente na árvore 
+			 * faz referência ao arquivo da palavra que se
+			 * deseja inserir.
+			 */
+			ArrayList<Index> indicesPalavra = palavra.getIndices();
+			boolean resposta = false;
+			int index = 0;
+			for ( /*empty*/; index < indicesPalavra.size() && !resposta; index++)
+			{
+				if (indicesPalavra.get(index).getArquivo().equals(arquivo) )
+					resposta = true;
+			}
+			
+			/**
+			 * Se o arquivo for o mesmo, verificar
+			 * se a linha é a mesma, se for, incrementar
+			 * as ocorrências.
+			 */
+			if ( resposta && indicesPalavra.get(index-1).getLinha() == linha)
+			{
+				indicesPalavra.get(index-1).incrementaOcorrencia();
+			}
+			/**
+			 * Se não for então criar novo índice para a palavra
+			 */
+			else
+			{
+				Index novoIndice = new Index(linha, arquivo);
+				palavra.addIndice(novoIndice);			
+			}
+			
+		}
 	}
+
 	
-	// TODO
-	public void listTree ()
-	{
+	public void listTree ( Node no, StringBuffer palavra )
+	{		
+		/**
+		 * Quando a palavra é encontrada
+		 */
+		if ( no.getTerminal() )
+		{
+			System.out.println(palavra);
+		}
 		
+		Node[] ponteiros = no.getPonteiros();
+		int i=0;
+		for ( /*empty*/; i < ponteiros.length; i++ )
+		{
+			if ( ponteiros[i] != null )
+			{
+				palavra.append(ponteiros[i].getChave()); 
+				listTree(ponteiros[i], palavra);
+			}
+		}
+		if (palavra.length() > 0)	
+			palavra.deleteCharAt(palavra.length()-1);
+			
 	}
 	
 	/**
@@ -198,5 +263,10 @@ public class Trie
 			if(pt.getPonteiro(i) != null) return pt;
 
 		return null;
+	}
+	
+	public Node getRaiz ()
+	{
+		return raiz;
 	}
 }

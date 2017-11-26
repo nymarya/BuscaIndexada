@@ -122,13 +122,18 @@ public class Node
 		return indice;
 	}
 	
+	public Node[] getPonteiros ()
+	{
+		return ponteiros;
+	}
+	
 	/**
 	 * Adiciona um novo índice na tabela de índices
 	 * @param indice   O novo índice
 	 */
-	public void addIndice ( Index indice )
+	public void addIndice ( Index ind )
 	{
-		this.indice.add(indice);
+		indice.add(ind);
 	}
 	
 	/**
