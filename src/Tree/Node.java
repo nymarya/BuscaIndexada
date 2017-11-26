@@ -38,6 +38,7 @@ public class Node
 		this.chave = chave;
 		ponteiros = new Node[tamAlfa];
 		this.terminal = terminal;
+		indice = new ArrayList<Index>();
 	}
 
 	/**
@@ -125,9 +126,9 @@ public class Node
 	 * Adiciona um novo índice na tabela de índices
 	 * @param indice   O novo índice
 	 */
-	public void addIndice ( Index indice )
+	public void addIndice ( Index ind )
 	{
-		this.indice.add(indice);
+		indice.add(ind);
 	}
 	
 	/**

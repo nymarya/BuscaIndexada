@@ -16,34 +16,35 @@ public class TesteTree
 		
 		Trie arvore = new Trie( alfa );
 		
-//		arvore.insertWord("casa");
-//		arvore.insertWord("camelo");
-//		arvore.insertWord("bacia");
-//		arvore.insertWord("vaca");
-//		arvore.insertWord("árvore");
-//		arvore.insertWord("comida");
+		arvore.insertWord("casa", 1, "a");
+		arvore.insertWord("casa", 1, "a");
+		arvore.insertWord("camelo", 5, "b");
+		arvore.insertWord("bacia", 2, "a");
+		arvore.insertWord("vaca", 13, "a");
+		arvore.insertWord("árvore", 15, "b");
+		arvore.insertWord("comida", 1, "a");
 		
-		if ( arvore.search("casa") )
+		if ( arvore.search("casa") != null)
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 		
-		if ( arvore.search("camelo") )
+		if ( arvore.search("camelo") != null)
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 		
-		if ( arvore.search("bacia") )
+		if ( arvore.search("bacia") != null)
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 		
-		if ( arvore.search("vaca") )
+		if ( arvore.search("vaca") != null)
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 		
-		if ( !arvore.search("cas") )
+		if ( arvore.search("cas") == null)
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 		
-		if ( arvore.search("comida") )
+		if ( arvore.search("comida") != null )
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 	}

@@ -109,9 +109,8 @@ public class Trie
 			/**
 			 * Identificar palavra
 			 */
-			Index indice = new Index(linha, arquivo);
 			noDeParada.setTerminal(true);
-			noDeParada.addIndice(indice);
+			noDeParada.addIndice(new Index(linha, arquivo));
 			
 			/**
 			 * Resetar auxiliares e indicar que o nó é terminal
@@ -144,9 +143,9 @@ public class Trie
 			 * se a linha é a mesma, se for, incrementar
 			 * as ocorrências.
 			 */
-			if ( resposta && indicesPalavra.get(index).getLinha() == linha)
+			if ( resposta && indicesPalavra.get(index-1).getLinha() == linha)
 			{
-				indicesPalavra.get(index).incrementaOcorrencia();
+				indicesPalavra.get(index-1).incrementaOcorrencia();
 			}
 			/**
 			 * Se não for então criar novo índice para a palavra
