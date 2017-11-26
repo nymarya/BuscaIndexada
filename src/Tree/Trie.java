@@ -102,7 +102,7 @@ public class Trie
 					noDeParada.inserirPonteiro(indexAlfa, auxNo);
 					noDeParada = auxNo;
 				}catch(TreeException e) {
-					
+					return;
 				}
 				
 			}
@@ -158,11 +158,31 @@ public class Trie
 			
 		}
 	}
+
 	
-	// TODO
-	public void listTree ()
-	{
+	public void listTree ( Node no, StringBuffer palavra )
+	{		
+		/**
+		 * Quando a palavra é encontrada
+		 */
+		if ( no.getTerminal() )
+		{
+			System.out.println(palavra);
+		}
 		
+		Node[] ponteiros = no.getPonteiros();
+		int i=0;
+		for ( /*empty*/; i < ponteiros.length; i++ )
+		{
+			if ( ponteiros[i] != null )
+			{
+				palavra.append(ponteiros[i].getChave()); 
+				listTree(ponteiros[i], palavra);
+			}
+		}
+		if (palavra.length() > 0)	
+			palavra.deleteCharAt(palavra.length()-1);
+			
 	}
 	
 	/**
@@ -240,5 +260,10 @@ public class Trie
 			if(pt.getPonteiro(i) != null) return pt;
 
 		return null;
+	}
+	
+	public Node getRaiz ()
+	{
+		return raiz;
 	}
 }

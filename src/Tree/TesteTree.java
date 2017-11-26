@@ -47,6 +47,8 @@ public class TesteTree
 		if ( arvore.search("comida") != null )
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
+		
+		arvore.listTree(arvore.getRaiz(), new StringBuffer());
 	}
 
 }
