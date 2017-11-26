@@ -53,5 +53,4 @@ public class TesteTree
 		
 		arvore.listTree(arvore.getRaiz(), new StringBuffer());
 	}
-
 }

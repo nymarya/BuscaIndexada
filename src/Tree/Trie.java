@@ -106,11 +106,14 @@ public class Trie
 				}
 				
 			}
+			
 			/**
 			 * Identificar palavra
 			 */
+
+			Index indice = new Index(linha, arquivo, 1);
+			noDeParada.addIndice(indice);
 			noDeParada.setTerminal(true);
-			noDeParada.addIndice(new Index(linha, arquivo));
 			
 			/**
 			 * Resetar auxiliares e indicar que o nó é terminal

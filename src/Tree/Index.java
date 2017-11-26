@@ -18,17 +18,19 @@ public class Index
 	 */
 	public Index ()
 	{	}
-	
+  
 	/**
-	 * Construtor 
+	 * Construtor com parâmetros
+	 * @param linha
+	 * @param arquivo
+	 * @param ocorrencia
 	 */
-	public Index ( int linha, String arquivo)
-	{	
+	public Index(int linha, String arquivo, int ocorrencia) {
 		this.linha = linha;
 		this.arquivo = arquivo;
-		ocorrencia = 1;
+		this.ocorrencia = ocorrencia;
 	}
-
+  
 	/**
 	 * Getters and Setters 
 	 */

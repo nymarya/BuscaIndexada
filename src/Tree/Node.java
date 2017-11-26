@@ -144,5 +144,24 @@ public class Node
 	{
 		this.indice.remove(indice);
 	}
+	
+	/**
+	 * Retorna o número de ocorrências da chave 
+	 * no arquivo e linha dados
+	 * @param file 
+	 * @param line
+	 */
+	public Index getIndice(String file, int line) {
+		//Procura índice
+		for(int i = 0; i < indice.size(); i++) {
+			Index atual = indice.get(i);
+			if(atual.getArquivo() == file && atual.getLinha() == line)
+				return atual;
+		}
+		
+		//Não há nenhuma ocorrencia da chave na linha 
+		//do arquivo
+		return null;
+	}
 
 }
