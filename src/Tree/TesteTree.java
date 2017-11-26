@@ -25,7 +25,6 @@ public class TesteTree
 		arvore.insertWord("comida", 1, "a");
 		arvore.insertWord("camarada", 1, "a");
 		arvore.insertWord("cama", 1, "a");
-		arvore.insertWord("cas", 5, "a");
 		
 		if ( arvore.search("casa") != null)
 			System.out.println("OK");

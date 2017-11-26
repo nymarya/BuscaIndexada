@@ -155,7 +155,7 @@ public class Trie
 			 */
 			else
 			{
-				Index novoIndice = new Index(linha, arquivo);
+				Index novoIndice = new Index(linha, arquivo, 1);
 				palavra.addIndice(novoIndice);			
 			}
 			
