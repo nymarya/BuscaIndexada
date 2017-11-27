@@ -53,26 +53,26 @@ public class Trie
 	
 	/**
 	 * Método auxiliar para buscar palavra na árvore.
-	 * @param s The key to be searched
-	 * @param pt The current pointer.
-	 * @return Length of the prefix and a pointer to the node
-	 * that corresponds to the longest prefix that matches with the key.
+	 * @param s Chave a ser buscada.
+	 * @param pt O ponteiro atual.
+	 * @return Tamanho do prefixo e um ponteiro para o maior
+	 * prefixo da chave na árvore
 	 * @throws TreeException 
 	 * 
 	 */
 	private Pair<Integer, Node> searchWord(String s, Node pt) throws TreeException {
-		// l = length of the longest prefix in common with some key
+		// l = tamanho do maior prefixo em comum com a chave
 		int l = 0;
 		while( l < s.length() ) {
 
-			//get character position at the alphabet
+			//Recupera a posição do caractere
 			int index = searchIndexAlfa(s.charAt(l) );
 			if( pt.getPonteiro(index) != null) {
-				//keep checking the nodes
+				//Continua checando os nós
 				pt = pt.getPonteiro(index);
 				l++;
 			} else {
-				//Stop the loop when there is no matching digit anymore
+				//Para o laço quando não há mais dígitos
 				break;
 			}
 
@@ -97,24 +97,24 @@ public class Trie
 		if (s.length() == 0) return;
 
 		
-		//Use auxiliar method
+		//Busca chave na árvore
 		Node pt = raiz;
 		Pair<Integer, Node> result = searchWord(s, pt);
 		int length = result.getFirst();
 		pt = result.getSecond();
 
 
-		//insert key from length to end of string
+		//Insere chave a partir do final do prefixo encontrado
 		while(length < s.length()) {
-			//allocate new Node
+			//Cria novo nó
 			Node node = new Node(s.charAt(length), false, alfabeto.length);
 
-			//get character position at the alphabet
+			//Recupera posição do caractere no alfabeto
 			int index = searchIndexAlfa(s.charAt(length));
-			//pt.setNode(index, node);
+			
 			pt.setPonteiro(index, node);
 
-			//Skip to the next node
+			//Continua inserindo
 			pt = pt.getPonteiro(index);
 			length++;
 		}
@@ -124,13 +124,18 @@ public class Trie
 		Index indice = new Index(linha, arquivo, 1);
 		pt.addIndice(indice);
 		
-		//Set last node as terminal
+		//Ultimo nó é terminal
 		pt.setTerminal(true);
 		
 		
 	}
 
-	
+
+	/**
+	 * Lista elementos da árvore.
+	 * @param no Nó inicial.
+	 * @param palavra Palavra guardada até então.
+	 */
 	public void listTree ( Node no, StringBuffer palavra )
 	{		
 		/**
@@ -233,7 +238,11 @@ public class Trie
 		return null;
 	}
 	
-	public Node getRaiz ()
+	/**
+	 * Retorna nó da árvore
+	 * @return
+	 */
+	public Node getRoot ()
 	{
 		return raiz;
 	}

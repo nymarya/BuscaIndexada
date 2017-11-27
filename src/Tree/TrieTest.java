@@ -108,7 +108,7 @@ public class TrieTest {
 		catch( Exception e) {
 			e.printStackTrace();
 		}
-		arvore.listTree(arvore.getRaiz(),  new StringBuffer());
+		arvore.listTree(arvore.getRoot(),  new StringBuffer());
 
 	}
 

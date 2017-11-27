@@ -74,7 +74,7 @@ public class DataBase {
 	}
 	
 	public void list() {
-		words.listTree(words.getRaiz(),  new StringBuffer());
+		words.listTree(words.getRoot(),  new StringBuffer());
 	}
 	
 }
