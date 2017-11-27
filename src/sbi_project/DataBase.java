@@ -3,6 +3,7 @@ package sbi_project;
 // importa classe Trie de Tree
 import Tree.Trie;
 import Tree.Node;
+import Tree.TreeException;
 
 // importa ArrayList
 import java.util.ArrayList;
@@ -47,8 +48,9 @@ public class DataBase {
 	/**
 	 * Metodo para adicionar palavras na arvore
 	 * @param word Palavra a ser adicionada
+	 * @throws TreeException 
 	 */
-	public void addWord( String word, int line, String file){
+	public void addWord( String word, int line, String file) throws TreeException{
 		
 		words.insertWord(word, line, file);
 	}
@@ -65,9 +67,14 @@ public class DataBase {
 	 * Busca palavra no banco de dados.
 	 * @param word
 	 * @return
+	 * @throws TreeException 
 	 */
-	public Node searchNode( String word) {
+	public Node searchNode( String word) throws TreeException {
 		return words.search(word);
+	}
+	
+	public void list() {
+		words.listTree(words.getRaiz(),  new StringBuffer());
 	}
 	
 }

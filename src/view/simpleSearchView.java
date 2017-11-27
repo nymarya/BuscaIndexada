@@ -195,7 +195,7 @@ public class simpleSearchView extends JFrame{
 					for( String element : result ){
 						modelo.addElement(element);
 					}
-					
+					engine.list();
 				}
 				
 			}
