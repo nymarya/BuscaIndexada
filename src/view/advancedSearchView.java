@@ -168,9 +168,9 @@ public class advancedSearchView extends JFrame {
 					ArrayList<String> result;
 					try {
 						result = searchAnd.search(txtBusca.getText());
+					
 						for( String element : result ){
 							modelo.addElement(element);
-							System.out.println(element);
 						}
 					} catch (TreeException e1) {
 						// TODO Auto-generated catch block
