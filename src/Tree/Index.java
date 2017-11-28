@@ -47,6 +47,16 @@ public class Index
 		return arquivo;
 	}
 
+	/**
+	 * Retorna nome do arquivo, sem endereço absoluto
+	 * @return Nome do arquivo
+	 */
+	public String getFilename() {
+		int index = arquivo.lastIndexOf('/');
+		
+		return arquivo.substring(7);
+	}
+	
 	public void setArquivo(String arquivo) {
 		this.arquivo = arquivo;
 	}

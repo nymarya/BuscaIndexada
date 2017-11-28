@@ -124,22 +124,21 @@ public class Trie
 
 
 			//Adiciona indice
-			Index indice = new Index(linha, arquivo, 1);
+			Index indice = new Index(linha, arquivo, 0);
 			pt.addIndice(indice);
 			
 			//Ultimo nó é terminal
 			pt.setTerminal(true);
-		} else {
+		}
+		
+		if(length == s.length() ){
 
 			//Se já houver palavra naquele arquivo e naquela linha,
 			//atualiza número de ocorrencias
 			Index index = pt.getIndice(arquivo, linha);
 			if( index != null) {
 				index.incrementaOcorrencia();
-			} else {
-				//cria novo indice
-				index = new Index(linha, arquivo, 1);
-			}
+			} 
 			
 		}
 		
