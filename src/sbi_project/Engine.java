@@ -91,7 +91,6 @@ public class Engine {
 			if( token != null) {
 				//Recupera palavra e linha
 				String word = token.getFirst().toLowerCase();
-				System.out.println(word);
 				int line = token.getSecond();
 				
 				//Checa se palavra está na blacklist
@@ -99,33 +98,9 @@ public class Engine {
 				
 				//Se não está, faz a inserção
 				if(forbidden == null) {
-					//Busca palavra no banco de dados
-					Node result = db.searchNode(word);
-					if( result != null) {
-						//Se já houver palavra naquele arquivo e naquela linha,
-						//atualiza número de ocorrencias
-						Index index = result.getIndice(file, line);
-						if( index != null) {
-							int occurrences = index.getOcorrencia();
-							index.setOcorrencia(++occurrences);
-						} else {
-							//cria novo indice
-							index = new Index(line, file, 1);
-						}
-					} else {
-						//adiciona nova palavra
-						try {
-							db.addWord(word, line, file);
-						} catch (TreeException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						result = db.searchNode(word);
-						if(result == null)
-							System.out.println("deu ruim em " + word);
-					}
-					
-					
+					//Adiciona palavra no banco de dados
+					db.addWord(word, line, file);
+						
 				}
 			}
 			

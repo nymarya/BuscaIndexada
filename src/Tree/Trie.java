@@ -42,10 +42,11 @@ public class Trie
 		Node pointer = raiz;
 		Pair<Integer, Node> result = searchWord(s, pointer);
 
+		int length = result.getFirst();
 		pointer = result.getSecond();
 
 		//Check if the remaining pointer is end of word
-		if(pointer.getTerminal())
+		if(pointer.getTerminal() && length == s.length())
 			return result.getSecond();
 
 		return null;
@@ -103,29 +104,45 @@ public class Trie
 		int length = result.getFirst();
 		pt = result.getSecond();
 
+		//Se a palavra ainda não estiver na árvore, adiciona
+		//Caso contrário, atualiza número de ocorrências
+		if( length <= s.length()) {
+			//Insere chave a partir do final do prefixo encontrado
+			while(length < s.length()) {
+				//Cria novo nó
+				Node node = new Node(s.charAt(length), false, alfabeto.length);
 
-		//Insere chave a partir do final do prefixo encontrado
-		while(length < s.length()) {
-			//Cria novo nó
-			Node node = new Node(s.charAt(length), false, alfabeto.length);
+				//Recupera posição do caractere no alfabeto
+				int index = searchIndexAlfa(s.charAt(length));
+				
+				pt.setPonteiro(index, node);
 
-			//Recupera posição do caractere no alfabeto
-			int index = searchIndexAlfa(s.charAt(length));
+				//Continua inserindo
+				pt = pt.getPonteiro(index);
+				length++;
+			}
+
+
+			//Adiciona indice
+			Index indice = new Index(linha, arquivo, 1);
+			pt.addIndice(indice);
 			
-			pt.setPonteiro(index, node);
+			//Ultimo nó é terminal
+			pt.setTerminal(true);
+		} else {
 
-			//Continua inserindo
-			pt = pt.getPonteiro(index);
-			length++;
+			//Se já houver palavra naquele arquivo e naquela linha,
+			//atualiza número de ocorrencias
+			Index index = pt.getIndice(arquivo, linha);
+			if( index != null) {
+				index.incrementaOcorrencia();
+			} else {
+				//cria novo indice
+				index = new Index(linha, arquivo, 1);
+			}
+			
 		}
-
-
-		//Adiciona indice
-		Index indice = new Index(linha, arquivo, 1);
-		pt.addIndice(indice);
 		
-		//Ultimo nó é terminal
-		pt.setTerminal(true);
 		
 		
 	}

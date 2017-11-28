@@ -56,6 +56,14 @@ public class TrieTest {
 			e.printStackTrace();
 		}
 		assertEquals(null, arvore.search("vaca"));
+		
+		try {
+			arvore.remove("comida");
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(null, arvore.search("comida"));
 
 		try {
 			arvore.remove("ajshajh");
@@ -83,7 +91,7 @@ public class TrieTest {
 			arvore.insertWord("palm", 0, "");
 			arvore.insertWord("your", 0, "");
 			arvore.insertWord("hand", 0, "");
-			arvore.insertWord("Eternity", 0, "");
+			arvore.insertWord("eternity", 0, "");
 			arvore.insertWord("hour", 0, "");
 			arvore.insertWord("robin", 0, "");
 			arvore.insertWord("redbeast", 0, "");
