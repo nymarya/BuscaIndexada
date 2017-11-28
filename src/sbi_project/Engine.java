@@ -99,7 +99,6 @@ public class Engine {
 				//Se não está, faz a inserção
 				if(forbidden == null) {
 					//Adiciona palavra no banco de dados
-					System.out.println( word + " em " + line );
 					db.addWord(word, line, file);
 						
 				}
