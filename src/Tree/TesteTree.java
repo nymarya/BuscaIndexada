@@ -15,7 +15,7 @@ public class TesteTree
 				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z'};
 		
 		Trie arvore = new Trie( alfa );
-		
+		/**
 		arvore.insertWord("casa", 1, "a");
 		arvore.insertWord("casa", 1, "a");
 		arvore.insertWord("camelo", 5, "b");
@@ -50,6 +50,6 @@ public class TesteTree
 			System.out.println("OK");
 		else System.out.println("Deu ruim");
 		
-		arvore.listTree(arvore.getRaiz(), new StringBuffer());
+		arvore.listTree(arvore.getRaiz(), new StringBuffer());**/
 	}
 }

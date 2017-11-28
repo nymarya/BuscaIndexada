@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import Tree.TreeException;
 import sbi_project.Engine;
 import sbi_project.Search;
 import sbi_project.SearchAnd;
@@ -222,10 +223,18 @@ public class engineView extends JFrame {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+					} catch (TreeException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				} else if( radioBtnBlacklist.isSelected() ){
 					try {
-						verify = engine.addBlacklist(txtArchive.getText());
+						try {
+							verify = engine.addBlacklist(txtArchive.getText());
+						} catch (TreeException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

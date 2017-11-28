@@ -2,6 +2,9 @@ package Tree;
 
 import java.util.ArrayList;
 
+
+import sbi_project.Pair;
+
 /**
  * Classe para a estrutura de dados
  * @author gabriel
@@ -33,42 +36,52 @@ public class Trie
 	 * @throws TreeException Caso algum caracter não seja reconhecido
 	 * pelo alfabeto.
 	 */
-	public Node search ( String s )
+	public Node search ( String s ) throws TreeException
 	{	
-		int alturaPercorrida = 0;
-		int tamanhoPalavra = s.length();
-		
-		Node pt = raiz;
-		Node aux;
-		
-		int indexAlfa = 0;
-		while ( alturaPercorrida < tamanhoPalavra )
-		{
-			indexAlfa = searchIndexAlfa(s.charAt(alturaPercorrida));
-			try {
-				aux = pt.getPonteiro(indexAlfa);
-				if ( aux != null )
-				{
-					pt = aux;
-					alturaPercorrida++;
-					noDeParada = pt;
-					indexDeParada = alturaPercorrida;
-				}
-				else return null;
-		
-			} catch( TreeException e)
-			{
-				System.out.println(e.toString() + " -> " + s.charAt(alturaPercorrida));
-				return null;
-			}
-		}
-		/**
-		 * Verificar se a palavra realmente existe na árvore
-		 * e não é apenas um prífixo de uma outra palavra.
-		 */
-		if ( noDeParada.getTerminal() )
-			return noDeParada;
+		//Use auxiliary method
+		Node pointer = raiz;
+		Pair<Integer, Node> result = searchWord(s, pointer);
+
+		int length = result.getFirst();
+		pointer = result.getSecond();
+
+		//Check if the remaining pointer is end of word
+		if(pointer.getTerminal() && length == s.length())
+			return result.getSecond();
+
 		return null;
+	}
+	
+	/**
+	 * Método auxiliar para buscar palavra na árvore.
+	 * @param s Chave a ser buscada.
+	 * @param pt O ponteiro atual.
+	 * @return Tamanho do prefixo e um ponteiro para o maior
+	 * prefixo da chave na árvore
+	 * @throws TreeException 
+	 * 
+	 */
+	private Pair<Integer, Node> searchWord(String s, Node pt) throws TreeException {
+		// l = tamanho do maior prefixo em comum com a chave
+		int l = 0;
+		while( l < s.length() ) {
+
+			//Recupera a posição do caractere
+			int index = searchIndexAlfa(s.charAt(l) );
+			if( pt.getPonteiro(index) != null) {
+				//Continua checando os nós
+				pt = pt.getPonteiro(index);
+				l++;
+			} else {
+				//Para o laço quando não há mais dígitos
+				break;
+			}
+
+		}
+
+		Pair<Integer, Node> pair = new Pair<Integer,Node>(l, pt);
+
+		return pair;
 	}
 	
 	/**
@@ -77,92 +90,69 @@ public class Trie
 	 * @throws TreeException Caso um caractere não seja reconhecido
 	 * pelo alfabeto
 	 */
-	public void insertWord ( String s, int linha, String arquivo )
+	public void insertWord ( String s, int linha, String arquivo ) throws TreeException
 	{
 		/**
 		 * Verifica se é uma palavra válida
 		 */
 		if (s.length() == 0) return;
-		
-		int indexAlfa = 0;
-		Node auxNo;
-		
-		/**
-		 * Verifica se a palavra ainda não existe
-		 */
-		Node palavra = this.search(s);
-		if ( palavra == null )
-		{
-			for ( int i=indexDeParada; i< s.length(); i++)
-			{
-				indexAlfa = searchIndexAlfa(s.charAt(i));
-				auxNo = new Node(s.charAt(i), false, alfabeto.length);
-				
-				try {
-					noDeParada.inserirPonteiro(indexAlfa, auxNo);
-					noDeParada = auxNo;
-				}catch(TreeException e) {
-					return;
-				}
-				
-			}
-			
-			/**
-			 * Identificar palavra
-			 */
 
+		
+		//Busca chave na árvore
+		Node pt = raiz;
+		Pair<Integer, Node> result = searchWord(s, pt);
+		int length = result.getFirst();
+		pt = result.getSecond();
+
+		//Se a palavra ainda não estiver na árvore, adiciona
+		//Caso contrário, atualiza número de ocorrências
+		if( length <= s.length()) {
+			//Insere chave a partir do final do prefixo encontrado
+			while(length < s.length()) {
+				//Cria novo nó
+				Node node = new Node(s.charAt(length), false, alfabeto.length);
+
+				//Recupera posição do caractere no alfabeto
+				int index = searchIndexAlfa(s.charAt(length));
+				
+				pt.setPonteiro(index, node);
+
+				//Continua inserindo
+				pt = pt.getPonteiro(index);
+				length++;
+			}
+
+
+			//Adiciona indice
 			Index indice = new Index(linha, arquivo, 1);
-			noDeParada.addIndice(indice);
-			noDeParada.setTerminal(true);
+			pt.addIndice(indice);
 			
-			/**
-			 * Resetar auxiliares e indicar que o nó é terminal
-			 */
-			noDeParada = raiz;
-			indexDeParada = 0;
-		}
-		/**
-		 * Verificar quando a palavra existe e atualizar
-		 * seu índice.
-		 */
-		else 
-		{
-			/**
-			 * Verifica se a palavra presente na árvore 
-			 * faz referência ao arquivo da palavra que se
-			 * deseja inserir.
-			 */
-			ArrayList<Index> indicesPalavra = palavra.getIndices();
-			boolean resposta = false;
-			int index = 0;
-			for ( /*empty*/; index < indicesPalavra.size() && !resposta; index++)
-			{
-				if (indicesPalavra.get(index).getArquivo().equals(arquivo) )
-					resposta = true;
-			}
-			
-			/**
-			 * Se o arquivo for o mesmo, verificar
-			 * se a linha é a mesma, se for, incrementar
-			 * as ocorrências.
-			 */
-			if ( resposta && indicesPalavra.get(index-1).getLinha() == linha)
-			{
-				indicesPalavra.get(index-1).incrementaOcorrencia();
-			}
-			/**
-			 * Se não for então criar novo índice para a palavra
-			 */
-			else
-			{
-				Index novoIndice = new Index(linha, arquivo, 1);
-				palavra.addIndice(novoIndice);			
+			//Ultimo nó é terminal
+			pt.setTerminal(true);
+		} else {
+
+			//Se já houver palavra naquele arquivo e naquela linha,
+			//atualiza número de ocorrencias
+			Index index = pt.getIndice(arquivo, linha);
+			if( index != null) {
+				index.incrementaOcorrencia();
+			} else {
+				//cria novo indice
+				index = new Index(linha, arquivo, 1);
 			}
 			
 		}
+		
+		
+		
 	}
 
-	
+
+	/**
+	 * Lista elementos da árvore.
+	 * @param no Nó inicial.
+	 * @param palavra Palavra guardada até então.
+	 */
 	public void listTree ( Node no, StringBuffer palavra )
 	{		
 		/**
@@ -265,7 +255,11 @@ public class Trie
 		return null;
 	}
 	
-	public Node getRaiz ()
+	/**
+	 * Retorna nó da árvore
+	 * @return
+	 */
+	public Node getRoot ()
 	{
 		return raiz;
 	}

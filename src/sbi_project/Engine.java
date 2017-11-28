@@ -5,6 +5,7 @@ import java.io.IOException;
 //importa classe Trie de Tree
 import Tree.Trie;
 import Tree.Node;
+import Tree.TreeException;
 import Tree.Index;
 
 // Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
@@ -29,8 +30,9 @@ public class Engine {
 	 * @param file Endereco do arquivo
 	 * @return Retorna se arquivo foi adicionado corretamente
 	 * @throws IOException 
+	 * @throws TreeException 
 	 */
-	public boolean addBlacklist( String file ) throws IOException{
+	public boolean addBlacklist( String file ) throws IOException, TreeException{
 		
 		Parser p = new Parser(file);
 		Pair<String, Integer> palavra = new Pair<String, Integer>();
@@ -44,7 +46,6 @@ public class Engine {
 		}
 		p.close();
 		
-		// adicionando o endereco do arquivo inserido na lista
 		return true;
 	}
 	
@@ -78,43 +79,31 @@ public class Engine {
 	 * @param file Endereco do arquivo a ser adicionado
 	 * @return Retorna se foi adicionado corretamente
 	 * @throws IOException 
+	 * @throws TreeException 
 	 */
-	public boolean addFile( String file ) throws IOException{
+	public boolean addFile( String file ) throws IOException, TreeException{
 		
 		Parser p = new Parser(file);
-		Pair<String, Integer> palavra = new Pair<String, Integer>();
+		Pair<String, Integer> token = new Pair<String, Integer>();
 		while( p.hasNext() ) {
-			palavra = p.next();
+			token = p.next();
 
-			if( palavra != null) {
+			if( token != null) {
+				//Recupera palavra e linha
+				String word = token.getFirst().toLowerCase();
+				int line = token.getSecond();
+				
 				//Checa se palavra está na blacklist
-				Node proibida = blacklist.search(palavra.getFirst());
+				Node forbidden = blacklist.search(word);
 				
 				//Se não está, faz a inserção
-				if(proibida == null) {
-					//Busca palavra no banco de dados
-					Node resultado = db.searchNode(palavra.getFirst());
-					if( resultado != null) {
-						//Se já houver palavra naquele arquivo e naquela linha,
-						//atualiza número de ocorrencias
-						Index indice = resultado.getIndice(file, palavra.getSecond());
-						if( indice != null) {
-							int ocorrencias = indice.getOcorrencia();
-							indice.setOcorrencia(++ocorrencias);
-						} else {
-							//cria novo indice
-							indice = new Index(palavra.getSecond(), file, 1);
-						}
-					} else {
-						db.addWord(palavra.getFirst(), palavra.getSecond(), file);
-					}
-					
-					
+				if(forbidden == null) {
+					//Adiciona palavra no banco de dados
+					db.addWord(word, line, file);
+						
 				}
 			}
 			
-			
-			//System.out.println(palavra);
 		}
 		p.close();
 		
@@ -145,6 +134,10 @@ public class Engine {
 	 */
 	public void updateFile( String file ){
 		// stub
+	}
+	
+	public void list() {
+		db.list();
 	}
 	
 	
