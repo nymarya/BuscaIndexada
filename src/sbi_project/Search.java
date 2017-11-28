@@ -2,11 +2,13 @@ package sbi_project;
 
 import java.util.ArrayList;
 
+import Tree.TreeException;
+
 // Classe abstrata com os metodos e atributos necessarios para realizar uma busca/pesquisa
 public abstract class Search {
 
 	// Banco de dados (com arvores e listas)
-	private DataBase db;
+	protected DataBase db;
 	// Dado a ser buscado
 	private String data;
 	// Lista com ocorrencias da palavra buscada
@@ -27,6 +29,6 @@ public abstract class Search {
 	 * @param data Palavra a ser buscada
 	 * @return Ocorrencia em que palavra(s)-chave foi encontrada
 	 */
-	public abstract ArrayList<String> search( String data );
+	public abstract ArrayList<String> search( String data ) throws TreeException;
 	
 }

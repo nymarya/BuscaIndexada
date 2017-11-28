@@ -13,7 +13,6 @@ public class TrieTest {
 
 		Trie arvore = new Trie( alfa );
 
-
 		try {
 			arvore.insertWord("casa",0, "");
 			arvore.insertWord("casamento",0, "");
@@ -72,6 +71,7 @@ public class TrieTest {
 			e.printStackTrace();
 		}
 
+		
 		try {
 			arvore.insertWord("see", 0, "");
 
@@ -102,6 +102,7 @@ public class TrieTest {
 			arvore.insertWord("every", 0, "");
 			arvore.insertWord("night", 0, "");
 			arvore.insertWord("morn", 0, "");
+			arvore.insertWord("some", 0, "");
 			arvore.insertWord("some", 0, "");
 			arvore.insertWord("misery", 0, "");
 			arvore.insertWord("are", 0, "");
