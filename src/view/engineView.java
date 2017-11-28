@@ -209,6 +209,29 @@ public class engineView extends JFrame {
 		bg.add(radioBtnBlacklist);
 		
 		
+		JButton btnList = new JButton("Listar Arquivos");
+		btnList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+
+				try {
+					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
+					frame.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				
+				
+			}
+		});
+		btnList.setFont(new Font("Open Sans", Font.PLAIN, 14));
+		btnList.setBounds(116, 342, 159, 39);
+		panel.add(btnList);
+		
+		
+		
 		JButton btnAdd = new JButton("Indexar");
 		btnAdd.addActionListener(new ActionListener() {
 			

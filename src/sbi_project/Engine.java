@@ -1,6 +1,7 @@
 package sbi_project;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 //importa classe Trie de Tree
 import Tree.Trie;
@@ -117,7 +118,18 @@ public class Engine {
 	 * @param file Endereço do arquivo a ser removido
 	 */
 	public void removeFile( String file ){
-		// stub
+	
+		// remove palavras associadas ao arquivo removido
+		// retira arquivo da lista de arquivos
+		
+	}
+	
+	/**
+	 * Metodo para recuperar todos os arquivos ao sistema
+	 * @return Lista com arquivos
+	 */
+	public  ArrayList<String> listFile(  ){
+		return db.getFiles();
 	}
 	
 	/**
@@ -139,6 +151,7 @@ public class Engine {
 	public void list() {
 		db.list();
 	}
+	
 	
 	
 }

@@ -13,7 +13,7 @@ public class TrieTest {
 
 		Trie arvore = new Trie( alfa );
 
-
+		
 		try {
 			arvore.insertWord("casa",0, "");
 			arvore.insertWord("casamento",0, "");
