@@ -54,7 +54,7 @@ public class Index
 	public String getFilename() {
 		int index = arquivo.lastIndexOf('/');
 		
-		return arquivo.substring(7);
+		return arquivo.substring(index+1);
 	}
 	
 	public void setArquivo(String arquivo) {

@@ -40,17 +40,17 @@ public class SearchAnd extends Search {
 		//Adiciona todas as ocorrencias da primeira palavra no HashMap
 		for( Index index : node.getIndices() ) {
 			//Cria string a ser armazenada
-			String resposta = index.getArquivo() + ": '" + words[0] +"' x" +index.getOcorrencia();
+			String resposta = index.getFilename() + ": '" + words[0] +"' x" +index.getOcorrencia();
 			resposta += " (" + index.getLinha() + ")";
 
-			if( !arquivos.containsKey(index.getArquivo() )) {
+			if( !arquivos.containsKey(index.getFilename() )) {
 
 				//Armazena arquivo e string no HashMap
-				arquivos.put(index.getArquivo(), resposta);
+				arquivos.put(index.getFilename(), resposta);
 			} else {
 				//Atualiza string
-				resposta += ";" + arquivos.get(index.getArquivo());
-				arquivos.put(index.getArquivo(), resposta);
+				resposta += ";" + arquivos.get(index.getFilename());
+				arquivos.put(index.getFilename(), resposta);
 			}
 		}
 
@@ -74,13 +74,13 @@ public class SearchAnd extends Search {
 					
 					//Verifica se palavra está no arquivo
 					Index index = indices.get(j);
-					if( index.getArquivo() == key) {
-						String resposta = index.getArquivo() + ": '" + words[i] +"' x" +index.getOcorrencia();
+					if( index.getFilename() == key) {
+						String resposta = index.getFilename() + ": '" + words[i] +"' x" +index.getOcorrencia();
 						resposta += " (" + index.getLinha() + ")";
 
 						//Atualiza string
-						resposta += ";" + arquivos.get(index.getArquivo());
-						arquivos.put(index.getArquivo(), resposta);
+						resposta += ";" + arquivos.get(index.getFilename());
+						arquivos.put(index.getFilename(), resposta);
 						
 						shouldDelete = false;
 					} 
