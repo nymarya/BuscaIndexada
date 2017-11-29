@@ -143,10 +143,6 @@ public class Trie
 			pt.setTerminal(true);
 		}
 		
-		
-		
-		
-		
 	}
 
 

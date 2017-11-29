@@ -214,7 +214,6 @@ public class engineView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 
 				try {
 					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
@@ -244,10 +243,8 @@ public class engineView extends JFrame {
 					try {
 						verify = engine.addFile(txtArchive.getText());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (TreeException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else if( radioBtnBlacklist.isSelected() ){
@@ -255,11 +252,9 @@ public class engineView extends JFrame {
 						try {
 							verify = engine.addBlacklist(txtArchive.getText());
 						} catch (TreeException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else {

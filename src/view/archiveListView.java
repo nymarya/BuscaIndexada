@@ -119,6 +119,39 @@ public class archiveListView extends JFrame {
 		btnRemoveArchive.setBounds(330, 90, 108, 26);
 		panel.add(btnRemoveArchive);
 		
+		
+		JButton btnUpdateArchive = new JButton("Atualizar");
+		btnUpdateArchive.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// recupera elemento selecionado
+				String selectedValue = (String) listArchives.getSelectedValue();
+				if( selectedValue != null ) {
+					
+					// chama metodo atualizar da Engine
+					try {
+						engine.updateFile(selectedValue);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (TreeException e1) {
+						e1.printStackTrace();
+					}
+
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione o arquivo que deseja atualizar");
+				}
+				
+			}
+		});
+		btnUpdateArchive.setBackground(new Color(255, 255, 255));
+		btnUpdateArchive.setFont(new Font("Open Sans", Font.BOLD, 13));
+		btnUpdateArchive.setBounds(330, 190, 108, 26);
+		panel.add(btnUpdateArchive);
+		
+		
 	}
 	
 }

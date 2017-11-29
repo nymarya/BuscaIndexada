@@ -3,6 +3,8 @@ package sbi_project;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 //importa classe Trie de Tree
 import Tree.Trie;
 import Tree.Node;
@@ -86,32 +88,40 @@ public class Engine {
 	 */
 	public boolean addFile( String file ) throws IOException, TreeException{
 		
-		Parser p = new Parser(file);
-		Pair<String, Integer> token = new Pair<String, Integer>();
-		while( p.hasNext() ) {
-			token = p.next();
+		boolean isAdd = db.addFile(file);
+		if( isAdd ) {
+			Parser p = new Parser(file);
+			Pair<String, Integer> token = new Pair<String, Integer>();
+			while( p.hasNext() ) {
+				token = p.next();
 
-			if( token != null) {
-				//Recupera palavra e linha
-				String word = token.getFirst().toLowerCase();
-				int line = token.getSecond();
-				
-				//Checa se palavra está na blacklist
-				Node forbidden = blacklist.search(word);
-				
-				//Se não está, faz a inserção
-				if(forbidden == null) {
-					//Adiciona palavra no banco de dados
-					db.addWord(word, line, file);
-						
+				if( token != null) {
+					//Recupera palavra e linha
+					String word = token.getFirst().toLowerCase();
+					int line = token.getSecond();
+					
+					//Checa se palavra está na blacklist
+					Node forbidden = blacklist.search(word);
+					
+					//Se não está, faz a inserção
+					if(forbidden == null) {
+						//Adiciona palavra no banco de dados
+						db.addWord(word, line, file);
+							
+					}
 				}
+				
 			}
+			p.close();
 			
+			return true;
+			
+		} else {
+			return false;
 		}
-		p.close();
 		
-		// adicionando o endereco do arquivo inserido na lista
-		return db.addFile(file);
+		
+
 		 
 	}
 	
@@ -149,7 +159,7 @@ public class Engine {
 					}
 					// senao percorre os indices do n� e remove indice associado ao arquivo
 					else {
-						
+						System.out.println(word);
 						// percorre os indices associados � palavra
 						for( Index index : indices ){
 							
@@ -199,9 +209,69 @@ public class Engine {
 	/**
 	 * Metodo para atualizar um arquivo do sistema
 	 * @param file Endereco do arquivo a ser atualizado
+	 * @throws IOException 
+	 * @throws TreeException 
 	 */
-	public void updateFile( String file ){
-		// stub
+	public void updateFile( String file ) throws IOException, TreeException{
+		
+		db.list();
+
+		
+		Parser p = new Parser(file);
+		Pair<String, Integer> token = new Pair<String, Integer>();
+		
+		// percorre arquivo recuperando palavras
+		while( p.hasNext() ) {
+			
+			token = p.next();
+
+			if( token != null) {
+				//Recupera palavra e linha
+				String word = token.getFirst().toLowerCase();
+				int line = token.getSecond();
+				
+				// busca a palavra na arvore
+				Node node = db.searchNode(word);
+				
+				// se nao encontrar palavra
+				if( node == null ){
+					db.addWord(word, line, file);
+				}
+				// se encontrar palavra
+				else {
+					
+					// recupera indices da palavra
+					ArrayList<Index> indices = node.getIndices();
+					
+					boolean indiceEncontrado = false;
+					
+					for( Index index : indices ){
+						
+						// verifica se eh o indice do arquivo e linha analisados
+						if( index.getArquivo() == file && index.getLinha() == line ){
+							indiceEncontrado = true;
+						}
+						
+					}
+					
+					if( !indiceEncontrado ){
+						db.addWord(word, line, file);
+					}
+					
+					
+				}
+				
+				
+				
+				
+			}
+		}
+		p.close();
+		
+		
+		db.list();
+
+		
 	}
 	
 	public void list() {

@@ -31,7 +31,12 @@ public class DataBase {
 	 */
 	public boolean addFile( String file ){
 		
-		return files.add(file);
+		if( files.contains(file) ) {
+			return false;
+		} else {
+			return files.add(file);
+		}
+		
 
 	}
 	
