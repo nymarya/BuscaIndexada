@@ -195,10 +195,18 @@ public class advancedSearchView extends JFrame {
 				if( !(txtBusca.getText().isEmpty()) ){
 					// limpa lista
 					modelo.clear();
-					ArrayList<String> result = searchOr.search(txtBusca.getText());
-					for( String element : result ){
-						modelo.addElement(element);
-					}
+					ArrayList<String> result;
+					
+					try 
+					{
+						result = searchOr.search(txtBusca.getText());
+						for( String element : result )
+							modelo.addElement(element);
+						
+					}catch (TreeException e1) 
+					{
+						e1.printStackTrace();
+					}				
 					
 				}
 				
