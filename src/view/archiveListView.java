@@ -97,18 +97,20 @@ public class archiveListView extends JFrame {
 				// recupera elemento selecionado
 				String selectedValue = (String) listArchives.getSelectedValue();
 				if( selectedValue != null ) {
-						
+					
 					// chama metodo remover da Engine
 					try {
 						engine.removeFile(selectedValue);
 					} catch (IOException | TreeException e1) {
 						e1.printStackTrace();
 					}
-
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecione o arquivo que deseja remover");
 				}
 				// atualizar modelo jList
+				int selectedIndex = listArchives.getSelectedIndex();
+				modelo.removeElementAt(selectedIndex);
 				
 			}
 		});

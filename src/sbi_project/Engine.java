@@ -120,7 +120,7 @@ public class Engine {
 	 * @param file EndereÃ§o do arquivo a ser removido
 	 */
 	public void removeFile( String file ) throws IOException, TreeException{
-	
+		
 		db.list();
 		
 		// remove palavras associadas ao arquivo removido
@@ -145,12 +145,10 @@ public class Engine {
 					// se só tiver um indice, remove o node - a palavra da arvore
 					if( indices.size() == 1 ){
 						db.removeWord(word);
-						System.out.println("TESTE1");
 						
-					} 
+					}
 					// senao percorre os indices do nó e remove indice associado ao arquivo
 					else {
-						System.out.println("TESTE2");
 						
 						// percorre os indices associados à palavra
 						for( Index index : indices ){
@@ -174,10 +172,10 @@ public class Engine {
 		
 		System.out.println("DEPOIS DA REMOCAO");
 		
+		
 		db.list();
 		// retira arquivo da lista de arquivos
 		db.removeFile(file);
-		
 		
 		
 	}
