@@ -66,6 +66,16 @@ public class TrieTest {
 
 		try {
 			arvore.remove("ajshajh");
+			
+			arvore.remove("casa");
+			arvore.remove("casamento");
+			arvore.remove("camelo");
+			arvore.remove("bacia");
+			arvore.remove("vaca");
+			arvore.remove("comida");
+			arvore.remove("comi");
+			
+			assertNotEquals(null, arvore.getRoot());
 		} catch (TreeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

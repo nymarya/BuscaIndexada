@@ -224,6 +224,9 @@ public class Trie
 	public void remove(String s) throws TreeException {
 		//Usa mÃ©todo auxiliar
 		raiz = removeHelper(s, raiz, 0);
+		
+		if( raiz == null)
+			raiz = new Node( '#', false, alfabeto.length );
 	}
 
 	/**
