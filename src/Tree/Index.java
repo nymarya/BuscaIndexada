@@ -76,5 +76,26 @@ public class Index
 		this.ocorrencia++;
 	}
 	
+	/**
+	 * Recebe uma palavra e monta a frase que deve
+	 * ser mostrada na listagem com base nos dados
+	 * armazenados no índice.
+	 * @param word  a palvra que está relacionada com este índice
+	 * @return  a frase para ser mostrada na listagem
+	 */
+	public String montarFrase ( String word )
+	{
+		StringBuffer aux = new StringBuffer();
+		
+		aux.append(this.getFilename() + ": ");
+		aux.append(this.getOcorrencia());
+		aux.append(" ocorrencia(s) da palavra '");
+		aux.append(word);
+		aux.append("' na linha ");
+		aux.append(this.getLinha());
+		
+		return aux.toString();
+	}
+	
 	
 }

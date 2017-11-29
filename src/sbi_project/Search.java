@@ -22,8 +22,7 @@ public abstract class Search {
 		this.db = db;
 		ocorrencias = new ArrayList<>();
 	}
-		
-	
+			
 	/**
 	 * Metodo usado para realizar uma busca
 	 * @param data Palavra a ser buscada
