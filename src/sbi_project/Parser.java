@@ -26,7 +26,7 @@ public class Parser {
 	
 	//mantém a linha atual
 	private int lineCount;
-
+	
 
 	/**
 	 * Metodo construtor

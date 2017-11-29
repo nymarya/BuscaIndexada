@@ -55,7 +55,9 @@ public class Engine {
 	 * @param file Endereco do arquivo
 	 */
 	public void removeBlacklist( String file ){
-		// stub
+		
+		
+		
 	}
 	
 	/**
@@ -117,10 +119,66 @@ public class Engine {
 	 * Metodo para remover arquivos ao sistema
 	 * @param file EndereÃ§o do arquivo a ser removido
 	 */
-	public void removeFile( String file ){
+	public void removeFile( String file ) throws IOException, TreeException{
 	
+		db.list();
+		
 		// remove palavras associadas ao arquivo removido
+		Parser p = new Parser(file);
+		Pair<String, Integer> token = new Pair<String, Integer>();
+		
+		// percorre arquivo recuperando palavras
+		while( p.hasNext() ) {
+			
+			token = p.next();
+
+			if( token != null) {
+				//Recupera palavra e linha
+				String word = token.getFirst().toLowerCase();
+				int line = token.getSecond();
+				
+				// busca a palavra na arvore
+				Node node = db.searchNode(word);
+				if( node != null ){
+					ArrayList<Index> indices = node.getIndices();
+					
+					// se só tiver um indice, remove o node - a palavra da arvore
+					if( indices.size() == 1 ){
+						db.removeWord(word);
+						System.out.println("TESTE1");
+						
+					} 
+					// senao percorre os indices do nó e remove indice associado ao arquivo
+					else {
+						System.out.println("TESTE2");
+						
+						// percorre os indices associados à palavra
+						for( Index index : indices ){
+							
+							// verifica se eh o indice do arquivo e linha analisados
+							if( index.getArquivo() == file && index.getLinha() == line ){
+								
+								// remove o indice do arrayList associado ao arquivo
+								node.removeIndice(index);
+								
+							}
+						}
+					
+					}
+							
+				}
+				
+			}
+		}
+		p.close();
+		
+		System.out.println("DEPOIS DA REMOCAO");
+		
+		db.list();
 		// retira arquivo da lista de arquivos
+		db.removeFile(file);
+		
+		
 		
 	}
 	

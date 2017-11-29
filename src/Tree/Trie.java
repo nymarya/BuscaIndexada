@@ -106,7 +106,19 @@ public class Trie
 
 		//Se a palavra ainda não estiver na árvore, adiciona
 		//Caso contrário, atualiza número de ocorrências
-		if( length <= s.length()) {
+		if(length == s.length() && pt.getTerminal() ){
+
+			//Se já houver palavra naquele arquivo e naquela linha,
+			//atualiza número de ocorrencias
+			Index index = pt.getIndice(arquivo, linha);
+			if( index != null) {
+				index.incrementaOcorrencia();
+			} else {
+				Index indice = new Index(linha, arquivo, 1);
+				pt.addIndice(indice);
+			}
+			
+		} else if( length <= s.length()) {
 			//Insere chave a partir do final do prefixo encontrado
 			while(length < s.length()) {
 				//Cria novo nó
@@ -129,19 +141,9 @@ public class Trie
 			
 			//Ultimo nó é terminal
 			pt.setTerminal(true);
-		} else {
-
-			//Se já houver palavra naquele arquivo e naquela linha,
-			//atualiza número de ocorrencias
-			Index index = pt.getIndice(arquivo, linha);
-			if( index != null) {
-				index.incrementaOcorrencia();
-			} else {
-				//cria novo indice
-				index = new Index(linha, arquivo, 1);
-			}
-			
 		}
+		
+		
 		
 		
 		

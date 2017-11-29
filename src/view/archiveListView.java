@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -13,9 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Tree.TreeException;
 import sbi_project.Engine;
 import sbi_project.SearchAnd;
 import sbi_project.SearchOr;
@@ -50,7 +53,7 @@ public class archiveListView extends JFrame {
 	
 	public void indexView() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -93,8 +96,19 @@ public class archiveListView extends JFrame {
 				
 				// recupera elemento selecionado
 				String selectedValue = (String) listArchives.getSelectedValue();
-				// chama metodo remover da Engine
-				engine.removeFile(selectedValue);
+				if( selectedValue != null ) {
+						
+					// chama metodo remover da Engine
+					try {
+						engine.removeFile(selectedValue);
+					} catch (IOException | TreeException e1) {
+						e1.printStackTrace();
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione o arquivo que deseja remover");
+				}
+				// atualizar modelo jList
 				
 			}
 		});

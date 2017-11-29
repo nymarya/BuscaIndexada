@@ -53,14 +53,16 @@ public class DataBase {
 	public void addWord( String word, int line, String file) throws TreeException{
 		
 		words.insertWord(word, line, file);
+		
 	}
 	
 	/**
 	 * Metodo para remover palavra da arvore
 	 * @param word Palavra a ser removida
+	 * @throws TreeException 
 	 */
-	public void removeWord( String word ){
-		// stub
+	public void removeWord( String word ) throws TreeException{
+		words.remove(word);
 	}
 	
 	/**

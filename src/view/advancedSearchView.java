@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Tree.TreeException;
 import sbi_project.Engine;
 import sbi_project.SearchAnd;
 import sbi_project.SearchOr;
@@ -164,10 +165,18 @@ public class advancedSearchView extends JFrame {
 				if( !(txtBusca.getText().isEmpty()) ){
 					// limpa lista
 					modelo.clear();
-					ArrayList<String> result = searchAnd.search(txtBusca.getText());
-					for( String element : result ){
-						modelo.addElement(element);
+					ArrayList<String> result;
+					try {
+						result = searchAnd.search(txtBusca.getText());
+					
+						for( String element : result ){
+							modelo.addElement(element);
+						}
+					} catch (TreeException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
+					
 					
 				}
 				
