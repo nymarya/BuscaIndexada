@@ -23,6 +23,14 @@ public class TreeException extends Exception
 	}
 	
 	/**
+	 * Construtor com caracter de error
+	 */
+	public TreeException( char c)
+	{
+		message = "Palavra com caracter não reconhecido pelo alfabeto definido!" + c;
+	}
+	
+	/**
 	 * Construtor com mensagem definida
 	 * @param message A mensagem
 	 */

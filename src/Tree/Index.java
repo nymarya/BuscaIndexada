@@ -2,14 +2,16 @@ package Tree;
 
 import java.io.Serializable;
 
+
 /**
  * Representa os dados necessários para o índice
  * remissivo de palavras. Funciona em conjunto com
  * a classe Node.
  * @author gabriel
+ * @param <T>
  *
  */
-public class Index implements Serializable
+public class Index implements Serializable, Comparable<Index>
 {
 	//uid
 	private static final long serialVersionUID = 3L;
@@ -31,6 +33,17 @@ public class Index implements Serializable
 	 */
 	public Index(int linha, String arquivo, int ocorrencia) {
 		this.linha = linha;
+		this.arquivo = arquivo;
+		this.ocorrencia = ocorrencia;
+	}
+	
+	/**
+	 * Construtor com parâmetros
+	 * @param arquivo
+	 * @param ocorrencia
+	 */
+	public Index(String arquivo, int ocorrencia) {
+		this.linha = -1;
 		this.arquivo = arquivo;
 		this.ocorrencia = ocorrencia;
 	}
@@ -100,6 +113,19 @@ public class Index implements Serializable
 		
 		return aux.toString();
 	}
-	
-	
+
+	@Override
+	public int compareTo(Index o)
+	{
+		if ( this.getOcorrencia() > o.getOcorrencia())
+			return -1;
+		else if (this.getOcorrencia() < o.getOcorrencia())
+			return 1;
+		else if (this.getOcorrencia() == o.getOcorrencia())
+		{
+			return this.getArquivo().compareTo(o.getArquivo());
+		}
+		
+		return 0;
+	}	
 }
