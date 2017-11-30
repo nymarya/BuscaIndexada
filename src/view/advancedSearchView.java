@@ -1,8 +1,7 @@
 package view;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,7 +20,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -60,36 +58,30 @@ public class advancedSearchView extends JFrame {
 
 
 	public void indexView() {
+
+		//Serializa engine ao fechar aplicação
 		WindowListener exitListener = new WindowAdapter() {
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(
-						null, "Tem certeza que deseja fechar aplicação?", 
-						"Confirmação", JOptionPane.YES_NO_OPTION, 
-						JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					//persiste sistema em arquivo
-					try {
+				//persiste dados em arquivo
+				try {
 
-						Engine eng = engine;
-						FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
-						ObjectOutputStream out = new ObjectOutputStream(fileOut);
-						out.writeObject(eng);
-						out.close();
-						fileOut.close();
-						System.out.printf("Serialized data is saved in ../data/bd.ser");
-					} catch (IOException i) {
-						i.printStackTrace();
-					}
-
-					System.exit(0);
+					Engine eng = engine;
+					FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
+					ObjectOutputStream out = new ObjectOutputStream(fileOut);
+					out.writeObject(eng);
+					out.close();
+					fileOut.close();
+				} catch (IOException i) {
+					i.printStackTrace();
 				}
+
+				System.exit(0);
 			}
 		};
-
 		this.addWindowListener(exitListener);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

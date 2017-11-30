@@ -2,6 +2,7 @@ package sbi_project;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -20,15 +21,16 @@ public class SearchSystem {
 		// instancia da engine, passando o bd
 		Engine engine = new Engine( db );
 
-		Engine e = null;
 		try {
 			FileInputStream fileIn = new FileInputStream(new File("./data/bd.ser").getCanonicalPath());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			e = (Engine) in.readObject();
+			Engine e = (Engine) in.readObject();
 			engine = e;
 			db = engine.getDB();
 			in.close();
 			fileIn.close();
+		} catch( FileNotFoundException f) {
+			//Continua execução normalmente se o arquivo ainda n existe
 		} catch (IOException i) {
 			i.printStackTrace();
 			return;
