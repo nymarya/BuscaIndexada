@@ -54,7 +54,7 @@ public class archiveListView extends JFrame {
 	public void indexView() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 500, 400);
+		setBounds(100, 100, 700, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,7 +78,7 @@ public class archiveListView extends JFrame {
 		listArchives = new JList(modelo);
 		listArchives.setVisibleRowCount(10);
 		listArchives.setBackground(new Color(245, 245, 245));
-		listArchives.setBounds(10, 10, 300, 300);
+		listArchives.setBounds(10, 10, 500, 300);
 		panel.add(listArchives);
 		
 		// limpa lista
@@ -116,7 +116,7 @@ public class archiveListView extends JFrame {
 		});
 		btnRemoveArchive.setBackground(new Color(255, 255, 255));
 		btnRemoveArchive.setFont(new Font("Open Sans", Font.BOLD, 13));
-		btnRemoveArchive.setBounds(330, 90, 108, 26);
+		btnRemoveArchive.setBounds(530, 90, 108, 26);
 		panel.add(btnRemoveArchive);
 		
 		
@@ -148,7 +148,7 @@ public class archiveListView extends JFrame {
 		});
 		btnUpdateArchive.setBackground(new Color(255, 255, 255));
 		btnUpdateArchive.setFont(new Font("Open Sans", Font.BOLD, 13));
-		btnUpdateArchive.setBounds(330, 190, 108, 26);
+		btnUpdateArchive.setBounds(530, 190, 108, 26);
 		panel.add(btnUpdateArchive);
 		
 		

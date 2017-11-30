@@ -162,18 +162,22 @@ public class engineView extends JFrame {
 				
 				// Trecho de código baseado em:
 				// http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(getParent());
-				File selectedFile = null;
-				if (result == JFileChooser.APPROVE_OPTION) {
-					selectedFile = fileChooser.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				try {	
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+					int result = fileChooser.showOpenDialog(getParent());
+	
+					File selectedFile = null;
+					if (result == JFileChooser.APPROVE_OPTION) {
+						selectedFile = fileChooser.getSelectedFile();
+					    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+					}
+					// Fim do trecho de código
+					
+					txtArchive.setText(selectedFile.getAbsolutePath());
+				} catch (Exception ex) {
+					// empty
 				}
-				// Fim do trecho de código
-				
-				txtArchive.setText(selectedFile.getAbsolutePath());
-				
 			}
 		});
 		
