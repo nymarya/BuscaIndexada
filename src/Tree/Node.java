@@ -75,7 +75,10 @@ public class Node implements Serializable
 	public Node getPonteiro ( int index ) throws TreeException
 	{
 		if (index < 0 || index > ponteiros.length)
+		{
+			System.out.println(index);
 			throw new TreeException();
+		}			
 		
 		if ( ponteiros[index] != null )
 			return ponteiros[index];

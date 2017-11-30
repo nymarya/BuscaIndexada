@@ -25,9 +25,9 @@ public class Engine implements Serializable{
 	
 	public Engine( DataBase db ){
 		this.db = db;
-		char[] alfa = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
-				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'á', 'à', 
-				'â', 'ã', 'ç', 'é', 'ê', 'í', 'ó', 'ô', 'õ', 'ú'};
+		char[] alfa = {'-', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'é', 'â',
+				'à', 'ç', 'ê', 'è', 'î', 'ì','ô', 'ò', 'û', 'ù', 'á', 'ó', 'ú'};
 		
 		blacklist = new Trie( alfa );
 	}
