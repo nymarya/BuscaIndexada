@@ -1,19 +1,22 @@
 package sbi_project;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 //importa classe Trie de Tree
 import Tree.Trie;
+import Tree.Index;
 import Tree.Node;
 import Tree.TreeException;
-import Tree.Index;
 
 // Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
-public class Engine {
+public class Engine implements Serializable{
 
+	
+	
+	private static final long serialVersionUID = 3680429638771644168L;
 	// Banco de dados (com arvores e listas)
 	private DataBase db;
 	// arvore (ED) com palavras indisponiveis para a busca
@@ -152,15 +155,15 @@ public class Engine {
 				if( node != null ){
 					ArrayList<Index> indices = node.getIndices();
 					
-					// se só tiver um indice, remove o node - a palavra da arvore
+					// se sï¿½ tiver um indice, remove o node - a palavra da arvore
 					if( indices.size() == 1 ){
 						db.removeWord(word);
 						
 					}
-					// senao percorre os indices do nó e remove indice associado ao arquivo
+					// senao percorre os indices do nï¿½ e remove indice associado ao arquivo
 					else {
 						System.out.println(word);
-						// percorre os indices associados à palavra
+						// percorre os indices associados ï¿½ palavra
 						for( Index index : indices ){
 							
 							// verifica se eh o indice do arquivo e linha analisados
@@ -276,6 +279,14 @@ public class Engine {
 	
 	public void list() {
 		db.list();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public DataBase getDB() {
+		return db;
 	}
 	
 	
