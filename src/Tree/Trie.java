@@ -1,5 +1,6 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -10,7 +11,7 @@ import sbi_project.Pair;
  * @author gabriel
  *
  */
-public class Trie
+public class Trie implements Serializable
 {
 	private char[] alfabeto;    // Alfabeto usado pela árvore
 	private Node raiz;          // raiz da árvore

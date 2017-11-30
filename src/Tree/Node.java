@@ -1,5 +1,6 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author gabriel
  *
  */
-public class Node
+public class Node implements Serializable
 {
 	private Character chave;  // conteúdo do nó
 	private Node ponteiros[]; // "ponteiros" para possíveis nós

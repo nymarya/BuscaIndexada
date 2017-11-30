@@ -1,5 +1,7 @@
 package Tree;
 
+import java.io.Serializable;
+
 /**
  * Representa os dados necessários para o índice
  * remissivo de palavras. Funciona em conjunto com
@@ -7,7 +9,7 @@ package Tree;
  * @author gabriel
  *
  */
-public class Index 
+public class Index implements Serializable
 {
 	private int linha;        // linha do arquivo que a palavra se encontra
 	private String arquivo;   // arquivo em que a palavra se encontra

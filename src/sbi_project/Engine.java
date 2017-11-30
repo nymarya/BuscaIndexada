@@ -1,6 +1,7 @@
 package sbi_project;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 //importa classe Trie de Tree
 import Tree.Trie;
@@ -9,7 +10,7 @@ import Tree.TreeException;
 import Tree.Index;
 
 // Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
-public class Engine {
+public class Engine implements Serializable{
 
 	// Banco de dados (com arvores e listas)
 	private DataBase db;
@@ -138,6 +139,14 @@ public class Engine {
 	
 	public void list() {
 		db.list();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public DataBase getDB() {
+		return db;
 	}
 	
 	

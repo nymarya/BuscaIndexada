@@ -5,11 +5,12 @@ import Tree.Trie;
 import Tree.Node;
 import Tree.TreeException;
 
+import java.io.Serializable;
 // importa ArrayList
 import java.util.ArrayList;
 
 // Classe que representa o banco de dados do sistema
-public class DataBase {
+public class DataBase implements  Serializable{
 
 	// Arvore (ED) com todos os arquivos inseridos
 	private ArrayList<String> files;
