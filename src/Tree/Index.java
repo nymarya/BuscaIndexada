@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class Index implements Serializable
 {
+	//uid
+	private static final long serialVersionUID = 3L;
 	private int linha;        // linha do arquivo que a palavra se encontra
 	private String arquivo;   // arquivo em que a palavra se encontra
 	private int ocorrencia;   // Ocorrências da palavra em uma linha

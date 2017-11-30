@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class Node implements Serializable
 {
+	//uis
+	private static final long serialVersionUID = -5001536922471381984L;
 	private Character chave;  // conteúdo do nó
 	private Node ponteiros[]; // "ponteiros" para possíveis nós
 	private boolean terminal; // indica se é o final de uma palavra
