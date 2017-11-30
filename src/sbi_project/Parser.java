@@ -62,7 +62,7 @@ public class Parser {
 			if (line == null) {
 				return null;
 			}
-			String[] parts = line.replace("\u200B", "").split("[\\s,.()]+");
+			String[] parts = line.replace("\u200B", "").split("[\\s+,.()]+");
 			for(String p : parts) {
 			  tokens.addLast(p);
 			}

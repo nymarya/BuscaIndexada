@@ -1,5 +1,7 @@
 package Tree;
 
+import java.io.Serializable;
+
 
 /**
  * Representa os dados necessários para o índice
@@ -9,8 +11,10 @@ package Tree;
  * @param <T>
  *
  */
-public class Index implements Comparable<Index>
+public class Index implements Serializable, Comparable<Index>
 {
+	//uid
+	private static final long serialVersionUID = 3L;
 	private int linha;        // linha do arquivo que a palavra se encontra
 	private String arquivo;   // arquivo em que a palavra se encontra
 	private int ocorrencia;   // Ocorrências da palavra em uma linha
