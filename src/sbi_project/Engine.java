@@ -7,11 +7,13 @@ import java.io.Serializable;
 import Tree.Trie;
 import Tree.Node;
 import Tree.TreeException;
-import Tree.Index;
 
 // Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
 public class Engine implements Serializable{
 
+	
+	
+	private static final long serialVersionUID = 3680429638771644168L;
 	// Banco de dados (com arvores e listas)
 	private DataBase db;
 	// arvore (ED) com palavras indisponiveis para a busca

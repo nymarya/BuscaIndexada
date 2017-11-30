@@ -12,6 +12,8 @@ import java.util.ArrayList;
 // Classe que representa o banco de dados do sistema
 public class DataBase implements  Serializable{
 
+	//
+	private static final long serialVersionUID = 4533597686629028541L;
 	// Arvore (ED) com todos os arquivos inseridos
 	private ArrayList<String> files;
 	// Arvore (ED) com todas as palavras dos arquivos inseridos
