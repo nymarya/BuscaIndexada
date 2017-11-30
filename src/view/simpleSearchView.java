@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Tree.TreeException;
 import sbi_project.Engine;
 import sbi_project.Search;
 import sbi_project.SearchAnd;
@@ -188,12 +189,17 @@ public class simpleSearchView extends JFrame{
 				if( !(txtBusca.getText().isEmpty()) ){
 					// limpa lista
 					modelo.clear();
-					ArrayList<String> result = searchOr.search(txtBusca.getText());
-					for( String element : result ){
-						modelo.addElement(element);
-					}
+					ArrayList<String> result;
+					
+					try {
+						result = searchOr.search(txtBusca.getText());
+						for( String element : result )
+							modelo.addElement(element);
+					}catch (TreeException e1) 
+					{
+						e1.printStackTrace();
+					}				
 				}
-				
 			}
 		});
 		
