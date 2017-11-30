@@ -1,6 +1,9 @@
 package sbi_project;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 //importa classe Trie de Tree
 import Tree.Trie;
@@ -54,7 +57,9 @@ public class Engine {
 	 * @param file Endereco do arquivo
 	 */
 	public void removeBlacklist( String file ){
-		// stub
+		
+		
+		
 	}
 	
 	/**
@@ -83,32 +88,40 @@ public class Engine {
 	 */
 	public boolean addFile( String file ) throws IOException, TreeException{
 		
-		Parser p = new Parser(file);
-		Pair<String, Integer> token = new Pair<String, Integer>();
-		while( p.hasNext() ) {
-			token = p.next();
+		boolean isAdd = db.addFile(file);
+		if( isAdd ) {
+			Parser p = new Parser(file);
+			Pair<String, Integer> token = new Pair<String, Integer>();
+			while( p.hasNext() ) {
+				token = p.next();
 
-			if( token != null) {
-				//Recupera palavra e linha
-				String word = token.getFirst().toLowerCase();
-				int line = token.getSecond();
-				
-				//Checa se palavra está na blacklist
-				Node forbidden = blacklist.search(word);
-				
-				//Se não está, faz a inserção
-				if(forbidden == null) {
-					//Adiciona palavra no banco de dados
-					db.addWord(word, line, file);
-						
+				if( token != null) {
+					//Recupera palavra e linha
+					String word = token.getFirst().toLowerCase();
+					int line = token.getSecond();
+					
+					//Checa se palavra está na blacklist
+					Node forbidden = blacklist.search(word);
+					
+					//Se não está, faz a inserção
+					if(forbidden == null) {
+						//Adiciona palavra no banco de dados
+						db.addWord(word, line, file);
+							
+					}
 				}
+				
 			}
+			p.close();
 			
+			return true;
+			
+		} else {
+			return false;
 		}
-		p.close();
 		
-		// adicionando o endereco do arquivo inserido na lista
-		return db.addFile(file);
+		
+
 		 
 	}
 	
@@ -116,8 +129,73 @@ public class Engine {
 	 * Metodo para remover arquivos ao sistema
 	 * @param file Endereço do arquivo a ser removido
 	 */
-	public void removeFile( String file ){
-		// stub
+	public void removeFile( String file ) throws IOException, TreeException{
+		
+		db.list();
+		
+		// remove palavras associadas ao arquivo removido
+		Parser p = new Parser(file);
+		Pair<String, Integer> token = new Pair<String, Integer>();
+		
+		// percorre arquivo recuperando palavras
+		while( p.hasNext() ) {
+			
+			token = p.next();
+
+			if( token != null) {
+				//Recupera palavra e linha
+				String word = token.getFirst().toLowerCase();
+				int line = token.getSecond();
+				
+				// busca a palavra na arvore
+				Node node = db.searchNode(word);
+				if( node != null ){
+					ArrayList<Index> indices = node.getIndices();
+					
+					// se s� tiver um indice, remove o node - a palavra da arvore
+					if( indices.size() == 1 ){
+						db.removeWord(word);
+						
+					}
+					// senao percorre os indices do n� e remove indice associado ao arquivo
+					else {
+						System.out.println(word);
+						// percorre os indices associados � palavra
+						for( Index index : indices ){
+							
+							// verifica se eh o indice do arquivo e linha analisados
+							if( index.getArquivo() == file && index.getLinha() == line ){
+								
+								// remove o indice do arrayList associado ao arquivo
+								node.removeIndice(index);
+								
+							}
+						}
+					
+					}
+							
+				}
+				
+			}
+		}
+		p.close();
+		
+		System.out.println("DEPOIS DA REMOCAO");
+		
+		
+		db.list();
+		// retira arquivo da lista de arquivos
+		db.removeFile(file);
+		
+		
+	}
+	
+	/**
+	 * Metodo para recuperar todos os arquivos ao sistema
+	 * @return Lista com arquivos
+	 */
+	public  ArrayList<String> listFile(  ){
+		return db.getFiles();
 	}
 	
 	/**
@@ -131,14 +209,75 @@ public class Engine {
 	/**
 	 * Metodo para atualizar um arquivo do sistema
 	 * @param file Endereco do arquivo a ser atualizado
+	 * @throws IOException 
+	 * @throws TreeException 
 	 */
-	public void updateFile( String file ){
-		// stub
+	public void updateFile( String file ) throws IOException, TreeException{
+		
+		db.list();
+
+		
+		Parser p = new Parser(file);
+		Pair<String, Integer> token = new Pair<String, Integer>();
+		
+		// percorre arquivo recuperando palavras
+		while( p.hasNext() ) {
+			
+			token = p.next();
+
+			if( token != null) {
+				//Recupera palavra e linha
+				String word = token.getFirst().toLowerCase();
+				int line = token.getSecond();
+				
+				// busca a palavra na arvore
+				Node node = db.searchNode(word);
+				
+				// se nao encontrar palavra
+				if( node == null ){
+					db.addWord(word, line, file);
+				}
+				// se encontrar palavra
+				else {
+					
+					// recupera indices da palavra
+					ArrayList<Index> indices = node.getIndices();
+					
+					boolean indiceEncontrado = false;
+					
+					for( Index index : indices ){
+						
+						// verifica se eh o indice do arquivo e linha analisados
+						if( index.getArquivo() == file && index.getLinha() == line ){
+							indiceEncontrado = true;
+						}
+						
+					}
+					
+					if( !indiceEncontrado ){
+						db.addWord(word, line, file);
+					}
+					
+					
+				}
+				
+				
+				
+				
+			}
+		}
+		p.close();
+		
+		
+		db.list();
+
+		
 	}
 	
 	public void list() {
 		db.list();
 	}
+	
 	
 	
 }

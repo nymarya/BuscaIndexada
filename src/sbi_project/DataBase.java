@@ -31,7 +31,12 @@ public class DataBase {
 	 */
 	public boolean addFile( String file ){
 		
-		return files.add(file);
+		if( files.contains(file) ) {
+			return false;
+		} else {
+			return files.add(file);
+		}
+		
 
 	}
 	
@@ -53,14 +58,16 @@ public class DataBase {
 	public void addWord( String word, int line, String file) throws TreeException{
 		
 		words.insertWord(word, line, file);
+		
 	}
 	
 	/**
 	 * Metodo para remover palavra da arvore
 	 * @param word Palavra a ser removida
+	 * @throws TreeException 
 	 */
-	public void removeWord( String word ){
-		// stub
+	public void removeWord( String word ) throws TreeException{
+		words.remove(word);
 	}
 	
 	/**
@@ -76,5 +83,11 @@ public class DataBase {
 	public void list() {
 		words.listTree(words.getRoot(),  new StringBuffer());
 	}
+
+	public ArrayList<String> getFiles() {
+		return files;
+	}
+	
+	
 	
 }

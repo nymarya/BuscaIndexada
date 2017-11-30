@@ -12,14 +12,14 @@ import sbi_project.Pair;
  */
 public class Trie
 {
-	private char[] alfabeto;    // Alfabeto usado pela árvore
-	private Node raiz;          // raiz da árvore
-	private Node noDeParada;    // Um nó auxiliar para ajudar na busca e inserção
-	private int indexDeParada;  // índice auxiliar para ajudar na busca e inserção
+	private char[] alfabeto;    // Alfabeto usado pela Ã¡rvore
+	private Node raiz;          // raiz da Ã¡rvore
+	private Node noDeParada;    // Um nÃ³ auxiliar para ajudar na busca e inserÃ§Ã£o
+	private int indexDeParada;  // Ã­ndice auxiliar para ajudar na busca e inserÃ§Ã£o
 	
 	/**
 	 * Construtor
-	 * @param alfabeto  alfabeto reconhecido pela árvore
+	 * @param alfabeto  alfabeto reconhecido pela Ã¡rvore
 	 */
 	public Trie ( char[] alfabeto )
 	{
@@ -30,10 +30,10 @@ public class Trie
 	}
 	
 	/**
-	 * Busca uma palavra na árvore
+	 * Busca uma palavra na Ã¡rvore
 	 * @param s  palavra buscada
-	 * @return   true se palavra encontrada, false caso contrário.
-	 * @throws TreeException Caso algum caracter não seja reconhecido
+	 * @return   true se palavra encontrada, false caso contrÃ¡rio.
+	 * @throws TreeException Caso algum caracter nÃ£o seja reconhecido
 	 * pelo alfabeto.
 	 */
 	public Node search ( String s ) throws TreeException
@@ -53,11 +53,11 @@ public class Trie
 	}
 	
 	/**
-	 * Método auxiliar para buscar palavra na árvore.
+	 * MÃ©todo auxiliar para buscar palavra na Ã¡rvore.
 	 * @param s Chave a ser buscada.
 	 * @param pt O ponteiro atual.
 	 * @return Tamanho do prefixo e um ponteiro para o maior
-	 * prefixo da chave na árvore
+	 * prefixo da chave na Ã¡rvore
 	 * @throws TreeException 
 	 * 
 	 */
@@ -66,14 +66,14 @@ public class Trie
 		int l = 0;
 		while( l < s.length() ) {
 
-			//Recupera a posição do caractere
+			//Recupera a posiÃ§Ã£o do caractere
 			int index = searchIndexAlfa(s.charAt(l) );
 			if( pt.getPonteiro(index) != null) {
-				//Continua checando os nós
+				//Continua checando os nÃ³s
 				pt = pt.getPonteiro(index);
 				l++;
 			} else {
-				//Para o laço quando não há mais dígitos
+				//Para o laÃ§o quando nÃ£o hÃ¡ mais dÃ­gitos
 				break;
 			}
 
@@ -85,31 +85,31 @@ public class Trie
 	}
 	
 	/**
-	 * Insere uma nova palavra na árvore
+	 * Insere uma nova palavra na Ã¡rvore
 	 * @param s   A palavra
-	 * @throws TreeException Caso um caractere não seja reconhecido
+	 * @throws TreeException Caso um caractere nÃ£o seja reconhecido
 	 * pelo alfabeto
 	 */
 	public void insertWord ( String s, int linha, String arquivo ) throws TreeException
 	{
 		/**
-		 * Verifica se é uma palavra válida
+		 * Verifica se Ã© uma palavra vÃ¡lida
 		 */
 		if (s.length() == 0) return;
 
 		
-		//Busca chave na árvore
+		//Busca chave na Ã¡rvore
 		Node pt = raiz;
 		Pair<Integer, Node> result = searchWord(s, pt);
 		int length = result.getFirst();
 		pt = result.getSecond();
 
-		//Se a palavra ainda não estiver na árvore, adiciona
-		//Caso contrário, atualiza número de ocorrências
+		//Se a palavra ainda nÃ£o estiver na Ã¡rvore, adiciona
+		//Caso contrÃ¡rio, atualiza nÃºmero de ocorrÃªncias
 		if(length == s.length() && pt.getTerminal() ){
 
-			//Se já houver palavra naquele arquivo e naquela linha,
-			//atualiza número de ocorrencias
+			//Se jÃ¡ houver palavra naquele arquivo e naquela linha,
+			//atualiza nÃºmero de ocorrencias
 			Index index = pt.getIndice(arquivo, linha);
 			if( index != null) {
 				index.incrementaOcorrencia();
@@ -121,10 +121,10 @@ public class Trie
 		} else if( length <= s.length()) {
 			//Insere chave a partir do final do prefixo encontrado
 			while(length < s.length()) {
-				//Cria novo nó
+				//Cria novo nÃ³
 				Node node = new Node(s.charAt(length), false, alfabeto.length);
 
-				//Recupera posição do caractere no alfabeto
+				//Recupera posiÃ§Ã£o do caractere no alfabeto
 				int index = searchIndexAlfa(s.charAt(length));
 				
 				pt.setPonteiro(index, node);
@@ -139,63 +139,64 @@ public class Trie
 			Index indice = new Index(linha, arquivo, 1);
 			pt.addIndice(indice);
 			
-			//Ultimo nó é terminal
+			//Ultimo nÃ³ Ã© terminal
 			pt.setTerminal(true);
 		}
-		
-		
-		
-		
 		
 	}
 
 
 	/**
-	 * Lista elementos da árvore.
-	 * @param no Nó inicial.
-	 * @param palavra Palavra guardada até então.
+	 * Lista elementos da Ã¡rvore.
+	 * @param no NÃ³ inicial.
+	 * @param palavra Palavra guardada atÃ© entÃ£o.
 	 */
 	public void listTree ( Node no, StringBuffer palavra )
 	{		
 		/**
-		 * Quando a palavra é encontrada
+		 * Quando a palavra Ã© encontrada
 		 */
-		if ( no.getTerminal() )
-		{
-			System.out.println(palavra);
-		}
-		
-		Node[] ponteiros = no.getPonteiros();
-		int i=0;
-		for ( /*empty*/; i < ponteiros.length; i++ )
-		{
-			if ( ponteiros[i] != null )
+		if( no != null ) {
+			if ( no.getTerminal() )
 			{
-				palavra.append(ponteiros[i].getChave()); 
-				listTree(ponteiros[i], palavra);
+				System.out.println(palavra);
 			}
+		
+		
+		
+			Node[] ponteiros = no.getPonteiros();
+			int i=0;
+			for ( /*empty*/; i < ponteiros.length; i++ )
+			{
+				if ( ponteiros[i] != null )
+				{
+					palavra.append(ponteiros[i].getChave()); 
+					listTree(ponteiros[i], palavra);
+				}
+			}
+			if (palavra.length() > 0)	
+				palavra.deleteCharAt(palavra.length()-1);
+		
 		}
-		if (palavra.length() > 0)	
-			palavra.deleteCharAt(palavra.length()-1);
 			
 	}
 	
 	/**
-	 * Procura o índice de um caractere no alfabeto por busca binária
+	 * Procura o Ã­ndice de um caractere no alfabeto por busca binÃ¡ria
 	 * @param letra   O caractere
-	 * @return  O índice caso tenha encontrado, -1 caso contrário
+	 * @return  O Ã­ndice caso tenha encontrado, -1 caso contrÃ¡rio
 	 */
 	public int searchIndexAlfa ( Character letra )
 	{
 		/**
-		 * Inicialização
+		 * InicializaÃ§Ã£o
 		 */
 		int half;
 		int left = 0;
 		int right = alfabeto.length-1;
 		
 		/**
-		 * Busca binária
+		 * Busca binÃ¡ria
 		 */
 		while (left <= right)
 		{
@@ -212,12 +213,12 @@ public class Trie
 	}
 	
 	/**
-	 * Remove palavra da árvore.
+	 * Remove palavra da Ã¡rvore.
 	 * @param s String a ser removida.
 	 * @throws TreeException 
 	 */
 	public void remove(String s) throws TreeException {
-		//Usa método auxiliar
+		//Usa mÃ©todo auxiliar
 		raiz = removeHelper(s, raiz, 0);
 		
 		if( raiz == null)
@@ -225,11 +226,11 @@ public class Trie
 	}
 
 	/**
-	 * Método que auxilia a remoção na árvore
+	 * MÃ©todo que auxilia a remoÃ§Ã£o na Ã¡rvore
 	 * @param s String a ser removida
-	 * @param pt Ponteiro para o nó atual
-	 * @param l Índice atual da palavra
-	 * @return Nó após a tentativa de remoção
+	 * @param pt Ponteiro para o nÃ³ atual
+	 * @param l Ã�ndice atual da palavra
+	 * @return NÃ³ apÃ³s a tentativa de remoÃ§Ã£o
 	 * @throws TreeException 
 	 */
 	private Node removeHelper(String s, Node pt, int l) throws TreeException {
@@ -237,23 +238,23 @@ public class Trie
 		if(pt == null)
 			return null;
 
-		//Caso 2: chave é prefixo de outra 
+		//Caso 2: chave Ã© prefixo de outra 
 		//apenas desmarca como fim de palavra
 		if(l == s.length() && pt.getTerminal() )
 			pt.setTerminal(false);;
 
-		// Não é fim de palavra => analisa nós filhos
+		// NÃ£o Ã© fim de palavra => analisa nÃ³s filhos
 		if(l < s.length() ) {
 			int index = searchIndexAlfa(s.charAt(l));
 			Node aux = pt.getPonteiro(index);
 			pt.setPonteiro(index, removeHelper(s, aux, l+1));
 		}
 		
-		//O ponteiro atual é fim de palavra
+		//O ponteiro atual Ã© fim de palavra
 		if(pt.getTerminal())
 			return pt;
 
-		//Verifica se ponteiro atual é folha
+		//Verifica se ponteiro atual Ã© folha
 		for(int i = 0; i < 26; i++)
 			if(pt.getPonteiro(i) != null) return pt;
 
@@ -261,7 +262,7 @@ public class Trie
 	}
 	
 	/**
-	 * Retorna nó da árvore
+	 * Retorna nÃ³ da Ã¡rvore
 	 * @return
 	 */
 	public Node getRoot ()

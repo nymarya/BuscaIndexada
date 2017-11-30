@@ -162,18 +162,22 @@ public class engineView extends JFrame {
 				
 				// Trecho de código baseado em:
 				// http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(getParent());
-				File selectedFile = null;
-				if (result == JFileChooser.APPROVE_OPTION) {
-					selectedFile = fileChooser.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				try {	
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+					int result = fileChooser.showOpenDialog(getParent());
+	
+					File selectedFile = null;
+					if (result == JFileChooser.APPROVE_OPTION) {
+						selectedFile = fileChooser.getSelectedFile();
+					    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+					}
+					// Fim do trecho de código
+					
+					txtArchive.setText(selectedFile.getAbsolutePath());
+				} catch (Exception ex) {
+					// empty
 				}
-				// Fim do trecho de código
-				
-				txtArchive.setText(selectedFile.getAbsolutePath());
-				
 			}
 		});
 		
@@ -209,6 +213,28 @@ public class engineView extends JFrame {
 		bg.add(radioBtnBlacklist);
 		
 		
+		JButton btnList = new JButton("Listar Arquivos");
+		btnList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
+					frame.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				
+				
+			}
+		});
+		btnList.setFont(new Font("Open Sans", Font.PLAIN, 14));
+		btnList.setBounds(116, 342, 159, 39);
+		panel.add(btnList);
+		
+		
+		
 		JButton btnAdd = new JButton("Indexar");
 		btnAdd.addActionListener(new ActionListener() {
 			
@@ -221,10 +247,8 @@ public class engineView extends JFrame {
 					try {
 						verify = engine.addFile(txtArchive.getText());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (TreeException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else if( radioBtnBlacklist.isSelected() ){
@@ -232,11 +256,9 @@ public class engineView extends JFrame {
 						try {
 							verify = engine.addBlacklist(txtArchive.getText());
 						} catch (TreeException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else {

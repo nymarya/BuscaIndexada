@@ -74,7 +74,6 @@ public class simpleSearchView extends JFrame{
 		this.searchOr  = searchOr;
 		this.setTitle("SBI");
 		indexView();
-		
 	}
 	
 	/*
@@ -102,8 +101,6 @@ public class simpleSearchView extends JFrame{
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
 		panelBuscaSimples.add(panel, gbc_panel);
-		
-		
 		
 		
 		JButton btnIndexar = new JButton("Indexar Arquivo");
