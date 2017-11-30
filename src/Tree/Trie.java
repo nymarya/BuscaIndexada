@@ -68,6 +68,7 @@ public class Trie implements Serializable
 		while( l < s.length() ) {
 
 			//Recupera a posiÃ§Ã£o do caractere
+			System.out.println("Buscando: " + s.charAt(l));
 			int index = searchIndexAlfa(s.charAt(l) );
 			if( pt.getPonteiro(index) != null) {
 				//Continua checando os nÃ³s
@@ -97,7 +98,6 @@ public class Trie implements Serializable
 		 * Verifica se Ã© uma palavra vÃ¡lida
 		 */
 		if (s.length() == 0) return;
-
 		
 		//Busca chave na Ã¡rvore
 		Node pt = raiz;
@@ -121,19 +121,20 @@ public class Trie implements Serializable
 			
 		} else if( length <= s.length()) {
 			//Insere chave a partir do final do prefixo encontrado
+			int index;
 			while(length < s.length()) {
 				//Cria novo nÃ³
 				Node node = new Node(s.charAt(length), false, alfabeto.length);
 
 				//Recupera posiÃ§Ã£o do caractere no alfabeto
 				System.out.println("buscando: " + s.charAt(length));
-				int index = searchIndexAlfa(s.charAt(length));
-				
+				index = searchIndexAlfa(s.charAt(length));
 				pt.setPonteiro(index, node);
-
+				
 				//Continua inserindo
 				pt = pt.getPonteiro(index);
 				length++;
+				System.out.println("executou");
 			}
 
 

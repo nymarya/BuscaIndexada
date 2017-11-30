@@ -74,7 +74,7 @@ public class Node implements Serializable
 	 */
 	public Node getPonteiro ( int index ) throws TreeException
 	{
-		if (index < 0 || index > ponteiros.length)
+		if (index < 0 || index >= ponteiros.length)
 		{
 			System.out.println(index);
 			throw new TreeException();
@@ -98,7 +98,6 @@ public class Node implements Serializable
 			System.out.println(index);
 			throw new TreeException();
 		}
-			
 		
 		ponteiros[index] = novo;
 	}
