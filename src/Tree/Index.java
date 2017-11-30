@@ -1,13 +1,15 @@
 package Tree;
 
+
 /**
  * Representa os dados necessários para o índice
  * remissivo de palavras. Funciona em conjunto com
  * a classe Node.
  * @author gabriel
+ * @param <T>
  *
  */
-public class Index 
+public class Index implements Comparable<Index>
 {
 	private int linha;        // linha do arquivo que a palavra se encontra
 	private String arquivo;   // arquivo em que a palavra se encontra
@@ -27,6 +29,17 @@ public class Index
 	 */
 	public Index(int linha, String arquivo, int ocorrencia) {
 		this.linha = linha;
+		this.arquivo = arquivo;
+		this.ocorrencia = ocorrencia;
+	}
+	
+	/**
+	 * Construtor com parâmetros
+	 * @param arquivo
+	 * @param ocorrencia
+	 */
+	public Index(String arquivo, int ocorrencia) {
+		this.linha = -1;
 		this.arquivo = arquivo;
 		this.ocorrencia = ocorrencia;
 	}
@@ -96,6 +109,19 @@ public class Index
 		
 		return aux.toString();
 	}
-	
-	
+
+	@Override
+	public int compareTo(Index o)
+	{
+		if ( this.getOcorrencia() > o.getOcorrencia())
+			return -1;
+		else if (this.getOcorrencia() < o.getOcorrencia())
+			return 1;
+		else if (this.getOcorrencia() == o.getOcorrencia())
+		{
+			return this.getArquivo().compareTo(o.getArquivo());
+		}
+		
+		return 0;
+	}	
 }

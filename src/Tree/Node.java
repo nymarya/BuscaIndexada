@@ -87,8 +87,12 @@ public class Node
 	 */
 	public void setPonteiro(int index, Node novo) throws TreeException
 	{
-		if (index < 0 || index > ponteiros.length)
+		if (index < 0 || index >= ponteiros.length)
+		{
+			System.out.println(index);
 			throw new TreeException();
+		}
+			
 		
 		ponteiros[index] = novo;
 	}

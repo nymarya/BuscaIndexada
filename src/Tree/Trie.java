@@ -125,6 +125,7 @@ public class Trie
 				Node node = new Node(s.charAt(length), false, alfabeto.length);
 
 				//Recupera posiÃ§Ã£o do caractere no alfabeto
+				System.out.println("buscando: " + s.charAt(length));
 				int index = searchIndexAlfa(s.charAt(length));
 				
 				pt.setPonteiro(index, node);
