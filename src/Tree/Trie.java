@@ -68,7 +68,6 @@ public class Trie implements Serializable
 		while( l < s.length() ) {
 
 			//Recupera a posiÃ§Ã£o do caractere
-			System.out.println("Buscando: " + s.charAt(l));
 			int index = searchIndexAlfa(s.charAt(l) );
 			if( pt.getPonteiro(index) != null) {
 				//Continua checando os nÃ³s
@@ -127,14 +126,12 @@ public class Trie implements Serializable
 				Node node = new Node(s.charAt(length), false, alfabeto.length);
 
 				//Recupera posiÃ§Ã£o do caractere no alfabeto
-				System.out.println("buscando: " + s.charAt(length));
 				index = searchIndexAlfa(s.charAt(length));
 				pt.setPonteiro(index, node);
 				
 				//Continua inserindo
 				pt = pt.getPonteiro(index);
 				length++;
-				System.out.println("executou");
 			}
 
 

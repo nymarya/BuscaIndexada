@@ -60,12 +60,10 @@ public class SearchOr extends Search {
 				 */
 				for ( int j=0; j < indices.size(); j++)
 				{
-					System.out.println("indices: " + j);
+
 					String arquivo = indices.get(j).getFilename();
 					Integer ocorrencias = indices.get(j).getOcorrencia();
 					
-					System.out.println(arquivo);
-					System.out.println(ocorrencias);
 					/**
 					 * Verificar se o arquivo já foi rotulado
 					 */
@@ -93,18 +91,16 @@ public class SearchOr extends Search {
 				 */
 				Collections.sort(ocor);
 				Collections.sort(indices);
-				System.out.println(ocor.size());
+
 				for (int k = 0; k < ocor.size(); k++)
 				{
 					for(int j = 0; j < indices.size(); j++)
 					{
 						Index ind = indices.get(j);
-						System.out.println(ocor.get(k).getFilename());
-						System.out.println(ind.getArquivo());
+
 						if (ind.getFilename().equals(ocor.get(k).getFilename()))
 						{
 							this.ocorrencias.add(ind.montarFrase(words[i]));
-							System.out.println(ind.montarFrase(words[i]));
 						}
 							
 					}
