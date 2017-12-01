@@ -6,7 +6,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -53,7 +59,31 @@ public class archiveListView extends JFrame {
 	
 	public void indexView() {
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		//Serializa engine ao fechar aplicação
+		WindowListener exitListener = new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				//persiste dados em arquivo
+				try {
+
+					Engine eng = engine;
+					FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
+					ObjectOutputStream out = new ObjectOutputStream(fileOut);
+					out.writeObject(eng);
+					out.close();
+					fileOut.close();
+				} catch (IOException i) {
+					i.printStackTrace();
+				}
+
+				System.exit(0);
+			}
+		};
+		//this.addWindowListener(exitListener);
+		
 		setBounds(100, 100, 700, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
