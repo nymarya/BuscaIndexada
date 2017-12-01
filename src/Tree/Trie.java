@@ -68,6 +68,7 @@ public class Trie implements Serializable
 		while( l < s.length() ) {
 
 			//Recupera a posiÃ§Ã£o do caractere
+			System.out.println("buscando: " + s.charAt(l));
 			int index = searchIndexAlfa(s.charAt(l) );
 			if( pt.getPonteiro(index) != null) {
 				//Continua checando os nÃ³s

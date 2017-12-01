@@ -32,8 +32,16 @@ public abstract class Search {
 	 */
 	public abstract ArrayList<String> search( String data ) throws TreeException;
 	
+	/**
+	 * Recebe uma lista de índices e uma palavra associada a estes índices
+	 * que devem ser adicionado na lista de ocorrências e exibidas na interface
+	 * gráfica com a frase já pronta
+	 * @param indices  os indices da palavra
+	 * @param word   a palavra
+	 */
 	public void ordenaResultados ( ArrayList<Index> indices, String word )
 	{
+		this.ocorrencias.clear();
 		ArrayList<Index> ocor = new ArrayList<Index>();
 		String arquivo;
 		Integer ocorrencias;

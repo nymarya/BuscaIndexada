@@ -40,7 +40,7 @@ public class Parser {
 		line = bReader.readLine();
 		
 		tokens = new ArrayDeque<String>();
-		String[] parts = line.replace("\u200B", "").split("[\\s+,.()\\d]+");
+		String[] parts = line.replace("\u200B", "").split("[\\s\\d\\p{Punct}]+");
 		for(String p : parts) {
 		  tokens.addLast(p);
 		}
@@ -61,8 +61,9 @@ public class Parser {
 			lineCount++;
 			if (line == null) {
 				return null;
+				
 			}
-			String[] parts = line.replace("\u200B", "").split("[\\s+,.()\\d]+");
+			String[] parts = line.replace("\u200B", "").split("[\\s\\d\\p{Punct}]+");
 			for(String p : parts) {
 			  tokens.addLast(p);
 			}
