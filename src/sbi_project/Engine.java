@@ -1,19 +1,22 @@
 package sbi_project;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 //importa classe Trie de Tree
 import Tree.Trie;
+import Tree.Index;
 import Tree.Node;
 import Tree.TreeException;
-import Tree.Index;
 
 // Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
-public class Engine {
+public class Engine implements Serializable{
 
+	
+	
+	private static final long serialVersionUID = 3680429638771644168L;
 	// Banco de dados (com arvores e listas)
 	private DataBase db;
 	// arvore (ED) com palavras indisponiveis para a busca
@@ -22,8 +25,9 @@ public class Engine {
 	
 	public Engine( DataBase db ){
 		this.db = db;
-		char[] alfa = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
-				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z'};
+		char[] alfa = { '-','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'à', 'á', 'â', 'ã',
+				'ç', 'è', 'é', 'ê', 'ì', 'í', 'î', 'ò', 'ó', 'ô','õ', 'ù', 'ú', 'û'};
 		
 		blacklist = new Trie( alfa );
 	}
@@ -152,15 +156,15 @@ public class Engine {
 				if( node != null ){
 					ArrayList<Index> indices = node.getIndices();
 					
-					// se s� tiver um indice, remove o node - a palavra da arvore
+					// se s� tiver um indice, remove o node - a palavra da arvore
 					if( indices.size() == 1 ){
 						db.removeWord(word);
 						
 					}
-					// senao percorre os indices do n� e remove indice associado ao arquivo
+					// senao percorre os indices do n� e remove indice associado ao arquivo
 					else {
 						System.out.println(word);
-						// percorre os indices associados � palavra
+						// percorre os indices associados � palavra
 						for( Index index : indices ){
 							
 							// verifica se eh o indice do arquivo e linha analisados
@@ -276,6 +280,14 @@ public class Engine {
 	
 	public void list() {
 		db.list();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public DataBase getDB() {
+		return db;
 	}
 	
 	

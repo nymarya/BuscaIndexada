@@ -1,5 +1,6 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -10,7 +11,7 @@ import sbi_project.Pair;
  * @author gabriel
  *
  */
-public class Trie
+public class Trie implements Serializable
 {
 	private char[] alfabeto;    // Alfabeto usado pela Ã¡rvore
 	private Node raiz;          // raiz da Ã¡rvore
@@ -96,7 +97,6 @@ public class Trie
 		 * Verifica se Ã© uma palavra vÃ¡lida
 		 */
 		if (s.length() == 0) return;
-
 		
 		//Busca chave na Ã¡rvore
 		Node pt = raiz;
@@ -120,15 +120,15 @@ public class Trie
 			
 		} else if( length <= s.length()) {
 			//Insere chave a partir do final do prefixo encontrado
+			int index;
 			while(length < s.length()) {
 				//Cria novo nÃ³
 				Node node = new Node(s.charAt(length), false, alfabeto.length);
 
 				//Recupera posiÃ§Ã£o do caractere no alfabeto
-				int index = searchIndexAlfa(s.charAt(length));
-				
+				index = searchIndexAlfa(s.charAt(length));
 				pt.setPonteiro(index, node);
-
+				
 				//Continua inserindo
 				pt = pt.getPonteiro(index);
 				length++;

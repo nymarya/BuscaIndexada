@@ -1,6 +1,8 @@
 package sbi_project;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import Tree.Index;
@@ -33,6 +35,7 @@ public class SearchOr extends Search {
 		
 		Node busca;
 		ArrayList<Index> indices;
+		ArrayList<Index> ocor = new ArrayList<Index>();
 		
 		ocorrencias.clear();
 		
@@ -45,19 +48,62 @@ public class SearchOr extends Search {
 			if ( busca != null )
 			{
 				/**
-				 * Se uma palavra for encontrada então colocar 
-				 * arquivar as ocorrencias dela.
+				 * Se uma palavra for encontrada então arquivar as ocorrencias dela.
+				 * Depois ordenar os índices de acordo com a quantidade de palavras 
+				 * encontradas nas linhas.
 				 */
 				indices = busca.getIndices();
+			
+				/**
+				 * Separar os arquivos e a quantidade de ocorrências dessa palavra
+				 * no arquivo.
+				 */
 				for ( int j=0; j < indices.size(); j++)
 				{
-					/**
-					 * Montar frase de listagem
-					 */
-					Index ind = indices.get(j);
-					String aux = ind.montarFrase(words[i]);
+
+					String arquivo = indices.get(j).getFilename();
+					Integer ocorrencias = indices.get(j).getOcorrencia();
 					
-					ocorrencias.add(aux.toString());
+					/**
+					 * Verificar se o arquivo já foi rotulado
+					 */
+					Index aux;
+					boolean achou = false;
+					for ( int k=0; k < ocor.size() && !achou; k++ )
+					{
+						aux = ocor.get(k);
+						if (aux.getArquivo().equals(arquivo))
+						{
+							aux.setOcorrencia(aux.getOcorrencia()+ocorrencias);
+							achou = true;
+						}							
+					}
+					
+					/**
+					 * Se o arquivo ainda não foi indentificado, adicionar
+					 */
+					if (!achou)
+						ocor.add(new Index(arquivo, ocorrencias));
+				}
+				
+				/**
+				 * Ordena os resultados da busca
+				 */
+				Collections.sort(ocor);
+				Collections.sort(indices);
+
+				for (int k = 0; k < ocor.size(); k++)
+				{
+					for(int j = 0; j < indices.size(); j++)
+					{
+						Index ind = indices.get(j);
+
+						if (ind.getFilename().equals(ocor.get(k).getFilename()))
+						{
+							this.ocorrencias.add(ind.montarFrase(words[i]));
+						}
+							
+					}
 				}
 			}
 		}
@@ -67,3 +113,4 @@ public class SearchOr extends Search {
 	
 	
 }
+	
