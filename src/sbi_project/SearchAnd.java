@@ -44,18 +44,19 @@ public class SearchAnd extends Search {
 		 * hashmap, caso alguma das palavras não seja encontrada, a busca 
 		 * AND não pode ser executada e então retorna null;
 		 */
-		for ( int i =0; i < words.length; i++)
-		{
-			//Buscar Palavra
-			Node node = db.searchNode(words[i]);
-			if ( node != null )
-				indTemporario.put(words[i], node.getIndices());
-			else return null;
-		}
+//		for ( int i =0; i < words.length; i++)
+//		{
+//			//Buscar Palavra
+//			Node node = db.searchNode(words[i]);
+//			if ( node != null )
+//				indTemporario.put(words[i], node.getIndices());
+//			else return null;
+//		}
 		
 		//Busca primeira palavra na árvore
 		Node node = db.searchNode(words[0]);
-
+		indTemporario.put(words[0], node.getIndices());
+		
 		//Adiciona todas as ocorrencias da palavra
 		for( Index index : node.getIndices() ) {
 			
@@ -72,7 +73,7 @@ public class SearchAnd extends Search {
 			//Busca palavra na árvore
 			node = db.searchNode(words[i]);
 			ArrayList<Index> indices = node.getIndices();
-
+			indTemporario.put(words[i], indices);
 			
 			//Para cada arquivo, verifica se ele contem o restante das palavras
 			//Se não contem, ele é removido
@@ -96,27 +97,26 @@ public class SearchAnd extends Search {
 				if( shouldDelete)
 					it.remove();
 			}
+		}
+		
+		/**
+		 * Imprimir os índices em que contém os arquivos 
+		 * em comum
+		 */
+		for ( int i=0; i < words.length; i++ )
+		{
+			ArrayList<Index> indicesTemp = indTemporario.get(words[i]);
+			ArrayList<Index> indicesRestantes = new ArrayList<Index>();
+			Iterator<Index> it = indicesTemp.iterator();
 			
-			Iterator<Index> itInd = indices.iterator();
-			while ( itInd.hasNext() )
+			while ( it.hasNext() )
 			{
-				Index ind = itInd.next();
-				//flag verificar se deve remover indice
-				boolean shouldDelete = true;
-				for ( int k=0; k < arquivos.size(); k++)
-				{
-					String arq = arquivos.get(k);
-					if ( arq.equals(ind.getArquivo()) )
-						shouldDelete = false;
-				}
-				
-				if ( shouldDelete )
-					itInd.remove();
+				Index ind = it.next();
+				if ( arquivos.contains(ind.getArquivo()) )
+					indicesRestantes.add(ind);
 			}
 			
-			//Ordenar índices
-			this.ordenaResultados(indices, words[i]);
-			
+			this.ordenaResultados(indicesRestantes, words[i]);
 		}
 		
 		return ocorrencias;

@@ -29,15 +29,9 @@ public class SearchOr extends Search {
 		 * caso uma palavra esteja em um arquivo, isto já é suficiente
 		 * para ela ser apresentada.
 		 */
-		
-		System.out.println("BUscando: >>>>");
-		for ( int f=0; f < words.length; f++)
-			System.out.println(words[f]);
 	
 		Node busca;
 		ArrayList<Index> indices;
-		
-		ocorrencias.clear();
 		
 		/**
 		 * Busca as palavras
