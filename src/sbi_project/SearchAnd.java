@@ -28,26 +28,38 @@ public class SearchAnd extends Search {
 	 */
 	@Override
 	public ArrayList<String> search(String data) throws TreeException {
-
-		//Guarda arquivos e strings
-		ArrayList<String> arquivos = new ArrayList<String>();
+		this.ocorrencias.clear();
 		
+		//Guarda arquivos
+		ArrayList<String> arquivos = new ArrayList<String>();
+		//Guarda índices
+		HashMap<String, ArrayList<Index>> indTemporario = new HashMap<String, ArrayList<Index>>();
+		
+		// Separa as palavras
 		String [] words = data.split("\\s+");
-
+		
+		for ( int i =0; i < words.length; i++)
+		{
+			//Buscar Palavra
+			Node node = db.searchNode(words[i]);
+			if ( node != null )
+				indTemporario.put(words[i], node.getIndices());
+			else return null;
+		}
+		
 		//Busca primeira palavra na árvore
 		Node node = db.searchNode(words[0]);
 
-		//Adiciona todas as ocorrencias da palavra no HashMap
+		//Adiciona todas as ocorrencias da palavra
 		for( Index index : node.getIndices() ) {
 			
 			if( !arquivos.contains(index.getArquivo() )) {
 
-				//Armazena arquivo e string no HashMap
+				//Armazena arquivo
 				arquivos.add(index.getArquivo());
 			}
 		}
-
-
+		
 		//Atualiza restante das ocorrencias
 		for(int i =1; i < words.length; i++)
 		{
@@ -98,6 +110,7 @@ public class SearchAnd extends Search {
 			
 			//Ordenar índices
 			this.ordenaResultados(indices, words[i]);
+			
 		}
 		
 		return ocorrencias;

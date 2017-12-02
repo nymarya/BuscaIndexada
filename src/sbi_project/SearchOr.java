@@ -20,7 +20,7 @@ public class SearchOr extends Search {
 	
 	@Override
 	public ArrayList<String> search(String data) throws TreeException {
-
+		this.ocorrencias.clear();
 		//Separa as palavras para serem buscadas
 		String [] words = data.split("\\s+");
 		
@@ -30,6 +30,10 @@ public class SearchOr extends Search {
 		 * para ela ser apresentada.
 		 */
 		
+		System.out.println("BUscando: >>>>");
+		for ( int f=0; f < words.length; f++)
+			System.out.println(words[f]);
+	
 		Node busca;
 		ArrayList<Index> indices;
 		

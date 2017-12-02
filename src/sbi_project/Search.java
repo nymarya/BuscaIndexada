@@ -41,7 +41,7 @@ public abstract class Search {
 	 */
 	public void ordenaResultados ( ArrayList<Index> indices, String word )
 	{
-		this.ocorrencias.clear();
+		
 		ArrayList<Index> ocor = new ArrayList<Index>();
 		String arquivo;
 		Integer ocorrencias;
