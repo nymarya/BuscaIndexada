@@ -38,6 +38,12 @@ public class SearchAnd extends Search {
 		// Separa as palavras
 		String [] words = data.split("\\s+");
 		
+		/**
+		 * Verifica se todas as palavras buscadas existem no banco de dados
+		 * e adiciona, todos os índices associados a cada palavra em um 
+		 * hashmap, caso alguma das palavras não seja encontrada, a busca 
+		 * AND não pode ser executada e então retorna null;
+		 */
 		for ( int i =0; i < words.length; i++)
 		{
 			//Buscar Palavra
