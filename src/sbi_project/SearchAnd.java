@@ -28,44 +28,56 @@ public class SearchAnd extends Search {
 	 */
 	@Override
 	public ArrayList<String> search(String data) throws TreeException {
-
-		//Guarda arquivos e strings
-		HashMap<String, String> arquivos = new HashMap<String, String>();
-
+		this.ocorrencias.clear();
+		
+		//Guarda arquivos
+		ArrayList<String> arquivos = new ArrayList<String>();
+		//Guarda índices
+		HashMap<String, ArrayList<Index>> indTemporario = new HashMap<String, ArrayList<Index>>();
+		
+		// Separa as palavras
 		String [] words = data.split("\\s+");
-
+		
+		/**
+		 * Verifica se todas as palavras buscadas existem no banco de dados
+		 * e adiciona, todos os índices associados a cada palavra em um 
+		 * hashmap, caso alguma das palavras não seja encontrada, a busca 
+		 * AND não pode ser executada e então retorna null;
+		 */
+//		for ( int i =0; i < words.length; i++)
+//		{
+//			//Buscar Palavra
+//			Node node = db.searchNode(words[i]);
+//			if ( node != null )
+//				indTemporario.put(words[i], node.getIndices());
+//			else return null;
+//		}
+		
 		//Busca primeira palavra na árvore
 		Node node = db.searchNode(words[0]);
-
-		//Adiciona todas as ocorrencias da palavra no HashMap
+		indTemporario.put(words[0], node.getIndices());
+		
+		//Adiciona todas as ocorrencias da palavra
 		for( Index index : node.getIndices() ) {
 			
-			//Cria string a ser armazenada
-			String resposta = index.getFilename() + ": '" + words[0] +"' x" +index.getOcorrencia();
-			resposta += " (" + index.getLinha() + ")";
+			if( !arquivos.contains(index.getArquivo() )) {
 
-			if( !arquivos.containsKey(index.getArquivo() )) {
-
-				//Armazena arquivo e string no HashMap
-				arquivos.put(index.getArquivo(), resposta);
-			} else {
-				//Atualiza string
-				resposta += ";" + arquivos.get(index.getArquivo());
-				arquivos.put(index.getArquivo(), resposta);
+				//Armazena arquivo
+				arquivos.add(index.getArquivo());
 			}
 		}
-
-
+		
 		//Atualiza restante das ocorrencias
-		for(int i =1; i < words.length; i++) {
+		for(int i =1; i < words.length; i++)
+		{
 			//Busca palavra na árvore
 			node = db.searchNode(words[i]);
 			ArrayList<Index> indices = node.getIndices();
-
+			indTemporario.put(words[i], indices);
 			
 			//Para cada arquivo, verifica se ele contem o restante das palavras
-			//Se não contem, ele é removido do HashMap
-			Iterator<String> it = arquivos.keySet().iterator();
+			//Se não contem, ele é removido
+			Iterator<String> it = arquivos.iterator();
 			while (it.hasNext())
 			{
 				String key = it.next();
@@ -76,14 +88,7 @@ public class SearchAnd extends Search {
 					
 					//Verifica se palavra está no arquivo
 					Index index = indices.get(j);
-					if( index.getArquivo() == key) {
-						String resposta = index.getFilename() + ": '" + words[i] +"' x" +index.getOcorrencia();
-						resposta += " (" + index.getLinha() + ")";
-
-						//Atualiza string
-						resposta += ";" + arquivos.get(index.getArquivo());
-						arquivos.put(index.getArquivo(), resposta);
-						
+					if( index.getArquivo().equals(key) ) {
 						shouldDelete = false;
 					} 
 
@@ -91,22 +96,29 @@ public class SearchAnd extends Search {
 				
 				if( shouldDelete)
 					it.remove();
-
 			}
-
+		}
+		
+		/**
+		 * Imprimir os índices em que contém os arquivos 
+		 * em comum
+		 */
+		for ( int i=0; i < words.length; i++ )
+		{
+			ArrayList<Index> indicesTemp = indTemporario.get(words[i]);
+			ArrayList<Index> indicesRestantes = new ArrayList<Index>();
+			Iterator<Index> it = indicesTemp.iterator();
 			
-
+			while ( it.hasNext() )
+			{
+				Index ind = it.next();
+				if ( arquivos.contains(ind.getArquivo()) )
+					indicesRestantes.add(ind);
+			}
+			
+			this.ordenaResultados(indicesRestantes, words[i]);
 		}
-		// antes de adicionar elementos, limpa a lista
-
-		ocorrencias.clear();
-
-		Collection<String> resultados = arquivos.values();
-		for( String s : resultados) {
-			String [] respostas = s.split(";");
-			for( String r : respostas)
-				ocorrencias.add(r);
-		}
+		
 		return ocorrencias;
 	}
 
