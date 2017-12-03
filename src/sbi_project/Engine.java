@@ -3,6 +3,8 @@ package sbi_project;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.JOptionPane;
 
 //importa classe Trie de Tree
@@ -156,23 +158,21 @@ public class Engine implements Serializable{
 				if( node != null ){
 					ArrayList<Index> indices = node.getIndices();
 					
-					// se s� tiver um indice, remove o node - a palavra da arvore
+					// se só tiver um indice, remove o node - a palavra da arvore
 					if( indices.size() == 1 ){
 						db.removeWord(word);
 						
 					}
-					// senao percorre os indices do n� e remove indice associado ao arquivo
+					// senao percorre os indices do nó e remove indice associado ao arquivo
 					else {
-						System.out.println(word);
-						// percorre os indices associados � palavra
-						for( Index index : indices ){
-							
+						// percorre os indices associados à palavras
+						Iterator<Index> it = indices.iterator();
+						while(it.hasNext()) {
+							Index index = it.next();
 							// verifica se eh o indice do arquivo e linha analisados
-							if( index.getArquivo() == file && index.getLinha() == line ){
-								
+							if(index.getArquivo() == file && index.getLinha() == line) {
 								// remove o indice do arrayList associado ao arquivo
-								node.removeIndice(index);
-								
+								it.remove();
 							}
 						}
 					
@@ -184,10 +184,6 @@ public class Engine implements Serializable{
 		}
 		p.close();
 		
-		System.out.println("DEPOIS DA REMOCAO");
-		
-		
-		db.list();
 		// retira arquivo da lista de arquivos
 		db.removeFile(file);
 		
@@ -278,13 +274,16 @@ public class Engine implements Serializable{
 		
 	}
 	
+	/**
+	 * Lista todas as palavras no banco de dados.
+	 */
 	public void list() {
 		db.list();
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Retorna o banco de dados usado pela engine.
+	 * @return Banco de dados.
 	 */
 	public DataBase getDB() {
 		return db;

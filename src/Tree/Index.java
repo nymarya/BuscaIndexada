@@ -74,14 +74,26 @@ public class Index implements Serializable, Comparable<Index>
 		return arquivo.substring(index+1);
 	}
 	
+	/**
+	 * Atualiza arquivo
+	 * @param arquivo
+	 */
 	public void setArquivo(String arquivo) {
 		this.arquivo = arquivo;
 	}
 
+	/**
+	 * Recupera número de ocorrências
+	 * @return ocorrencia
+	 */
 	public int getOcorrencia() {
 		return ocorrencia;
 	}
 
+	/**
+	 * Atualiza ocorrência
+	 * @param ocorrencia
+	 */
 	public void setOcorrencia(int ocorrencia) {
 		this.ocorrencia = ocorrencia;
 	}
@@ -114,6 +126,9 @@ public class Index implements Serializable, Comparable<Index>
 		return aux.toString();
 	}
 
+	/**
+	 * Sobrescrita do metodo de comparação
+	 */
 	@Override
 	public int compareTo(Index o)
 	{
