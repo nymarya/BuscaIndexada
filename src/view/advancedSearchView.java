@@ -30,6 +30,10 @@ import sbi_project.SearchOr;
 
 import javax.swing.JTextField;
 
+/**
+ * Classe responsável pela tela de busca avançada
+ *
+ */
 public class advancedSearchView extends JFrame {
 
 	// Instancia de engine
@@ -46,7 +50,7 @@ public class advancedSearchView extends JFrame {
 
 
 	/**
-	 * Create the frame.
+	 * Cria tela.
 	 */
 	public advancedSearchView( Engine engine, SearchAnd searchAnd, SearchOr searchOr ) {
 		this.engine = engine;
@@ -56,7 +60,9 @@ public class advancedSearchView extends JFrame {
 		indexView();
 	}
 
-
+	/**
+	 * Forma tela
+	 */
 	public void indexView() {
 
 		//Serializa engine ao fechar aplicação
@@ -250,6 +256,7 @@ public class advancedSearchView extends JFrame {
 
 
 	public void windowClosing() {
+		System.out.println("teste");
 		this.dispose();
 	}
 

@@ -6,7 +6,11 @@ import java.util.Collections;
 import Tree.Index;
 import Tree.TreeException;
 
-// Classe abstrata com os metodos e atributos necessarios para realizar uma busca/pesquisa
+/**
+ * Classe abstrata com os metodos e atributos necessarios para realizar uma busca/pesquisa
+ *
+ */
+
 public abstract class Search {
 
 	// Banco de dados (com arvores e listas)

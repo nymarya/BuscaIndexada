@@ -9,7 +9,11 @@ import java.io.Serializable;
 // importa ArrayList
 import java.util.ArrayList;
 
-// Classe que representa o banco de dados do sistema
+
+/**
+ * Classe que representa o banco de dados do sistema.
+ *
+ */
 public class DataBase implements  Serializable{
 
 	//
@@ -84,10 +88,17 @@ public class DataBase implements  Serializable{
 		return words.search(word);
 	}
 	
+	/**
+	 * Lista palavras da árvore.
+	 */
 	public void list() {
 		words.listTree(words.getRoot(),  new StringBuffer());
 	}
 
+	/**
+	 * Retorna arquivos
+	 * @return Todos os arquivos do banco
+	 */
 	public ArrayList<String> getFiles() {
 		return files;
 	}

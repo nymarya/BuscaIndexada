@@ -1,15 +1,16 @@
 package sbi_project;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.StringTokenizer;
 
 
-// Classe para separar arquivos em palavras (tokens)
+/**
+ * Classe responsável por ler arquivos e separar palavras
+ *
+ */
 public class Parser {
 
 	// Endereco do arquivo a ser tokenizado 

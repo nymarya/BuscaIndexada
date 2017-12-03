@@ -3,9 +3,6 @@ package sbi_project;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JOptionPane;
 
 //importa classe Trie de Tree
 import Tree.Trie;
@@ -13,7 +10,10 @@ import Tree.Index;
 import Tree.Node;
 import Tree.TreeException;
 
-// Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
+/**
+ * Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
+ * Realiza comunicação entre interface e banco de dados
+ */
 public class Engine implements Serializable{
 
 	

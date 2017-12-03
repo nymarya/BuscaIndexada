@@ -6,8 +6,12 @@ import Tree.Index;
 import Tree.Node;
 import Tree.TreeException;
 
-// Classe filha (heranca) de Search
-// Busca por ocorrencias em que pelo menos uma das palavras aparecem
+
+/**
+ * Classe filha (heranca) de Search
+ * Busca por ocorrencias em que pelo menos uma das palavras aparecem
+ *
+ */
 public class SearchOr extends Search {
 
 	/**

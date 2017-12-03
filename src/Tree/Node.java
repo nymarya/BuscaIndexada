@@ -86,7 +86,7 @@ public class Node implements Serializable
 	}
 	
 	/**
-	 * 
+	 * Atualiza ponteiro
 	 * @param index
 	 * @param novo
 	 * @throws TreeException
@@ -111,26 +111,46 @@ public class Node implements Serializable
 		return chave;
 	}
 
+	/**
+	 * Atualiza chave
+	 * @param chave
+	 */
 	public void setChave(Character chave)
 	{
 		this.chave = chave;
 	}
 
+	/**
+	 * Verifica se nó é terminal
+	 * @return Verdadeiro se nó é terminal, falso caso contrário
+	 */
 	public boolean getTerminal()
 	{
 		return terminal;
 	}
 
+	/**
+	 * Atualiza informação do nó
+	 * @param terminal
+	 */
 	public void setTerminal(boolean terminal)
 	{
 		this.terminal = terminal;
 	}
 
+	/**
+	 * Retorna indices relacionados ao nó
+	 * @return Indices
+	 */
 	public ArrayList<Index> getIndices ()
 	{
 		return indice;
 	}
 	
+	/**
+	 * Retorna ponteiros
+	 * @return Ponteiros
+	 */
 	public Node[] getPonteiros ()
 	{
 		return ponteiros;

@@ -10,8 +10,11 @@ import Tree.Index;
 import Tree.Node;
 import Tree.TreeException;
 
-// Classe filha (heranca) de Search. 
-// Busca por ocorrencias em que todas as palavras aparecem
+
+/**
+ * Classe filha (heranca) de Search. 
+ * Busca por ocorrencias em que todas as palavras aparecem
+ */
 public class SearchAnd extends Search {
 
 	/**
