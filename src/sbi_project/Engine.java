@@ -154,7 +154,6 @@ public class Engine implements Serializable{
 				String word = token.getFirst().toLowerCase();
 				int line = token.getSecond();
 				
-				System.out.println("TESTE1");
 				// busca a palavra na arvore
 				Node node = db.searchNode(word);
 				if( node != null ){
@@ -164,12 +163,12 @@ public class Engine implements Serializable{
 					if( indices.size() == 1 ){
 						db.removeWord(word);
 					}
-					// senao percorre os indices do nï¿½ e remove indice associado ao arquivo
+					// senao percorre os indices do nó e remove indice associado ao arquivo
 					else if( indices.size() != 0 ){
 						
 						Index indiceARemover = null;
 						
-						// percorre os indices associados ï¿½ palavra
+						// percorre os indices associados à palavra
 						for( Index index : indices ){
 							
 							// verifica se eh o indice do arquivo e linha analisados
