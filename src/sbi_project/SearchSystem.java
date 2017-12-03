@@ -20,7 +20,7 @@ public class SearchSystem {
 		DataBase db   = new DataBase();
 		// instancia da engine, passando o bd
 		Engine engine = new Engine( db );
-
+		
 		try {
 			FileInputStream fileIn = new FileInputStream(new File("./data/bd.ser").getCanonicalPath());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -32,6 +32,7 @@ public class SearchSystem {
 		} catch( FileNotFoundException f) {
 			//Continua execução normalmente se o arquivo ainda n existe
 		} catch (IOException i) {
+			System.out.println("AQUI?");
 			i.printStackTrace();
 			return;
 		} catch (ClassNotFoundException c) {
