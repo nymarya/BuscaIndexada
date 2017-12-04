@@ -183,7 +183,6 @@ public class engineView extends viewSBI {
 					File selectedFile = null;
 					if (result == JFileChooser.APPROVE_OPTION) {
 						selectedFile = fileChooser.getSelectedFile();
-						System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 					}
 					// Fim do trecho de código
 
