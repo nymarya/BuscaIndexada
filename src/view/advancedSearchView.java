@@ -129,7 +129,7 @@ public class advancedSearchView extends JFrame {
 		btnBuscaSimples.setBounds(0, 0, 143, 45);
 		panel.add(btnBuscaSimples);
 
-		JButton btnIndexar = new JButton("Indexar Arquivo");
+		JButton btnIndexar = new JButton("Indexar");
 		btnIndexar.addActionListener( new ActionListener() {
 
 			@Override

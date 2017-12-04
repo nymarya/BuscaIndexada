@@ -122,7 +122,7 @@ public class engineView extends JFrame {
 		btnBuscaSimples.setBounds(0, 0, 143, 45);
 		panel.add(btnBuscaSimples);
 
-		JButton btnIndexar = new JButton("Indexar Arquivo");
+		JButton btnIndexar = new JButton("Indexar");
 		btnIndexar.setForeground(new Color(255, 255, 255));
 		btnIndexar.setFont(new Font("Open Sans", Font.BOLD, 13));
 		btnIndexar.setBackground(new Color(112, 128, 144));

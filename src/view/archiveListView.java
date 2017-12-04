@@ -130,7 +130,7 @@ public class archiveListView extends JFrame {
 		btnBuscaSimples.setBounds(0, 0, 143, 45);
 		panel.add(btnBuscaSimples);
 
-		JButton btnIndexar = new JButton("Indexar Arquivo");
+		JButton btnIndexar = new JButton("Indexar");
 		btnIndexar.addActionListener( new ActionListener() {
 
 			@Override
@@ -189,9 +189,13 @@ public class archiveListView extends JFrame {
 		// limpa lista
 		modelo.clear();
 		ArrayList<String> newList = new ArrayList<>();
+
 		
 		try {
 			archiveList = engine.listFile();
+			
+			Collections.sort(archiveList);
+
 			for( String element : archiveList ){
 				
 				// recupera apenas nome do arquivo
@@ -231,7 +235,6 @@ public class archiveListView extends JFrame {
 			e2.printStackTrace();
 		}
 		
-		Collections.sort(newList);
 		
 		for( String elem : newList ) {
 			modelo.addElement(elem);
