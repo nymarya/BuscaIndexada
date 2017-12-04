@@ -196,8 +196,8 @@ public class archiveListView extends JFrame {
 				//int index = archiveName.lastIndexOf('/');
 				//archiveName = archiveName.substring(index+1);
 				
-				int index = element.lastIndexOf("/");
 				String archiveName = element.substring(index+1);
+				int index = element.lastIndexOf("/");
 				
 				
 				// contador da quantidade de palavras
