@@ -85,10 +85,28 @@ Na mesma interface que é permitido acionar a busca por palavras, há um campo r
 	O formato da listagem dos resultados segue apresentando o título do arquivo está associada, a quantidade de ocorrências identificadas da palavra buscada (na mesma linha) e a linha do arquivo na qual ela se encontra.
 
 \section{Descrição da solução}
-  
-diagrama
+ 
+ Para solucionar os problemas e desafios encontrados para implementar a aplicação descrita, foram tomada algumas decisões. Quando um novo arquivo arquivo é inserido, uma classe chamada Engine é responsável por todo o processamento do texto. Primeiramente ele chama a classe Parser, esta é responsável por separar cada palavra e informar o arquivo que ela pertence e a linha em que foi encontrada, feito isso, a engine adiciona essas informações na estrutura de dados  escolhida.
+ 
+	Para o armazenamento das informações que o sistema usa, foi criado uma classe DataBase, ela possui a lista de arquivos que foram inseridos e a árvore Trie que possui  todas as palavras dos respectivos arquivos. Para a implementação da classe Trie, criou-se duas classes auxiliares, Node e Index, elas podem lançar exceções representadas pela classe TreeException. A classe Node representa um nó da árvore e a classe Index um índice de palavra, este é constituído por uma linha, um arquivo e quantidade de ocorrências de uma palavra na linha do arquivo. Quando um nó é dito terminal, ele representa o último caracter de uma palavra, esse nó, então, armazena uma lista de Índices que contém todas as ocorrências encontradas nos arquivos adicionados.
+	
+	Para representar as buscas uma classe abstrata Search foi criada, os demais tipos de busca (AND e OR) herdam dessa classe e implementam a busca específica que elas representam. Com relação aos dados coletados pelas buscas, eles são ordenados de acordo com os seguintes critérios: a lista exibe as ocorrências das palavras pesquisadas na ordem em que foram inseridas, por exemplo, quando se busca as palavras “informática” e “empresa”, primeiro são mostradas as ocorrências da palavra “informática” e depois de “empresa”. Sobre a exibição das ocorrências de uma palavra, primeiro é listado os arquivos com mais palavras encontradas, as linhas com mais ocorrências vêm primeiro.
+	
+	Para coordenar todas as opções do sistema, uma classe principal SearchSystem foi criada, ela é o intermédio de comunicação entre a aplicação e o usuário, basicamente ela monta a interface do sistema e faz com que as solicitações sejam enviadas para as classes responsáveis por executar tal ação. Para a interface gráfica, cada interface com o usuário herda de uma interface principal ViewSBI, a qual é relacionada com a SearchSystem ( ver Figura~\ref{fig:diagramaDeClasses}).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.8\textwidth]{img/sbi_project-part1.png}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.8\textwidth]{img/sbi_project-part2.png}
+\caption{Diagrama de Classes do Sistema}
+\label{fig:diagramaDeClasses}
+\end{figure}
   
 \section{Estruturas de Dados}
+
 A estrutura de dados escolhida para a implementação deste tipo de sistema foi a árvore digital Trie. Essa estrutura permite realizar a busca por uma palavra em $O(k log(m) + k)$, onde $k$ é o tamanho da chave buscada e $m$ é o número de caracteres no alfabeto.
 
 A principal característica de uma árvore digital é que uma chave não é mantida em um único nó, mas sim obtida através de uma sequência de nós que começa da raiz e vai até um determinado nó v que é denominado terminal. Além disso, o caminho da raiz até um nó qualquer é chamado de prefixo.
