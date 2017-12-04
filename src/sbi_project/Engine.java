@@ -28,9 +28,9 @@ public class Engine implements Serializable{
 	public Engine( DataBase db ){
 		this.db = db;
 
-		char[] alfa = {39, '-','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
-				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'Ã ', 'Ã¡', 'Ã¢', 'Ã£',
-				'Ã§', 'Ã¨', 'Ã©', 'Ãª', 'Ã¬', 'Ã­', 'Ã®', 'Ã²', 'Ã³', 'Ã´','Ãµ', 'Ã¹', 'Ãº', 'Ã»'};
+		char[] alfa = { '-','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'à', 'á', 'â', 'ã',
+				'ç', 'è', 'é', 'ê', 'ì', 'í', 'î', 'ò', 'ó', 'ô','õ', 'ù', 'ú', 'û'};
 		
 		blacklist = new Trie( alfa );
 	}
@@ -198,9 +198,44 @@ public class Engine implements Serializable{
 	/**
 	 * Metodo para recuperar todos os arquivos ao sistema
 	 * @return Lista com arquivos
+	 * @throws IOException 
 	 */
-	public  ArrayList<String> listFile(  ){
+	public  ArrayList<String> listFile(  ) throws IOException {
+		
 		return db.getFiles();
+//		ArrayList<String> listagem = new ArrayList<>();
+		
+//		for( String element : list ){
+//			
+//			// recupera apenas nome do arquivo
+//			//String archiveName = element;
+//			//int index = archiveName.lastIndexOf('/');
+//			//archiveName = archiveName.substring(index+1);
+//			
+//			int index = element.lastIndexOf("/");
+//			String archiveName = element.substring(index+1);
+//			
+//			
+//			// contador da quantidade de palavras
+//			int count = 0;
+//			
+//			Parser p = new Parser(element);
+//			Pair<String, Integer> token = new Pair<String, Integer>();
+//			
+//			// percorre arquivo recuperando palavras
+//			while( p.hasNext() ) {
+//				
+//				token = p.next();
+//
+//				if( token != null) {
+//					count++;
+//				}
+//			}
+//			
+//			listagem.add(archiveName + " " +count +" palavras");
+//			
+//		}
+				
 	}
 	
 	/**
