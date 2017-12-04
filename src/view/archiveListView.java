@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -187,14 +188,13 @@ public class archiveListView extends JFrame {
 		
 		// limpa lista
 		modelo.clear();
+		ArrayList<String> newList = new ArrayList<>();
+		
 		try {
 			archiveList = engine.listFile();
 			for( String element : archiveList ){
 				
 				// recupera apenas nome do arquivo
-				//String archiveName = element;
-				//int index = archiveName.lastIndexOf('/');
-				//archiveName = archiveName.substring(index+1);
 				int index;
 				String archiveName = "";
 				
@@ -205,8 +205,6 @@ public class archiveListView extends JFrame {
 					index = element.lastIndexOf("/");
 					archiveName = element.substring(index+1);
 				}
-				
-				
 				
 				
 				// contador da quantidade de palavras
@@ -225,7 +223,7 @@ public class archiveListView extends JFrame {
 					}
 				}
 				
-				modelo.addElement(archiveName + " " +count +" palavras");
+				newList.add(archiveName + " " +count +" palavras");
 				
 			}
 			
@@ -233,6 +231,11 @@ public class archiveListView extends JFrame {
 			e2.printStackTrace();
 		}
 		
+		Collections.sort(newList);
+		
+		for( String elem : newList ) {
+			modelo.addElement(elem);
+		}
 		
 		JButton btnRemoveArchive = new JButton("Remover");
 		btnRemoveArchive.addActionListener(new ActionListener() {
