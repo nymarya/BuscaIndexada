@@ -32,15 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class engineView extends JFrame {
-
-	// Instancia de engine
-	private Engine engine;
-	// Instancia de searchAnd
-	private SearchAnd searchAnd;
-	// Instancia de searchOr
-	private SearchOr searchOr;
-
+public class engineView extends viewSBI {
 
 	private JPanel contentPane;
 	private JTextField txtArchive;
@@ -49,9 +41,7 @@ public class engineView extends JFrame {
 	 * Create the frame.
 	 */
 	public engineView( Engine engine, SearchAnd searchAnd, SearchOr searchOr ) {
-		this.engine = engine;
-		this.searchAnd = searchAnd;
-		this.searchOr  = searchOr;
+		super(engine, searchAnd, searchOr);
 		this.setTitle("SBI");
 		indexView();
 	}
@@ -66,7 +56,7 @@ public class engineView extends JFrame {
 				//persiste dados em arquivo
 				try {
 
-					Engine eng = engine;
+					Engine eng = getEngine();
 					FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
 					ObjectOutputStream out = new ObjectOutputStream(fileOut);
 					out.writeObject(eng);
@@ -107,7 +97,7 @@ public class engineView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					simpleSearchView frame = new simpleSearchView(engine, searchAnd, searchOr);
+					simpleSearchView frame = new simpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -135,7 +125,7 @@ public class engineView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					advancedSearchView frame = new advancedSearchView(engine, searchAnd, searchOr);
+					advancedSearchView frame = new advancedSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -156,7 +146,7 @@ public class engineView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
+					archiveListView frame = new archiveListView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -243,7 +233,7 @@ public class engineView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
+					archiveListView frame = new archiveListView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -268,7 +258,7 @@ public class engineView extends JFrame {
 				// Chamando metodos de adicionar da engine
 				if( radioBtnInclusoNaBusca.isSelected() ){
 					try {
-						verify = engine.addFile(txtArchive.getText());
+						verify = getEngine().addFile(txtArchive.getText());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} catch (TreeException e1) {
@@ -277,7 +267,7 @@ public class engineView extends JFrame {
 				} else if( radioBtnBlacklist.isSelected() ){
 					try {
 						try {
-							verify = engine.addBlacklist(txtArchive.getText());
+							verify = getEngine().addBlacklist(txtArchive.getText());
 						} catch (TreeException e1) {
 							e1.printStackTrace();
 						}

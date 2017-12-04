@@ -36,19 +36,12 @@ import sbi_project.SearchOr;
 import java.util.ArrayList;
 
 // classe com as interfaces graficas do sistema
-public class simpleSearchView extends JFrame{	
+public class simpleSearchView extends viewSBI{	
 
 	/**
 	 * ID
 	 */
 	private static final long serialVersionUID = 1L;
-
-	// Instancia de engine
-	private Engine engine;
-	// Instancia de searchAnd
-	private SearchAnd searchAnd;
-	// Instancia de searchOr
-	private SearchOr searchOr;
 
 	//Componentes
 	private JTextField searchBar;
@@ -76,9 +69,7 @@ public class simpleSearchView extends JFrame{
 	 */
 	public simpleSearchView(Engine engine, SearchAnd searchAnd, SearchOr searchOr)
 	{
-		this.engine = engine;
-		this.searchAnd = searchAnd;
-		this.searchOr  = searchOr;
+		super(engine, searchAnd, searchOr);
 		this.setTitle("SBI");
 		indexView();
 	}
@@ -97,7 +88,7 @@ public class simpleSearchView extends JFrame{
 				//persiste dados em arquivo
 				try {
 
-					Engine eng = engine;
+					Engine eng = getEngine();
 					FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
 					ObjectOutputStream out = new ObjectOutputStream(fileOut);
 					out.writeObject(eng);
@@ -139,7 +130,7 @@ public class simpleSearchView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					engineView frame = new engineView(engine, searchAnd, searchOr);
+					engineView frame = new engineView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -160,7 +151,7 @@ public class simpleSearchView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					advancedSearchView frame = new advancedSearchView(engine, searchAnd, searchOr);
+					advancedSearchView frame = new advancedSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -181,7 +172,7 @@ public class simpleSearchView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
+					archiveListView frame = new archiveListView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -222,7 +213,7 @@ public class simpleSearchView extends JFrame{
 					ArrayList<String> result;
 
 					try {
-						result = searchOr.search(txtBusca.getText());
+						result = getSearchOr().search(txtBusca.getText());
 						for( String element : result )
 							modelo.addElement(element);
 					}catch (TreeException e1) 
