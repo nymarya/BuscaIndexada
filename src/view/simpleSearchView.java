@@ -133,7 +133,7 @@ public class simpleSearchView extends JFrame{
 		panelBuscaSimples.add(panel, gbc_panel);
 
 
-		JButton btnIndexar = new JButton("Indexar Arquivo");
+		JButton btnIndexar = new JButton("Indexar");
 		btnIndexar.addActionListener( new ActionListener() {
 
 			@Override

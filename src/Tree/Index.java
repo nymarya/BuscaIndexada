@@ -69,7 +69,7 @@ public class Index implements Serializable, Comparable<Index>
 	 * @return Nome do arquivo
 	 */
 	public String getFilename() {
-		int index = arquivo.lastIndexOf('/');
+		int index = arquivo.lastIndexOf("\\");	
 		
 		return arquivo.substring(index+1);
 	}
