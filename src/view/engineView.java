@@ -150,13 +150,13 @@ public class engineView extends JFrame {
 		btnBuscaAvancada.setBounds(276, 0, 149, 45);
 		panel.add(btnBuscaAvancada);
 
-		JButton btnIndice = new JButton("Indice Remissivo");
+		JButton btnIndice = new JButton("Lista Arquivos");
 		btnIndice.addActionListener( new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					remissiveIndexView frame = new remissiveIndexView(engine, searchAnd, searchOr);
+					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
