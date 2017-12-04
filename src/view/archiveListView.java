@@ -34,14 +34,7 @@ import sbi_project.SearchOr;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class archiveListView extends JFrame {
-
-	// Instancia de engine
-	private Engine engine;
-	// Instancia de searchAnd
-	private SearchAnd searchAnd;
-	// Instancia de searchOr
-	private SearchOr searchOr;
+public class archiveListView extends viewSBI {
 
 
 	private JPanel contentPane;
@@ -57,9 +50,7 @@ public class archiveListView extends JFrame {
 	 * Create the frame.
 	 */
 	public archiveListView( Engine engine, SearchAnd searchAnd, SearchOr searchOr ) {
-		this.engine = engine;
-		this.searchAnd = searchAnd;
-		this.searchOr  = searchOr;
+		super( engine, searchAnd, searchOr );
 		this.setTitle("SBI");
 		indexView();
 	}
@@ -74,7 +65,7 @@ public class archiveListView extends JFrame {
 				//persiste dados em arquivo
 				try {
 
-					Engine eng = engine;
+					Engine eng = getEngine();
 					FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
 					ObjectOutputStream out = new ObjectOutputStream(fileOut);
 					out.writeObject(eng);
@@ -115,7 +106,7 @@ public class archiveListView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					simpleSearchView frame = new simpleSearchView(engine, searchAnd, searchOr);
+					simpleSearchView frame = new simpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -136,7 +127,7 @@ public class archiveListView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					engineView frame = new engineView(engine, searchAnd, searchOr);
+					engineView frame = new engineView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -157,7 +148,7 @@ public class archiveListView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					advancedSearchView frame = new advancedSearchView(engine, searchAnd, searchOr);
+					advancedSearchView frame = new advancedSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -192,7 +183,7 @@ public class archiveListView extends JFrame {
 
 		
 		try {
-			archiveList = engine.listFile();
+			archiveList = getEngine().listFile();
 			
 			Collections.sort(archiveList);
 
@@ -252,7 +243,7 @@ public class archiveListView extends JFrame {
 					
 					// chama metodo remover da Engine
 					try {
-						engine.removeFile( archiveList.get(selectedIndex) );
+						getEngine().removeFile( archiveList.get(selectedIndex) );
 					} catch (IOException | TreeException e1) {
 						e1.printStackTrace();
 					}
@@ -283,7 +274,7 @@ public class archiveListView extends JFrame {
 					
 					// chama metodo atualizar da Engine
 					try {
-						engine.updateFile( archiveList.get(selectedIndex) );
+						getEngine().updateFile( archiveList.get(selectedIndex) );
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} catch (TreeException e1) {

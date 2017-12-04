@@ -34,28 +34,19 @@ import javax.swing.JTextField;
  * Classe responsável pela tela de busca avançada
  *
  */
-public class advancedSearchView extends JFrame {
-
-	// Instancia de engine
-	private Engine engine;
-	// Instancia de searchAnd
-	private SearchAnd searchAnd;
-	// Instancia de searchOr
-	private SearchOr searchOr;
+public class advancedSearchView extends viewSBI {
 
 
 	private JPanel contentPane;
 	private JTextField txtBusca;
 	private DefaultListModel modelo;
 
-
+	
 	/**
 	 * Cria tela.
 	 */
 	public advancedSearchView( Engine engine, SearchAnd searchAnd, SearchOr searchOr ) {
-		this.engine = engine;
-		this.searchAnd = searchAnd;
-		this.searchOr  = searchOr;
+		super(engine, searchAnd, searchOr);
 		this.setTitle("SBI");
 		indexView();
 	}
@@ -73,7 +64,7 @@ public class advancedSearchView extends JFrame {
 				//persiste dados em arquivo
 				try {
 
-					Engine eng = engine;
+					Engine eng = getEngine();
 					FileOutputStream fileOut = new FileOutputStream(new File("./data/bd.ser").getCanonicalPath());
 					ObjectOutputStream out = new ObjectOutputStream(fileOut);
 					out.writeObject(eng);
@@ -114,7 +105,7 @@ public class advancedSearchView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					simpleSearchView frame = new simpleSearchView(engine, searchAnd, searchOr);
+					simpleSearchView frame = new simpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -135,7 +126,7 @@ public class advancedSearchView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					engineView frame = new engineView(engine, searchAnd, searchOr);
+					engineView frame = new engineView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -163,7 +154,7 @@ public class advancedSearchView extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					archiveListView frame = new archiveListView(engine, searchAnd, searchOr);
+					archiveListView frame = new archiveListView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -203,7 +194,7 @@ public class advancedSearchView extends JFrame {
 					modelo.clear();
 					ArrayList<String> result;
 					try {
-						result = searchAnd.search(txtBusca.getText());
+						result = getSearchAnd().search(txtBusca.getText());
 
 						for( String element : result ){
 							modelo.addElement(element);
@@ -235,7 +226,7 @@ public class advancedSearchView extends JFrame {
 
 					try 
 					{
-						result = searchOr.search(txtBusca.getText());
+						result = getSearchOr().search(txtBusca.getText());
 						for( String element : result )
 							modelo.addElement(element);
 
@@ -256,7 +247,6 @@ public class advancedSearchView extends JFrame {
 
 
 	public void windowClosing() {
-		System.out.println("teste");
 		this.dispose();
 	}
 
