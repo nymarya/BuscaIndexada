@@ -256,7 +256,6 @@ public class advancedSearchView extends JFrame {
 
 
 	public void windowClosing() {
-		System.out.println("teste");
 		this.dispose();
 	}
 
