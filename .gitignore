@@ -31,4 +31,4 @@ hs_err_pid*
 /bin/
 
 #ignore serialized file
-/data/bd.ser
+*.ser
