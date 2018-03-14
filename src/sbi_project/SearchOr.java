@@ -11,6 +11,7 @@ import Tree.TreeException;
  * Classe filha (heranca) de Search
  * Busca por ocorrencias em que pelo menos uma das palavras aparecem
  *
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
  */
 public class SearchOr extends Search {
 
@@ -24,7 +25,7 @@ public class SearchOr extends Search {
 	
 	@Override
 	public ArrayList<String> search(String data) throws TreeException {
-		this.ocorrencias.clear();
+		this.occurrences.clear();
 		//Separa as palavras para serem buscadas
 		String [] words = data.split("\\s+");
 		
@@ -33,29 +34,25 @@ public class SearchOr extends Search {
 		 * caso uma palavra esteja em um arquivo, isto já é suficiente
 		 * para ela ser apresentada.
 		 */
-	
-		Node busca;
-		ArrayList<Index> indices;
+		ArrayList<Index> indices = new ArrayList<Index>();
 		
-		/**
-		 * Busca as palavras
-		 */
+		// Busca as palavras 
 		for ( int i=0; i < words.length; i++)
 		{
-			busca = db.searchNode(words[i]);
-			if ( busca != null )
+			Node node = db.searchNode(words[i]);
+			if ( node != null )
 			{
 				/**
 				 * Se uma palavra for encontrada então arquivar as ocorrencias dela.
 				 * Depois ordenar os índices de acordo com a quantidade de palavras 
 				 * encontradas nas linhas.
 				 */
-				indices = busca.getIndices();
-				this.ordenaResultados(indices, words[i]);
+				indexes = busca.getIndexes();
+				this.sortResults(indexes, words[i]);
 			}
 		}
 		
-		return ocorrencias;
+		return occurrences;
 	}
 	
 	
