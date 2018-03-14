@@ -28,11 +28,11 @@ public class Engine implements Serializable{
 	public Engine( DataBase db ){
 		this.db = db;
 
-		char[] alfa = { '-','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
+		char[] letters = { '-','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j', 'k', 'l', 'm', 
 				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'à', 'á', 'â', 'ã',
 				'ç', 'è', 'é', 'ê', 'ì', 'í', 'î', 'ò', 'ó', 'ô','õ', 'ù', 'ú', 'û'};
 		
-		blacklist = new Trie( alfa );
+		blacklist = new Trie( letters );
 	}
 	
 	/**
@@ -45,12 +45,12 @@ public class Engine implements Serializable{
 	public boolean addBlacklist( String file ) throws IOException, TreeException{
 		
 		Parser p = new Parser(file);
-		Pair<String, Integer> palavra = new Pair<String, Integer>();
+		Pair<String, Integer> word = new Pair<String, Integer>();
 		while( p.hasNext() ) {
 			palavra = p.next();
 			
 			if( palavra != null) {
-				blacklist.insertWord(palavra.getFirst(), palavra.getSecond(), file);
+				blacklist.insertWord(word.getFirst(), word.getSecond(), file);
 			}
 				
 		}
@@ -93,7 +93,7 @@ public class Engine implements Serializable{
 	 * @throws IOException 
 	 * @throws TreeException 
 	 */
-	public boolean addFile( String file ) throws IOException, TreeException{
+	public boolean addFile( String file ) throws IOException, TreeException {
 		
 		boolean isAdd = db.addFile(file);
 		if( isAdd ) {
@@ -136,9 +136,8 @@ public class Engine implements Serializable{
 	 * Metodo para remover arquivos ao sistema
 	 * @param file Endereço do arquivo a ser removido
 	 */
-	public void removeFile( String file ) throws IOException, TreeException{
+	public void removeFile( String file ) throws IOException, TreeException {
 		
-		//db.list();
 		
 		// remove palavras associadas ao arquivo removido
 		Parser p = new Parser(file);
@@ -157,7 +156,7 @@ public class Engine implements Serializable{
 				// busca a palavra na arvore
 				Node node = db.searchNode(word);
 				if( node != null ){
-					ArrayList<Index> indices = node.getIndices();
+					ArrayList<Index> indexes = node.getIndexes();
 					
 					// se só tiver um indice, remove o node - a palavra da arvore
 					if( indices.size() == 1 ){
@@ -166,20 +165,20 @@ public class Engine implements Serializable{
 					// senao percorre os indices do nó e remove indice associado ao arquivo
 					else if( indices.size() != 0 ){
 						
-						Index indiceARemover = null;
+						Index target = null;
 						
 						// percorre os indices associados à palavra
-						for( Index index : indices ){
+						for( Index index : indexes ){
 							
 							// verifica se eh o indice do arquivo e linha analisados
-							if( index.getArquivo() == file && index.getLinha() == line ){
+							if( index.getFile() == file && index.getLine() == line ){
 								
 								// remove o indice do arrayList associado ao arquivo
-								indiceARemover = index;
+								target = index;
 								
 							}
 						}
-						node.removeIndice(indiceARemover);
+						node.removeIndex(target);
 					}
 							
 				}
@@ -203,38 +202,6 @@ public class Engine implements Serializable{
 	public  ArrayList<String> listFile(  ) throws IOException {
 		
 		return db.getFiles();
-//		ArrayList<String> listagem = new ArrayList<>();
-		
-//		for( String element : list ){
-//			
-//			// recupera apenas nome do arquivo
-//			//String archiveName = element;
-//			//int index = archiveName.lastIndexOf('/');
-//			//archiveName = archiveName.substring(index+1);
-//			
-//			int index = element.lastIndexOf("/");
-//			String archiveName = element.substring(index+1);
-//			
-//			
-//			// contador da quantidade de palavras
-//			int count = 0;
-//			
-//			Parser p = new Parser(element);
-//			Pair<String, Integer> token = new Pair<String, Integer>();
-//			
-//			// percorre arquivo recuperando palavras
-//			while( p.hasNext() ) {
-//				
-//				token = p.next();
-//
-//				if( token != null) {
-//					count++;
-//				}
-//			}
-//			
-//			listagem.add(archiveName + " " +count +" palavras");
-//			
-//		}
 				
 	}
 	
@@ -274,27 +241,27 @@ public class Engine implements Serializable{
 				Node node = db.searchNode(word);
 				
 				// se nao encontrar palavra
-				if( node == null ){
+				if( node == null ) {
 					db.addWord(word, line, file);
 				}
 				// se encontrar palavra
 				else {
 					
 					// recupera indices da palavra
-					ArrayList<Index> indices = node.getIndices();
+					ArrayList<Index> indexes = node.getIndices();
 					
-					boolean indiceEncontrado = false;
+					boolean found = false;
 					
-					for( Index index : indices ){
+					for( Index index : indexes ) {
 						
 						// verifica se eh o indice do arquivo e linha analisados
-						if( index.getArquivo() == file && index.getLinha() == line ){
-							indiceEncontrado = true;
+						if( index.getFile() == file && index.getLine() == line ){
+							found = true;
 						}
 						
 					}
 					
-					if( !indiceEncontrado ){
+					if( !found ) {
 						db.addWord(word, line, file);
 					}
 					
