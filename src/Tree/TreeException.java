@@ -5,28 +5,24 @@ package Tree;
  * @author gabriel
  *
  */
-public class TreeException extends Exception
-{
+public class TreeException extends Exception{
 
 	private String message;
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Construtor com mensagem padrão
 	 */
-	public TreeException()
-	{
+	public TreeException() {
 		message = "Palavra com caracter não reconhecido pelo alfabeto definido!";
 	}
 	
 	/**
 	 * Construtor com caracter de error
+	 * @param c Caractere
 	 */
-	public TreeException( char c)
-	{
+	public TreeException( char c) {
 		message = "Palavra com caracter não reconhecido pelo alfabeto definido!" + c;
 	}
 	
@@ -34,8 +30,7 @@ public class TreeException extends Exception
 	 * Construtor com mensagem definida
 	 * @param message A mensagem
 	 */
-	public TreeException( String message)
-	{
+	public TreeException( String message) {
 		this.message = message;
 	}
 	
@@ -43,8 +38,7 @@ public class TreeException extends Exception
 	 * Retorna a mensagem de erro.
 	 */
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return message;
 	}
 }
