@@ -14,6 +14,8 @@ import Tree.TreeException;
 /**
  * Classe filha (heranca) de Search. 
  * Busca por ocorrencias em que todas as palavras aparecem
+ * 
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
  */
 public class SearchAnd extends Search {
 
@@ -26,17 +28,19 @@ public class SearchAnd extends Search {
 	}
 
 	/**
-	 * @throws TreeException 
-	 * 
+	 * Metodo usado para realizar uma busca
+	 * @param data Palavra a ser buscada
+	 * @return Ocorrencia em que palavra(s)-chave foi encontrada
+	 * @throws TreeException
 	 */
 	@Override
 	public ArrayList<String> search(String data) throws TreeException {
-		this.ocorrencias.clear();
+		this.occurrences.clear();
 		
 		//Guarda arquivos
-		ArrayList<String> arquivos = new ArrayList<String>();
+		ArrayList<String> files = new ArrayList<String>();
 		//Guarda índices
-		HashMap<String, ArrayList<Index>> indTemporario = new HashMap<String, ArrayList<Index>>();
+		HashMap<String, ArrayList<Index>> temp = new HashMap<String, ArrayList<Index>>();
 		
 		// Separa as palavras
 		String [] words = data.split("\\s+");
@@ -47,26 +51,18 @@ public class SearchAnd extends Search {
 		 * hashmap, caso alguma das palavras não seja encontrada, a busca 
 		 * AND não pode ser executada e então retorna null;
 		 */
-//		for ( int i =0; i < words.length; i++)
-//		{
-//			//Buscar Palavra
-//			Node node = db.searchNode(words[i]);
-//			if ( node != null )
-//				indTemporario.put(words[i], node.getIndices());
-//			else return null;
-//		}
 		
 		//Busca primeira palavra na árvore
 		Node node = db.searchNode(words[0]);
-		indTemporario.put(words[0], node.getIndices());
+		temp.put(words[0], node.getIndexes());
 		
 		//Adiciona todas as ocorrencias da palavra
-		for( Index index : node.getIndices() ) {
+		for( Index index : node.getIndexes() ) {
 			
-			if( !arquivos.contains(index.getArquivo() )) {
+			if( !files.contains(index.getFile() )) {
 
 				//Armazena arquivo
-				arquivos.add(index.getArquivo());
+				files.add(index.getFile());
 			}
 		}
 		
@@ -75,54 +71,53 @@ public class SearchAnd extends Search {
 		{
 			//Busca palavra na árvore
 			node = db.searchNode(words[i]);
-			ArrayList<Index> indices = node.getIndices();
-			indTemporario.put(words[i], indices);
+			ArrayList<Index> indexes = node.getIndices();
+			temp.put(words[i], indexes);
 			
 			//Para cada arquivo, verifica se ele contem o restante das palavras
 			//Se não contem, ele é removido
-			Iterator<String> it = arquivos.iterator();
+			Iterator<String> it = files.iterator();
 			while (it.hasNext())
 			{
 				String key = it.next();
 				
 				//flag verificar se deve remover ocorrencia
 				boolean shouldDelete = true;
-				for( int j = 0; j < indices.size(); j++) {
+				for( int j = 0; j < indexes.size(); j++) {
 					
 					//Verifica se palavra está no arquivo
-					Index index = indices.get(j);
-					if( index.getArquivo().equals(key) ) {
+					Index index = indexes.get(j);
+					if( index.getFile().equals(key) ) {
 						shouldDelete = false;
 					} 
 
 				}
 				
-				if( shouldDelete)
+				if( shouldDelete) {
 					it.remove();
+				}
 			}
 		}
 		
-		/**
-		 * Imprimir os índices em que contém os arquivos 
-		 * em comum
-		 */
+		//Imprimir os índices em que contém os arquivos 
+		// em comum
 		for ( int i=0; i < words.length; i++ )
 		{
-			ArrayList<Index> indicesTemp = indTemporario.get(words[i]);
-			ArrayList<Index> indicesRestantes = new ArrayList<Index>();
-			Iterator<Index> it = indicesTemp.iterator();
+			ArrayList<Index> aux = temp.get(words[i]);
+			ArrayList<Index> remaining = new ArrayList<Index>();
+			Iterator<Index> it = aux.iterator();
 			
 			while ( it.hasNext() )
 			{
-				Index ind = it.next();
-				if ( arquivos.contains(ind.getArquivo()) )
-					indicesRestantes.add(ind);
+				Index index = it.next();
+				if ( files.contains(index.getArquivo()) )
+					remaining.add(index);
 			}
 			
-			this.ordenaResultados(indicesRestantes, words[i]);
+			this.sortResults(remaining, words[i]);
 		}
 		
-		return ocorrencias;
+		return occurrences;
 	}
 
 }
