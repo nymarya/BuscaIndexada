@@ -67,8 +67,7 @@ public class SearchAnd extends Search {
 		}
 		
 		//Atualiza restante das ocorrencias
-		for(int i =1; i < words.length; i++)
-		{
+		for(int i =1; i < words.length; i++) {
 			//Busca palavra na árvore
 			node = db.searchNode(words[i]);
 			ArrayList<Index> indexes = node.getIndices();
@@ -77,8 +76,7 @@ public class SearchAnd extends Search {
 			//Para cada arquivo, verifica se ele contem o restante das palavras
 			//Se não contem, ele é removido
 			Iterator<String> it = files.iterator();
-			while (it.hasNext())
-			{
+			while (it.hasNext()) {
 				String key = it.next();
 				
 				//flag verificar se deve remover ocorrencia
@@ -101,17 +99,16 @@ public class SearchAnd extends Search {
 		
 		//Imprimir os índices em que contém os arquivos 
 		// em comum
-		for ( int i=0; i < words.length; i++ )
-		{
+		for ( int i=0; i < words.length; i++ ) {
 			ArrayList<Index> aux = temp.get(words[i]);
 			ArrayList<Index> remaining = new ArrayList<Index>();
 			Iterator<Index> it = aux.iterator();
 			
-			while ( it.hasNext() )
-			{
+			while ( it.hasNext() ) {
 				Index index = it.next();
-				if ( files.contains(index.getArquivo()) )
+				if ( files.contains(index.getArquivo()) ){ 
 					remaining.add(index);
+				}
 			}
 			
 			this.sortResults(remaining, words[i]);
