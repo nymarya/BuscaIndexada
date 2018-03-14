@@ -8,10 +8,12 @@ import java.io.ObjectInputStream;
 
 import view.simpleSearchView;
 
-// Classe com as caracteristicas gerais do sistema
+/**
+ * Classe com as caracteristicas gerais do sistema
+ *
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
+ */
 public class SearchSystem {
-
-
 
 	// metodo main
 	public static void main(String[] args) {
@@ -32,11 +34,9 @@ public class SearchSystem {
 		} catch( FileNotFoundException f) {
 			//Continua execução normalmente se o arquivo ainda n existe
 		} catch (IOException i) {
-			System.out.println("AQUI?");
 			i.printStackTrace();
 			return;
 		} catch (ClassNotFoundException c) {
-			System.out.println("Employee class not found");
 			c.printStackTrace();
 			return;
 		}
