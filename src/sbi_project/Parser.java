@@ -62,8 +62,8 @@ public class Parser {
 			lineCount++;
 			if (line == null) {
 				return null;
-				
 			}
+			
 			String[] parts = line.replace("\u200B", "").split("[\\s\\d\\p{Punct}]+");
 			for(String p : parts) {
 			  tokens.addLast(p);
