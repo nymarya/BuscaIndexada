@@ -32,28 +32,32 @@ public class Pair<F,S> {
 	}
 
 	/**
-	 * @return the first
+	 * Recupera primeiro elemento
+	 * @return O primeiro
 	 */
 	public F getFirst() {
 		return first;
 	}
 
 	/**
-	 * @param first the first to set
+	 * Atualiza primeiro elemento.
+	 * @param first O novo primeiro objeto.
 	 */
 	public void setFirst(F first) {
 		this.first = first;
 	}
 
 	/**
-	 * @return the second
+	 * Retorna o segundo elemento do par.
+	 * @return Segundo elemento.
 	 */
 	public S getSecond() {
 		return second;
 	}
 
 	/**
-	 * @param second the second to set
+	 * Atualiza segundo elemento do par.
+	 * @param second O segundo elemento.
 	 */
 	public void setSecond(S second) {
 		this.second = second;
