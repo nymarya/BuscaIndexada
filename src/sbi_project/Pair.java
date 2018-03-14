@@ -1,7 +1,7 @@
 package sbi_project;
 
 /**
- * Classe que forma pares
+ * Classe que forma pares de objetos.
  * @author Mayra D. de Azevedo
  *
  * @param <F> Primeiro elemento do par
@@ -13,6 +13,7 @@ public class Pair<F,S> {
 	private S second;
 	
 	/**
+	 * Constrói objeto da classe Pair.
 	 * @param first
 	 * @param second
 	 */
@@ -21,6 +22,7 @@ public class Pair<F,S> {
 	}
 	
 	/**
+	 * Constrói objeto para a classe Pair a partir de dois objetos.
 	 * @param first
 	 * @param second
 	 */
