@@ -9,8 +9,8 @@ import Tree.TreeException;
 /**
  * Classe abstrata com os metodos e atributos necessarios para realizar uma busca/pesquisa
  *
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
  */
-
 public abstract class Search {
 
 	// Banco de dados (com arvores e listas)
@@ -21,18 +21,19 @@ public abstract class Search {
 	protected ArrayList<String> ocorrencias;
 
 	/**
-	 *Metodo construtor
+	 * Metodo construtor
 	 * @param db Banco de dados do sistema
 	 */
 	public Search( DataBase db ){
 		this.db = db;
-		ocorrencias = new ArrayList<>();
+		ocurrences = new ArrayList<>();
 	}
 			
 	/**
 	 * Metodo usado para realizar uma busca
 	 * @param data Palavra a ser buscada
 	 * @return Ocorrencia em que palavra(s)-chave foi encontrada
+	 * @throws TreeException
 	 */
 	public abstract ArrayList<String> search( String data ) throws TreeException;
 	
@@ -40,62 +41,55 @@ public abstract class Search {
 	 * Recebe uma lista de índices e uma palavra associada a estes índices
 	 * que devem ser adicionado na lista de ocorrências e exibidas na interface
 	 * gráfica com a frase já pronta
-	 * @param indices  os indices da palavra
+	 * @param indexes  os indices da palavra
 	 * @param word   a palavra
 	 */
-	public void ordenaResultados ( ArrayList<Index> indices, String word )
+	public void sortResults ( ArrayList<Index> indexes, String word )
 	{
 		
 		ArrayList<Index> ocor = new ArrayList<Index>();
-		String arquivo;
-		Integer ocorrencias;
+		String file = '';
+		Integer occurrences = 0;
 		/**
 		 * Separar os arquivos e a quantidade de ocorrências dessa palavra
 		 * no arquivo.
 		 */
-		for ( int j=0; j < indices.size(); j++)
+		for ( int j=0; j < indexes.size(); j++)
 		{
 
-			arquivo = indices.get(j).getFilename();
-			ocorrencias = indices.get(j).getOcorrencia();
+			file = indexes.get(j).getFilename();
+			occurrencesAux = indexes.get(j).get();
 			
-			/**
-			 * Verificar se o arquivo já foi rotulado
-			 */
-			Index aux;
-			boolean achou = false;
-			for ( int k=0; k < ocor.size() && !achou; k++ )
+			// Verificar se o arquivo já foi rotulado
+			boolean found = false;
+			for ( int k=0; k < occurrencesAux.size() && !found; k++ )
 			{
-				aux = ocor.get(k);
-				if (aux.getArquivo().equals(arquivo))
+				Index aux = ocor.get(k);
+				if (aux.getFile().equals(arquivo))
 				{
-					aux.setOcorrencia(aux.getOcorrencia()+ocorrencias);
-					achou = true;
+					aux.setOccurrence(aux.getOccurrence()+occurrences);
+					found = true;
 				}							
 			}
 			
-			/**
-			 * Se o arquivo ainda não foi indentificado, adicionar
-			 */
-			if (!achou)
-				ocor.add(new Index(arquivo, ocorrencias));
+			// Se o arquivo ainda não foi indentificado, adicionar
+			if (!found)
+				occurrencesAux.add(new Index(file, occurrences));
 		}
 		
-		/**
-		 * Ordena os resultados da busca
-		 */
-		Collections.sort(ocor);
-		Collections.sort(indices);
+		// Ordena os resultados da busca 
+		Collections.sort(occurrencesAux);
+		Collections.sort(indexes);
 
-		for (int k = 0; k < ocor.size(); k++)
+		for (int k = 0; k < occurrencesAux.size(); k++)
 		{
-			for(int j = 0; j < indices.size(); j++)
+			for(int j = 0; j < indexes.size(); j++)
 			{
-				Index ind = indices.get(j);
+				Index index = indexes.get(j);
 
-				if (ind.getFilename().equals(ocor.get(k).getFilename()))
+				if (index.getFilename().equals(occurrencesAux.get(k).getFilename()))
 				{
-					this.ocorrencias.add(ind.montarFrase(word));
+					this.occurrences.add(index.montarFrase(word));
 				}
 					
 			}
