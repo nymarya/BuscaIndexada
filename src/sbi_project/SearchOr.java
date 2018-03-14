@@ -37,11 +37,10 @@ public class SearchOr extends Search {
 		ArrayList<Index> indices = new ArrayList<Index>();
 		
 		// Busca as palavras 
-		for ( int i=0; i < words.length; i++)
-		{
+		for ( int i=0; i < words.length; i++) {
+			
 			Node node = db.searchNode(words[i]);
-			if ( node != null )
-			{
+			if ( node != null ) {
 				/**
 				 * Se uma palavra for encontrada então arquivar as ocorrencias dela.
 				 * Depois ordenar os índices de acordo com a quantidade de palavras 
