@@ -18,7 +18,7 @@ public abstract class Search {
 	// Dado a ser buscado
 	private String data;
 	// Lista com ocorrencias da palavra buscada
-	protected ArrayList<String> ocorrencias;
+	protected ArrayList<String> occurrences;
 
 	/**
 	 * Metodo construtor
@@ -84,7 +84,7 @@ public abstract class Search {
 				Index index = indexes.get(j);
 
 				if (index.getFilename().equals(occurrencesAux.get(k).getFilename())) {
-					this.occurrences.add(index.montarFrase(word));
+					this.occurrences.add(index.formResponse(word));
 				}
 					
 			}
