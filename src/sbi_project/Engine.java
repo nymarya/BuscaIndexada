@@ -12,7 +12,9 @@ import Tree.TreeException;
 
 /**
  * Classe com os metodos e atributos correspondentes a indexacao de arquivos e palavras no sistema
- * Realiza comunicação entre interface e banco de dados
+ * Realiza comunicação entre interface e banco de dados.
+ *
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
  */
 public class Engine implements Serializable{
 
@@ -159,11 +161,11 @@ public class Engine implements Serializable{
 					ArrayList<Index> indexes = node.getIndexes();
 					
 					// se só tiver um indice, remove o node - a palavra da arvore
-					if( indices.size() == 1 ){
+					if( indexes.size() == 1 ){
 						db.removeWord(word);
 					}
 					// senao percorre os indices do nó e remove indice associado ao arquivo
-					else if( indices.size() != 0 ){
+					else if( indexes.size() != 0 ){
 						
 						Index target = null;
 						
@@ -243,12 +245,10 @@ public class Engine implements Serializable{
 				// se nao encontrar palavra
 				if( node == null ) {
 					db.addWord(word, line, file);
-				}
-				// se encontrar palavra
-				else {
+				} else {
 					
 					// recupera indices da palavra
-					ArrayList<Index> indexes = node.getIndices();
+					ArrayList<Index> indexes = node.getIndexes();
 					
 					boolean found = false;
 					
