@@ -10,6 +10,7 @@ import java.util.Deque;
 /**
  * Classe responsável por ler arquivos e separar palavras
  *
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
  */
 public class Parser {
 
@@ -34,7 +35,7 @@ public class Parser {
 	 * @param file Endereco do arquivo
 	 * @throws IOException 
 	 */
-	public Parser( String file ) throws IOException{
+	public Parser( String file ) throws IOException {
 		this.file = file;
 		fReader = new FileReader(file);
 		bReader = new BufferedReader(fReader);
