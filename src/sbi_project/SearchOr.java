@@ -34,7 +34,7 @@ public class SearchOr extends Search {
 		 * caso uma palavra esteja em um arquivo, isto já é suficiente
 		 * para ela ser apresentada.
 		 */
-		ArrayList<Index> indices = new ArrayList<Index>();
+		ArrayList<Index> indexes = new ArrayList<Index>();
 		
 		// Busca as palavras 
 		for ( int i=0; i < words.length; i++) {
