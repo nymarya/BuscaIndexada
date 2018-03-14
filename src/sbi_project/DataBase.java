@@ -13,6 +13,7 @@ import java.util.ArrayList;
 /**
  * Classe que representa o banco de dados do sistema.
  *
+ * @authors Gabriel A. Souza, Jaine B. Rannow, Mayra D. Azevedo
  */
 public class DataBase implements  Serializable{
 
@@ -63,7 +64,7 @@ public class DataBase implements  Serializable{
 	 * @param word Palavra a ser adicionada
 	 * @throws TreeException 
 	 */
-	public void addWord( String word, int line, String file) throws TreeException{
+	public void addWord( String word, int line, String file) throws TreeException {
 		
 		words.insertWord(word, line, file);
 		
