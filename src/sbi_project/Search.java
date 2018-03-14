@@ -44,8 +44,7 @@ public abstract class Search {
 	 * @param indexes  os indices da palavra
 	 * @param word   a palavra
 	 */
-	public void sortResults ( ArrayList<Index> indexes, String word )
-	{
+	public void sortResults ( ArrayList<Index> indexes, String word ) {
 		
 		ArrayList<Index> ocor = new ArrayList<Index>();
 		String file = '';
@@ -54,16 +53,14 @@ public abstract class Search {
 		 * Separar os arquivos e a quantidade de ocorrências dessa palavra
 		 * no arquivo.
 		 */
-		for ( int j=0; j < indexes.size(); j++)
-		{
+		for ( int j=0; j < indexes.size(); j++) {
 
 			file = indexes.get(j).getFilename();
 			occurrencesAux = indexes.get(j).get();
 			
 			// Verificar se o arquivo já foi rotulado
 			boolean found = false;
-			for ( int k=0; k < occurrencesAux.size() && !found; k++ )
-			{
+			for ( int k=0; k < occurrencesAux.size() && !found; k++ ) {
 				Index aux = ocor.get(k);
 				if (aux.getFile().equals(arquivo))
 				{
@@ -73,22 +70,20 @@ public abstract class Search {
 			}
 			
 			// Se o arquivo ainda não foi indentificado, adicionar
-			if (!found)
+			if (!found){
 				occurrencesAux.add(new Index(file, occurrences));
+			}
 		}
 		
 		// Ordena os resultados da busca 
 		Collections.sort(occurrencesAux);
 		Collections.sort(indexes);
 
-		for (int k = 0; k < occurrencesAux.size(); k++)
-		{
-			for(int j = 0; j < indexes.size(); j++)
-			{
+		for (int k = 0; k < occurrencesAux.size(); k++) {
+			for(int j = 0; j < indexes.size(); j++) {
 				Index index = indexes.get(j);
 
-				if (index.getFilename().equals(occurrencesAux.get(k).getFilename()))
-				{
+				if (index.getFilename().equals(occurrencesAux.get(k).getFilename())) {
 					this.occurrences.add(index.montarFrase(word));
 				}
 					
