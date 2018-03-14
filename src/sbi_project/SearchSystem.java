@@ -47,10 +47,10 @@ public class SearchSystem {
 		// instancia da busca "or", passando o bd
 		SearchOr  searchOr  = new SearchOr( db );
 		// instancia da view, passando a engine, searchAnd e searchOr 
-		simpleSearchView viewSbi = new simpleSearchView(engine, searchAnd, searchOr );
+		SimpleSearchView viewSbi = new simpleSearchView(engine, searchAnd, searchOr );
 
 		// exibe a tela inicial para usuario 
-		viewSbi.setVisible(true);
+		ViewSbi.setVisible(true);
 	}
 
 }
