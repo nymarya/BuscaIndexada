@@ -60,7 +60,6 @@ public class SearchAnd extends Search {
 		for( Index index : node.getIndexes() ) {
 			
 			if( !files.contains(index.getFile() )) {
-
 				//Armazena arquivo
 				files.add(index.getFile());
 			}
@@ -70,7 +69,7 @@ public class SearchAnd extends Search {
 		for(int i =1; i < words.length; i++) {
 			//Busca palavra na árvore
 			node = db.searchNode(words[i]);
-			ArrayList<Index> indexes = node.getIndices();
+			ArrayList<Index> indexes = node.getIndexes();
 			temp.put(words[i], indexes);
 			
 			//Para cada arquivo, verifica se ele contem o restante das palavras
@@ -106,7 +105,7 @@ public class SearchAnd extends Search {
 			
 			while ( it.hasNext() ) {
 				Index index = it.next();
-				if ( files.contains(index.getArquivo()) ){ 
+				if ( files.contains(index.getFile()) ){ 
 					remaining.add(index);
 				}
 			}
