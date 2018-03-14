@@ -23,8 +23,8 @@ public class Engine implements Serializable{
 	private static final long serialVersionUID = 3680429638771644168L;
 	// Banco de dados (com arvores e listas)
 	private DataBase db;
-	// arvore (ED) com palavras indisponiveis para a busca
-	private Trie blacklist;
+	// arvore (ED) com palavras que formam a lista negra
+	private Trie forbiddenWords;
 	
 	
 	public Engine( DataBase db ){
@@ -34,7 +34,7 @@ public class Engine implements Serializable{
 				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', 'à', 'á', 'â', 'ã',
 				'ç', 'è', 'é', 'ê', 'ì', 'í', 'î', 'ò', 'ó', 'ô','õ', 'ù', 'ú', 'û'};
 		
-		blacklist = new Trie( letters );
+		forbiddenWords = new Trie( letters );
 	}
 	
 	/**
@@ -49,10 +49,10 @@ public class Engine implements Serializable{
 		Parser p = new Parser(file);
 		Pair<String, Integer> word = new Pair<String, Integer>();
 		while( p.hasNext() ) {
-			palavra = p.next();
+			word = p.next();
 			
-			if( palavra != null) {
-				blacklist.insertWord(word.getFirst(), word.getSecond(), file);
+			if( word != null) {
+				forbiddenWords.insertWord(word.getFirst(), word.getSecond(), file);
 			}
 				
 		}
@@ -99,10 +99,10 @@ public class Engine implements Serializable{
 		
 		boolean isAdd = db.addFile(file);
 		if( isAdd ) {
-			Parser p = new Parser(file);
+			Parser parser = new Parser(file);
 			Pair<String, Integer> token = new Pair<String, Integer>();
-			while( p.hasNext() ) {
-				token = p.next();
+			while( parser.hasNext() ) {
+				token = parser.next();
 
 				if( token != null) {
 					//Recupera palavra e linha
@@ -110,7 +110,7 @@ public class Engine implements Serializable{
 					int line = token.getSecond();
 					
 					//Checa se palavra está na blacklist
-					Node forbidden = blacklist.search(word);
+					Node forbidden = forbiddenWords.search(word);
 					
 					//Se não está, faz a inserção
 					if(forbidden == null) {
@@ -142,13 +142,13 @@ public class Engine implements Serializable{
 		
 		
 		// remove palavras associadas ao arquivo removido
-		Parser p = new Parser(file);
+		Parser parser = new Parser(file);
 		Pair<String, Integer> token = new Pair<String, Integer>();
 		
 		// percorre arquivo recuperando palavras
-		while( p.hasNext() ) {
+		while( parser.hasNext() ) {
 			
-			token = p.next();
+			token = parser.next();
 
 			if( token != null) {
 				//Recupera palavra e linha
@@ -201,7 +201,7 @@ public class Engine implements Serializable{
 	 * @return Lista com arquivos
 	 * @throws IOException 
 	 */
-	public  ArrayList<String> listFile(  ) throws IOException {
+	public  ArrayList<String> listFiles(  ) throws IOException {
 		
 		return db.getFiles();
 				
@@ -226,13 +226,13 @@ public class Engine implements Serializable{
 		db.list();
 
 		
-		Parser p = new Parser(file);
+		Parser parser = new Parser(file);
 		Pair<String, Integer> token = new Pair<String, Integer>();
 		
 		// percorre arquivo recuperando palavras
-		while( p.hasNext() ) {
+		while( parser.hasNext() ) {
 			
-			token = p.next();
+			token = parser.next();
 
 			if( token != null) {
 				//Recupera palavra e linha
@@ -255,7 +255,7 @@ public class Engine implements Serializable{
 					for( Index index : indexes ) {
 						
 						// verifica se eh o indice do arquivo e linha analisados
-						if( index.getFile() == file && index.getLine() == line ){
+						if( index.getFile() == file && index.getLine() == line ) {
 							found = true;
 						}
 						
