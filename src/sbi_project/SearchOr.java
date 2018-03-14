@@ -23,6 +23,12 @@ public class SearchOr extends Search {
 		super(db);
 	}
 	
+	/**
+	 * Metodo usado para realizar uma busca
+	 * @param data Palavra a ser buscada
+	 * @return Ocorrencia em que palavra(s)-chave foi encontrada
+	 * @throws TreeException
+	 */
 	@Override
 	public ArrayList<String> search(String data) throws TreeException {
 		this.occurrences.clear();
