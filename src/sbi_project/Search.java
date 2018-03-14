@@ -26,7 +26,7 @@ public abstract class Search {
 	 */
 	public Search( DataBase db ){
 		this.db = db;
-		ocurrences = new ArrayList<>();
+		occurrences = new ArrayList<>();
 	}
 			
 	/**
@@ -46,7 +46,7 @@ public abstract class Search {
 	 */
 	public void sortResults ( ArrayList<Index> indexes, String word ) {
 		
-		ArrayList<Index> ocor = new ArrayList<Index>();
+		ArrayList<Index> occurrencesAux = new ArrayList<Index>();
 		String file = '';
 		Integer occurrences = 0;
 		/**
@@ -62,8 +62,7 @@ public abstract class Search {
 			boolean found = false;
 			for ( int k=0; k < occurrencesAux.size() && !found; k++ ) {
 				Index aux = ocor.get(k);
-				if (aux.getFile().equals(arquivo))
-				{
+				if (aux.getFile().equals(file)) {
 					aux.setOccurrence(aux.getOccurrence()+occurrences);
 					found = true;
 				}							
