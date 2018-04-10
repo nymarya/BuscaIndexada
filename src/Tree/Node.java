@@ -142,7 +142,7 @@ public class Node implements Serializable
 	 * Retorna indices relacionados ao nó
 	 * @return Indices
 	 */
-	public ArrayList<Index> getIndices ()
+	public ArrayList<Index> getIndexes ()
 	{
 		return indice;
 	}
@@ -169,7 +169,7 @@ public class Node implements Serializable
 	 * Remove um índice da tabela de índices
 	 * @param indice  O índice a ser removido.
 	 */
-	public void removeIndice ( Index indice )
+	public void removeIndex ( Index indice )
 	{
 		this.indice.remove(indice);
 	}
@@ -180,11 +180,11 @@ public class Node implements Serializable
 	 * @param file 
 	 * @param line
 	 */
-	public Index getIndice(String file, int line) {
+	public Index getIndex(String file, int line) {
 		//Procura índice
 		for(int i = 0; i < indice.size(); i++) {
 			Index atual = indice.get(i);
-			if(atual.getArquivo() == file && atual.getLinha() == line)
+			if(atual.getFile() == file && atual.getLine() == line)
 				return atual;
 		}
 		

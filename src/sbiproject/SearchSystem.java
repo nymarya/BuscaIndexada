@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import view.simpleSearchView;
+import view.SimpleSearchView;
+import view.ViewSBI;
 
 /**
  * Classe com as caracteristicas gerais do sistema
@@ -31,7 +32,7 @@ public class SearchSystem {
       ObjectInputStream in = new ObjectInputStream(fileIn);
       Engine e = (Engine) in.readObject();
       engine = e;
-      db = engine.getDB();
+      db = engine.getDb();
       in.close();
       fileIn.close();
     } catch (FileNotFoundException f) {
@@ -50,10 +51,10 @@ public class SearchSystem {
     // instancia da busca "or", passando o bd
     SearchOr  searchOr  = new SearchOr(db);
     // instancia da view, passando a engine, searchAnd e searchOr 
-    SimpleSearchView viewSbi = new simpleSearchView(engine, searchAnd, searchOr);
+    SimpleSearchView viewSbi = new SimpleSearchView(engine, searchAnd, searchOr);
 
     // exibe a tela inicial para usuario 
-    ViewSbi.setVisible(true);
+    ViewSBI.setVisible(true);
   }
 
 }

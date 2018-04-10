@@ -1,4 +1,4 @@
-package sbi_project;
+package sbiproject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,8 +15,6 @@ public abstract class Search {
 
 	// Banco de dados (com arvores e listas)
 	protected DataBase db;
-	// Dado a ser buscado
-	private String data;
 	// Lista com ocorrencias da palavra buscada
 	protected ArrayList<String> occurrences;
 
@@ -46,43 +44,42 @@ public abstract class Search {
 	 */
 	public void sortResults ( ArrayList<Index> indexes, String word ) {
 		
-		ArrayList<Index> occurrencesAux = new ArrayList<Index>();
-		String file = '';
-		Integer occurrences = 0;
+		ArrayList<Index> occurrences = new ArrayList<Index>();
+	
 		/**
 		 * Separar os arquivos e a quantidade de ocorrências dessa palavra
 		 * no arquivo.
 		 */
 		for ( int j=0; j < indexes.size(); j++) {
 
-			file = indexes.get(j).getFilename();
-			occurrencesAux = indexes.get(j).get();
+			String file = indexes.get(j).getFilename();
+			Integer occurrence = indexes.get(j).getOccurrence();
 			
 			// Verificar se o arquivo já foi rotulado
 			boolean found = false;
-			for ( int k=0; k < occurrencesAux.size() && !found; k++ ) {
-				Index aux = ocor.get(k);
+			for ( int k=0; k < occurrences.size() && !found; k++ ) {
+				Index aux = occurrences.get(k);
 				if (aux.getFile().equals(file)) {
-					aux.setOccurrence(aux.getOccurrence()+occurrences);
+					aux.setOccurrence(aux.getOccurrence()+occurrence);
 					found = true;
 				}							
 			}
 			
 			// Se o arquivo ainda não foi indentificado, adicionar
 			if (!found){
-				occurrencesAux.add(new Index(file, occurrences));
+				occurrences.add(new Index(file, occurrence));
 			}
 		}
 		
 		// Ordena os resultados da busca 
-		Collections.sort(occurrencesAux);
+		Collections.sort(occurrences);
 		Collections.sort(indexes);
 
-		for (int k = 0; k < occurrencesAux.size(); k++) {
+		for (int k = 0; k < occurrences.size(); k++) {
 			for(int j = 0; j < indexes.size(); j++) {
 				Index index = indexes.get(j);
 
-				if (index.getFilename().equals(occurrencesAux.get(k).getFilename())) {
+				if (index.getFilename().equals(occurrences.get(k).getFilename())) {
 					this.occurrences.add(index.formResponse(word));
 				}
 					

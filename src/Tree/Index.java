@@ -52,15 +52,15 @@ public class Index implements Serializable, Comparable<Index>
 	 * Getters and Setters 
 	 */
 	
-	public int getLinha() {
+	public int getLine() {
 		return linha;
 	}
 
-	public void setLinha(int linha) {
+	public void setLine(int linha) {
 		this.linha = linha;
 	}
 
-	public String getArquivo() {
+	public String getFile() {
 		return arquivo;
 	}
 
@@ -83,7 +83,7 @@ public class Index implements Serializable, Comparable<Index>
 	 * Atualiza arquivo
 	 * @param arquivo
 	 */
-	public void setArquivo(String arquivo) {
+	public void setFile(String arquivo) {
 		this.arquivo = arquivo;
 	}
 
@@ -91,7 +91,7 @@ public class Index implements Serializable, Comparable<Index>
 	 * Recupera número de ocorrências
 	 * @return ocorrencia
 	 */
-	public int getOcorrencia() {
+	public int getOccurrence() {
 		return ocorrencia;
 	}
 
@@ -99,7 +99,7 @@ public class Index implements Serializable, Comparable<Index>
 	 * Atualiza ocorrência
 	 * @param ocorrencia
 	 */
-	public void setOcorrencia(int ocorrencia) {
+	public void setOccurrence(int ocorrencia) {
 		this.ocorrencia = ocorrencia;
 	}
 	
@@ -117,16 +117,16 @@ public class Index implements Serializable, Comparable<Index>
 	 * @param word  a palvra que está relacionada com este índice
 	 * @return  a frase para ser mostrada na listagem
 	 */
-	public String montarFrase ( String word )
+	public String formResponse ( String word )
 	{
 		StringBuffer aux = new StringBuffer();
 		
 		aux.append(this.getFilename() + ": ");
-		aux.append(this.getOcorrencia());
+		aux.append(this.getOccurrence());
 		aux.append(" ocorrencia(s) da palavra '");
 		aux.append(word);
 		aux.append("' na linha ");
-		aux.append(this.getLinha());
+		aux.append(this.getLine());
 		
 		return aux.toString();
 	}
@@ -137,13 +137,13 @@ public class Index implements Serializable, Comparable<Index>
 	@Override
 	public int compareTo(Index o)
 	{
-		if ( this.getOcorrencia() > o.getOcorrencia())
+		if ( this.getOccurrence() > o.getOccurrence())
 			return -1;
-		else if (this.getOcorrencia() < o.getOcorrencia())
+		else if (this.getOccurrence() < o.getOccurrence())
 			return 1;
-		else if (this.getOcorrencia() == o.getOcorrencia())
+		else if (this.getOccurrence() == o.getOccurrence())
 		{
-			return this.getArquivo().compareTo(o.getArquivo());
+			return this.getFile().compareTo(o.getFile());
 		}
 		
 		return 0;

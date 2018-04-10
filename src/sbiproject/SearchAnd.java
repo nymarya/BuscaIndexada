@@ -5,10 +5,8 @@ import Tree.Node;
 import Tree.TreeException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Classe filha (heranca) de Search. 

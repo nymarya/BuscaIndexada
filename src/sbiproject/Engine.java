@@ -115,7 +115,7 @@ public class Engine implements Serializable {
         }
         
       }
-      p.close();
+      parser.close();
       
       return true;
       
@@ -175,7 +175,7 @@ public class Engine implements Serializable {
         
       }
     }
-    p.close();
+    parser.close();
         
     
     // retira arquivo da lista de arquivos
@@ -253,7 +253,7 @@ public class Engine implements Serializable {
         }    
       }
     }
-    p.close();
+    parser.close();
     
     db.list();    
   }

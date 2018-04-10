@@ -24,9 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Tree.TreeException;
-import sbi_project.Engine;
-import sbi_project.SearchAnd;
-import sbi_project.SearchOr;
+import sbiproject.Engine;
+import sbiproject.SearchAnd;
+import sbiproject.SearchOr;
 
 import javax.swing.JTextField;
 
@@ -34,7 +34,7 @@ import javax.swing.JTextField;
  * Classe responsável pela tela de busca avançada
  *
  */
-public class advancedSearchView extends viewSBI {
+public class advancedSearchView extends ViewSBI {
 
 
 	private JPanel contentPane;
@@ -105,7 +105,7 @@ public class advancedSearchView extends viewSBI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					simpleSearchView frame = new simpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
+					SimpleSearchView frame = new SimpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {

@@ -4,12 +4,12 @@ import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 
-import sbi_project.Engine;
-import sbi_project.SearchAnd;
-import sbi_project.SearchOr;
+import sbiproject.Engine;
+import sbiproject.SearchAnd;
+import sbiproject.SearchOr;
 
 
-public abstract class viewSBI extends JFrame {
+public abstract class ViewSBI extends JFrame {
 
 	// Instancia de engine
 	private Engine engine;
@@ -19,7 +19,7 @@ public abstract class viewSBI extends JFrame {
 	private SearchOr searchOr;
 	
 	
-	public viewSBI(Engine engine, SearchAnd searchAnd, SearchOr searchOr) throws HeadlessException {
+	public ViewSBI(Engine engine, SearchAnd searchAnd, SearchOr searchOr) throws HeadlessException {
 		this.engine = engine;
 		this.searchAnd = searchAnd;
 		this.searchOr = searchOr;

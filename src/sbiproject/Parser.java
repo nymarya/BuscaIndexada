@@ -14,8 +14,6 @@ import java.util.Deque;
  */
 public class Parser {
 
-  // Endereco do arquivo a ser tokenizado 
-  private String file;
   private FileReader freader;
   
   //Lê caracteres, arrays e linhas
@@ -36,10 +34,9 @@ public class Parser {
    * @throws IOException Exceção
    */
   public Parser(String file)throws IOException {
-    this.file = file;
-    fReader = new FileReader(file);
-    bReader = new BufferedReader(fReader);
-    line = bReader.readLine();
+    freader = new FileReader(file);
+    breader = new BufferedReader(freader);
+    line = breader.readLine();
     
     tokens = new ArrayDeque<String>();
     String[] parts = line.replace("\u200B", "").split("[\\s\\d\\p{Punct}]+");
@@ -59,7 +56,7 @@ public class Parser {
 
     //Se tokenizer não tem mais tokens, pega proxima lina
     while (tokens.isEmpty()) {
-      line = bReader.readLine();
+      line = breader.readLine();
       lineCount++;
       if (line == null) {
         return null;

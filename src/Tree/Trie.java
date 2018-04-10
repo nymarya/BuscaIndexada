@@ -3,8 +3,7 @@ package Tree;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
-import sbi_project.Pair;
+import sbiproject.Pair;
 
 /**
  * Classe para a estrutura de dados
@@ -108,7 +107,7 @@ public class Trie implements Serializable
 
 			//Se ja houver palavra naquele arquivo e naquela linha,
 			//atualiza numero de ocorrencias
-			Index index = pt.getIndice(arquivo, linha);
+			Index index = pt.getIndex(arquivo, linha);
 			if( index != null) {
 				index.incrementaOcorrencia();
 			} else {

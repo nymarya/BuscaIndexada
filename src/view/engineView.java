@@ -23,16 +23,16 @@ import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
 import Tree.TreeException;
-import sbi_project.Engine;
-import sbi_project.SearchAnd;
-import sbi_project.SearchOr;
+import sbiproject.Engine;
+import sbiproject.SearchAnd;
+import sbiproject.SearchOr;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class engineView extends viewSBI {
+public class engineView extends ViewSBI {
 
 	private JPanel contentPane;
 	private JTextField txtArchive;
@@ -97,7 +97,7 @@ public class engineView extends viewSBI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					simpleSearchView frame = new simpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
+					SimpleSearchView frame = new SimpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {

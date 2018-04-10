@@ -51,7 +51,7 @@ public class SearchOr extends Search {
          * Depois ordenar os índices de acordo com a quantidade de palavras 
          * encontradas nas linhas.
          */
-        indexes = busca.getIndexes();
+        indexes = node.getIndexes();
         this.sortResults(indexes, words[i]);
       }
     }

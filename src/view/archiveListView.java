@@ -25,16 +25,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Tree.TreeException;
-import sbi_project.Engine;
-import sbi_project.Pair;
-import sbi_project.Parser;
-import sbi_project.SearchAnd;
-import sbi_project.SearchOr;
+import sbiproject.Engine;
+import sbiproject.Pair;
+import sbiproject.Parser;
+import sbiproject.SearchAnd;
+import sbiproject.SearchOr;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class archiveListView extends viewSBI {
+public class archiveListView extends ViewSBI {
 
 
 	private JPanel contentPane;
@@ -106,7 +106,7 @@ public class archiveListView extends viewSBI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					simpleSearchView frame = new simpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
+					SimpleSearchView frame = new SimpleSearchView(getEngine(), getSearchAnd(), getSearchOr());
 					frame.setVisible(true);
 					windowClosing();
 				} catch (Exception ex) {
@@ -183,7 +183,7 @@ public class archiveListView extends viewSBI {
 
 		
 		try {
-			archiveList = getEngine().listFile();
+			archiveList = getEngine().listFiles();
 			
 			Collections.sort(archiveList);
 

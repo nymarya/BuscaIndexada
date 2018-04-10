@@ -28,15 +28,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import Tree.TreeException;
-import sbi_project.Engine;
-import sbi_project.Search;
-import sbi_project.SearchAnd;
-import sbi_project.SearchOr;
+import sbiproject.Engine;
+import sbiproject.Search;
+import sbiproject.SearchAnd;
+import sbiproject.SearchOr;
 
 import java.util.ArrayList;
 
 // classe com as interfaces graficas do sistema
-public class simpleSearchView extends viewSBI{	
+public class SimpleSearchView extends ViewSBI{	
 
 	/**
 	 * ID
@@ -67,7 +67,7 @@ public class simpleSearchView extends viewSBI{
 	 * @param engine Instancia de Engine
 	 * @param search Instancia de Search
 	 */
-	public simpleSearchView(Engine engine, SearchAnd searchAnd, SearchOr searchOr)
+	public SimpleSearchView(Engine engine, SearchAnd searchAnd, SearchOr searchOr)
 	{
 		super(engine, searchAnd, searchOr);
 		this.setTitle("SBI");
